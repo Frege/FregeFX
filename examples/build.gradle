@@ -16,7 +16,7 @@ sourceSets {
 
 dependencies {
     compile files("$jfxLibDir/jfxrt.jar") // TODO: find out why this seems to be necessary even on JDK 8
-    compile project(':core')
+    compile project(':fregefx')
 }
 
 boolean runningOnJDK8() {

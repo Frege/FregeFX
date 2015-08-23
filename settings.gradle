@@ -1,4 +1,4 @@
 rootProject.name = 'fregefx'
 
-include 'core'
+include 'fregefx'
 include 'examples'
