@@ -1,0 +1,70 @@
+module fregefx.JavaFxUtils where
+
+import frege.Prelude hiding(ListView)
+
+import fregefx.JavaFxAll (Platform, EventHandler, Stage, Scene, Parent, TextArea, Button, ListView, Node)
+
+--- The starter for every FregeFX Application
+data FregeFX = mutable native org.frege.FregeFX where
+    native launch  org.frege.FregeFX.launch :: ( Stage -> IO () ) -> IO ()
+    native fxml    org.frege.FregeFX.fxml   :: String -> String -> IO Parent
+
+--- Run any function _f_ in the JavaFX Application Thread to ensure proper painting.
+--- Any code that touches a JavaFX UI component must run in this thread.
+withUI :: IO () -> IO ()
+withUI f = Platform.runLater =<< Runnable.new f
+
+--- JavaFX users will work with ObservableList a lot, which inherits from List.
+--- The mutable java.util.List type is usually not visible in Frege but when
+--- using JavaFX, having these methods accessible is convenient.
+data List e = mutable native java.util.List where
+  native add  :: List e -> e -> IO Bool
+  native size :: List e -> IO Int
+  native remove :: List e -> e -> IO Bool
+
+--- Generic implementation of the ChangeListener Interface in Java to use from Frege
+data OnChange t = mutable native org.frege.FregeChangeListener where
+    native new :: (t -> t -> IO()) -> IO (OnChange t)
+
+--- Generic implementation of the EventHandler Interface in Java to use from Frege
+data OnEvent t = mutable native org.frege.FregeEventHandler where
+    native new  :: (t -> IO () ) -> IO (OnEvent t)
+
+
+
+--- Looking up a node in a scene returns a Node value on the Java side but in order to do
+--- anything sensible with this on the Frege side, we need a specialized subtype like TextArea.
+--- The function lookupNode returns such a specialized by returning an instance of CastTarget.
+--- Errors are thrown at runtime if the selector String cannot be found or yields the wrong type.
+lookupNode :: CastTarget a => Scene -> String -> IO a
+lookupNode scene selector = do
+    mayNode <- scene.lookup selector
+    case mayNode of
+        Just node -> downcast node >>= either (\cce -> error $ "cannot cast selector '" ++ selector ++ "'") return
+        Nothing -> error $ "cannot find " ++ selector
+
+-- native Java implementation of the downcast since we cannot do that in Frege.
+native module where {
+    public static class Caster {
+        public static <T> T cast(T t) {
+            return t;
+        }
+    }
+}
+
+data ClassCastException = native java.lang.ClassCastException
+
+-- specific downcasts
+native toTextArea "Caster.cast" :: Node -> IO (ClassCastException | TextArea    )
+native toListView "Caster.cast" :: Node -> IO (ClassCastException | ListView t  )
+
+
+-- generalized downcast
+class CastTarget a where
+    downcast :: Node -> IO (ClassCastException | a)
+
+instance CastTarget TextArea where
+    downcast = toTextArea
+
+instance CastTarget (ListView t) where
+    downcast = toListView

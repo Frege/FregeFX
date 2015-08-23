@@ -1,0 +1,27 @@
+{--
+	The simplest possible example of a JavaFX UI with Frege:
+	a button plus a simple onAction handler.
+	Needs more refinement to make the API nicer to work with.
+-}
+module fregefx.example.HelloWorld where
+
+import fregefx.JavaFxAll
+import fregefx.JavaFxUtils
+
+main args = 
+    FregeFX.launch showUI
+
+showUI :: Stage -> IO ()
+showUI stage = do
+    content <- Group.new ()  :: IO Group
+    button  <- Button.new () :: IO Button
+    button.setText "Please click me!" 
+    clickHandler <- OnEvent.new (\evt -> button.setText "Thanks!")
+    button.setOnAction clickHandler
+    content.getChildren >>= _.add button
+    scene   <- Scene.new content
+    stage.setTitle "FregeFX Hello World"
+    stage.setScene scene
+    Stage.show stage
+
+
