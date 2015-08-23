@@ -1,7 +1,13 @@
 # FregeFX
 Frege language binding and utilities to create JavaFX user interfaces
 
+Run the example via
+    
+    gradlew run
 
+Known users:
+
+* [The FregeFX repl](https://github.com/Dierk/frepl-gui)
 
 
 

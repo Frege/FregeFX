@@ -4,3 +4,4 @@ target
 out
 *_
 generated
+.settings
