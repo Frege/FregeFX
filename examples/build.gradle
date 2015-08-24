@@ -15,12 +15,8 @@ sourceSets {
 }
 
 dependencies {
-    compile files("$jfxLibDir/jfxrt.jar") // TODO: find out why this seems to be necessary even on JDK 8
+    runtime files("$jfxLibDir/jfxrt.jar") // TODO: find out why this seems to be necessary even on JDK 8
     compile project(':fregefx')
-}
-
-boolean runningOnJDK8() {
-    System.getProperty('java.version')[0..2].toDouble() == 1.8
 }
 
 String locateJfxLibDir() {
