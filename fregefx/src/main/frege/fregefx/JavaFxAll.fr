@@ -2166,7 +2166,7 @@ data MenuItem = mutable native javafx.scene.control.MenuItem where
  native getAccelerator :: MenuItem -> IO KeyCombination
  native getCssMetaData :: MenuItem -> IOMutable (List (CssMetaData Styleable Object))
  native getGraphic :: MenuItem -> IO Node
- native getId :: MenuItem -> IO String
+ native getId :: MenuItem -> IO (Maybe String)
  native getOnAction :: MenuItem -> IO (EventHandler ActionEvent)
  native getOnMenuValidation :: MenuItem -> IO (EventHandler Event)
  native getParentMenu :: MenuItem -> IO Menu
@@ -2280,7 +2280,7 @@ data PopupControl = mutable native javafx.scene.control.PopupControl where
  native new :: () -> IO PopupControl
  native getClassCssMetaData "javafx.scene.control.PopupControl.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
  native getCssMetaData :: PopupControl -> IOMutable (List (CssMetaData Styleable Object))
- native getId :: PopupControl -> IO String
+ native getId :: PopupControl -> IO (Maybe String)
  native getMaxHeight :: PopupControl -> IO Double
  native getMaxWidth :: PopupControl -> IO Double
  native getMinHeight :: PopupControl -> IO Double
@@ -2667,7 +2667,7 @@ data Tab = mutable native javafx.scene.control.Tab where
  native getContextMenu :: Tab -> IO ContextMenu
  native getCssMetaData :: Tab -> IOMutable (List (CssMetaData Styleable Object))
  native getGraphic :: Tab -> IO Node
- native getId :: Tab -> IO String
+ native getId :: Tab -> IO (Maybe String)
  native getOnCloseRequest :: Tab -> IO (EventHandler Event)
  native getOnClosed :: Tab -> IO (EventHandler Event)
  native getOnSelectionChanged :: Tab -> IO (EventHandler Event)
@@ -2780,7 +2780,7 @@ data TableColumnBase s t = mutable native javafx.scene.control.TableColumnBase w
  native getComparator :: TableColumnBase s t -> IO (Comparator t)
  native getContextMenu :: TableColumnBase s t -> IO ContextMenu
  native getGraphic :: TableColumnBase s t -> IO Node
- native getId :: TableColumnBase s t -> IO String
+ native getId :: TableColumnBase s t -> IO (Maybe String)
  native getMaxWidth :: TableColumnBase s t -> IO Double
  native getMinWidth :: TableColumnBase s t -> IO Double
  native getParentColumn :: TableColumnBase s t -> IO (TableColumnBase s Object)
@@ -4876,7 +4876,7 @@ data Node = mutable native javafx.scene.Node where
  native getEffect :: Node -> IO Effect
  native getEffectiveNodeOrientation :: Node -> IO NodeOrientation
  native getEventDispatcher :: Node -> IO EventDispatcher
- native getId :: Node -> IO String
+ native getId :: Node -> IO (Maybe String)
 -- native getInputMethodRequests :: Node -> IO InputMethodRequests
  native getLayoutBounds :: Node -> IO Bounds
  native getLayoutX :: Node -> IO Double
@@ -7703,7 +7703,7 @@ data PseudoClass = mutable native javafx.css.PseudoClass where
 -- ---
 data Styleable = mutable native javafx.css.Styleable where
 --  native getCssMetaData :: Styleable -> MutableIO (List (CssMetaData Styleable Object))
-  native getId :: Styleable -> IO String
+  native getId :: Styleable -> IO (Maybe String)
   native getPseudoClassStates :: Styleable -> IO (ObservableSet PseudoClass)
   native getStyle :: Styleable -> IO String
   native getStyleClass :: Styleable -> IO (ObservableList String)

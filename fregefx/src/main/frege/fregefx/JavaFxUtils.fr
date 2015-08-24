@@ -41,7 +41,7 @@ lookupNode scene selector = do
     mayNode <- scene.lookup selector
     case mayNode of
         Just node -> downcast node >>= either (\cce -> error $ "cannot cast selector '" ++ selector ++ "'") return
-        Nothing -> error $ "cannot find " ++ selector
+        Nothing -> error $ "cannot find '" ++ selector ++ "'"
 
 -- native Java implementation of the downcast since we cannot do that in Frege.
 native module where {
