@@ -9,19 +9,15 @@ import fregefx.JavaFxAll
 import fregefx.JavaFxUtils
 
 main args = 
-    FregeFX.launch showUI
+    FregeFX.launch $ withStage buildUI
 
-showUI :: Stage -> IO ()
-showUI stage = do
-    content <- Group.new ()  :: IO Group
-    button  <- Button.new () :: IO Button
-    button.setText "Please click me!" 
-    clickHandler <- OnEvent.new (\evt -> button.setText "Thanks!")
-    button.setOnAction clickHandler
-    content.getChildren >>= _.add button
-    scene   <- Scene.new content
+buildUI :: Group -> Stage -> IO ()
+buildUI root stage = do
     stage.setTitle "FregeFX Hello World"
-    stage.setScene scene
-    Stage.show stage
+    button <- Button.new () :: IO Button
+    root.getChildren >>= _.add button
+    button.setText "Please click me!"
+    clickHandler <- OnEvent.new (\evt -> button.setText "Thanks!")
+    button.setOnAction clickHandlerre
 
 

@@ -2,7 +2,7 @@ module fregefx.JavaFxUtils where
 
 import frege.Prelude hiding(ListView)
 
-import fregefx.JavaFxAll (Platform, EventHandler, Stage, Scene, Parent, TextArea, Button, ListView, Node)
+import fregefx.JavaFxAll (Platform, EventHandler, Stage, Group, Scene, Parent, TextArea, Button, ListView, Node)
 
 --- The starter for every FregeFX Application
 data FregeFX = mutable native org.frege.FregeFX where
@@ -13,6 +13,16 @@ data FregeFX = mutable native org.frege.FregeFX where
 --- Any code that touches a JavaFX UI component must run in this thread.
 withUI :: IO () -> IO ()
 withUI f = Platform.runLater =<< Runnable.new f
+
+--- Given a _populate_ logic on how to build a scenegraph below the root group
+--- and a _stage_, assemble the pieces and show the stage.
+withStage :: (Group -> Stage -> IO ()) -> Stage -> IO ()
+withStage populate stage = do
+    content <- Group.new ()
+    scene   <- Scene.new content
+    stage.setScene scene
+    populate content stage
+    stage.show
 
 --- JavaFX users will work with ObservableList a lot, which inherits from List.
 --- The mutable java.util.List type is usually not visible in Frege but when
