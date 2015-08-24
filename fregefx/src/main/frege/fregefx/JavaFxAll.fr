@@ -459,6 +459,7 @@ data FXMLLoader = mutable native javafx.fxml.FXMLLoader where
  native getLocation :: FXMLLoader -> IO URL
  native getNamespace :: FXMLLoader -> IO (ObservableMap String Object)
 -- native getResources :: FXMLLoader -> IO ResourceBundle
+ --- We assume that a loder always has a root.
  native getRoot :: FXMLLoader -> IO t
  native load "javafx.fxml.FXMLLoader.load" :: URL -> Mutable s ResourceBundle -> ST s t throws IOException
                                              | URL -> ST s t throws IOException
@@ -1224,7 +1225,7 @@ data ButtonBase = mutable native javafx.scene.control.ButtonBase where
  native disarm :: ButtonBase -> IO ()
  native executeAccessibleAction :: ButtonBase -> AccessibleAction -> MutableIO (JArray Object) -> IO ()
  native fire :: ButtonBase -> IO ()
- native getOnAction :: ButtonBase -> IO (EventHandler ActionEvent)
+ native getOnAction :: ButtonBase -> IO (Maybe (EventHandler ActionEvent))
  native isArmed :: ButtonBase -> IO Bool
  native onActionProperty :: ButtonBase -> IO (ObjectProperty (EventHandler ActionEvent))
  native setOnAction :: ButtonBase -> EventHandler ActionEvent -> IO ()
@@ -1253,7 +1254,7 @@ data CheckBoxListCell t = mutable native javafx.scene.control.cell.CheckBoxListC
  native converterProperty :: CheckBoxListCell t -> IO (ObjectProperty (StringConverter t))
  native forListView "javafx.scene.control.cell.CheckBoxListCell.forListView" :: Callback t (ObservableValue Boolean) -> IO (Callback (ListView t) (ListCell t))
                                                                                | Callback t (ObservableValue Boolean) -> StringConverter t -> IO (Callback (ListView t) (ListCell t))
- native getConverter :: CheckBoxListCell t -> IO (StringConverter t)
+ native getConverter :: CheckBoxListCell t -> IO (Maybe (StringConverter t))
  native getSelectedStateCallback :: CheckBoxListCell t -> IO (Callback t (ObservableValue Boolean))
  native selectedStateCallbackProperty :: CheckBoxListCell t -> IO (ObjectProperty (Callback t (ObservableValue Boolean)))
  native setConverter :: CheckBoxListCell t -> StringConverter t -> IO ()
@@ -1269,7 +1270,7 @@ data CheckBoxTableCell s t = mutable native javafx.scene.control.cell.CheckBoxTa
                                                                                       | Callback Integer (ObservableValue Boolean) -> Bool -> IO (Callback (TableColumn s t) (TableCell s t))
                                                                                       | Callback Integer (ObservableValue Boolean) -> IO (Callback (TableColumn s t) (TableCell s t))
                                                                                       | Callback Integer (ObservableValue Boolean) -> StringConverter t -> IO (Callback (TableColumn s t) (TableCell s t))
- native getConverter :: CheckBoxTableCell s t -> IO (StringConverter t)
+ native getConverter :: CheckBoxTableCell s t -> IO (Maybe (StringConverter t))
  native getSelectedStateCallback :: CheckBoxTableCell s t -> IO (Callback Integer (ObservableValue Boolean))
  native selectedStateCallbackProperty :: CheckBoxTableCell s t -> IO (ObjectProperty (Callback Integer (ObservableValue Boolean)))
  native setConverter :: CheckBoxTableCell s t -> StringConverter t -> IO ()
@@ -1284,7 +1285,7 @@ data CheckBoxTreeCell t = mutable native javafx.scene.control.cell.CheckBoxTreeC
  native forTreeView "javafx.scene.control.cell.CheckBoxTreeCell.forTreeView" :: Callback (TreeItem t) (ObservableValue Boolean) -> IO (Callback (TreeView t) (TreeCell t))
                                                                                | Callback (TreeItem t) (ObservableValue Boolean) -> StringConverter (TreeItem t) -> IO (Callback (TreeView t) (TreeCell t))
                                                                                | () -> IO (Callback (TreeView t) (TreeCell t))
- native getConverter :: CheckBoxTreeCell t -> IO (StringConverter (TreeItem t))
+ native getConverter :: CheckBoxTreeCell t -> IO (Maybe (StringConverter (TreeItem t)))
  native getSelectedStateCallback :: CheckBoxTreeCell t -> IO (Callback (TreeItem t) (ObservableValue Boolean))
  native selectedStateCallbackProperty :: CheckBoxTreeCell t -> IO (ObjectProperty (Callback (TreeItem t) (ObservableValue Boolean)))
  native setConverter :: CheckBoxTreeCell t -> StringConverter (TreeItem t) -> IO ()
@@ -1300,7 +1301,7 @@ data CheckBoxTreeTableCell s t = mutable native javafx.scene.control.cell.CheckB
                                                                                                   | Callback Integer (ObservableValue Boolean) -> Bool -> IO (Callback (TreeTableColumn s t) (TreeTableCell s t))
                                                                                                   | Callback Integer (ObservableValue Boolean) -> IO (Callback (TreeTableColumn s t) (TreeTableCell s t))
                                                                                                   | Callback Integer (ObservableValue Boolean) -> StringConverter t -> IO (Callback (TreeTableColumn s t) (TreeTableCell s t))
- native getConverter :: CheckBoxTreeTableCell s t -> IO (StringConverter t)
+ native getConverter :: CheckBoxTreeTableCell s t -> IO (Maybe (StringConverter t))
  native getSelectedStateCallback :: CheckBoxTreeTableCell s t -> IO (Callback Integer (ObservableValue Boolean))
  native selectedStateCallbackProperty :: CheckBoxTreeTableCell s t -> IO (ObjectProperty (Callback Integer (ObservableValue Boolean)))
  native setConverter :: CheckBoxTreeTableCell s t -> StringConverter t -> IO ()
@@ -1319,7 +1320,7 @@ data ChoiceBoxListCell t = mutable native javafx.scene.control.cell.ChoiceBoxLis
                                                                                 | MutableIO (JArray t) -> IO (Callback (ListView t) (ListCell t))
                                                                                 | StringConverter t -> MutableIO (JArray t) -> IO (Callback (ListView t) (ListCell t))
                                                                                 | StringConverter t -> ObservableList t -> IO (Callback (ListView t) (ListCell t))
- native getConverter :: ChoiceBoxListCell t -> IO (StringConverter t)
+ native getConverter :: ChoiceBoxListCell t -> IO (Maybe (StringConverter t))
  native getItems :: ChoiceBoxListCell t -> IO (ObservableList t)
  native setConverter :: ChoiceBoxListCell t -> StringConverter t -> IO ()
  native startEdit :: ChoiceBoxListCell t -> IO ()
@@ -1337,7 +1338,7 @@ data ChoiceBoxTableCell s t = mutable native javafx.scene.control.cell.ChoiceBox
                                                                                        | ObservableList t -> IO (Callback (TableColumn s t) (TableCell s t))
                                                                                        | StringConverter t -> ObservableList t -> IO (Callback (TableColumn s t) (TableCell s t))
                                                                                        | MutableIO (JArray t) -> IO (Callback (TableColumn s t) (TableCell s t))
- native getConverter :: ChoiceBoxTableCell s t -> IO (StringConverter t)
+ native getConverter :: ChoiceBoxTableCell s t -> IO (Maybe (StringConverter t))
  native getItems :: ChoiceBoxTableCell s t -> IO (ObservableList t)
  native setConverter :: ChoiceBoxTableCell s t -> StringConverter t -> IO ()
  native startEdit :: ChoiceBoxTableCell s t -> IO ()
@@ -1355,7 +1356,7 @@ data ChoiceBoxTreeCell t = mutable native javafx.scene.control.cell.ChoiceBoxTre
                                                                                 | StringConverter t -> MutableIO (JArray t) -> IO (Callback (TreeView t) (TreeCell t))
                                                                                 | StringConverter t -> ObservableList t -> IO (Callback (TreeView t) (TreeCell t))
                                                                                 | MutableIO (JArray t) -> IO (Callback (TreeView t) (TreeCell t))
- native getConverter :: ChoiceBoxTreeCell t -> IO (StringConverter t)
+ native getConverter :: ChoiceBoxTreeCell t -> IO (Maybe (StringConverter t))
  native getItems :: ChoiceBoxTreeCell t -> IO (ObservableList t)
  native setConverter :: ChoiceBoxTreeCell t -> StringConverter t -> IO ()
  native startEdit :: ChoiceBoxTreeCell t -> IO ()
@@ -1373,7 +1374,7 @@ data ChoiceBoxTreeTableCell s t = mutable native javafx.scene.control.cell.Choic
                                                                                                    | ObservableList t -> IO (Callback (TreeTableColumn s t) (TreeTableCell s t))
                                                                                                    | StringConverter t -> ObservableList t -> IO (Callback (TreeTableColumn s t) (TreeTableCell s t))
                                                                                                    | MutableIO (JArray t) -> IO (Callback (TreeTableColumn s t) (TreeTableCell s t))
- native getConverter :: ChoiceBoxTreeTableCell s t -> IO (StringConverter t)
+ native getConverter :: ChoiceBoxTreeTableCell s t -> IO (Maybe (StringConverter t))
  native getItems :: ChoiceBoxTreeTableCell s t -> IO (ObservableList t)
  native setConverter :: ChoiceBoxTreeTableCell s t -> StringConverter t -> IO ()
  native startEdit :: ChoiceBoxTreeTableCell s t -> IO ()
@@ -1392,7 +1393,7 @@ data ComboBoxListCell t = mutable native javafx.scene.control.cell.ComboBoxListC
                                                                                | StringConverter t -> MutableIO (JArray t) -> IO (Callback (ListView t) (ListCell t))
                                                                                | ObservableList t -> IO (Callback (ListView t) (ListCell t))
                                                                                | StringConverter t -> ObservableList t -> IO (Callback (ListView t) (ListCell t))
- native getConverter :: ComboBoxListCell t -> IO (StringConverter t)
+ native getConverter :: ComboBoxListCell t -> IO (Maybe (StringConverter t))
  native getItems :: ComboBoxListCell t -> IO (ObservableList t)
  native isComboBoxEditable :: ComboBoxListCell t -> IO Bool
  native setComboBoxEditable :: ComboBoxListCell t -> Bool -> IO ()
@@ -1413,7 +1414,7 @@ data ComboBoxTableCell s t = mutable native javafx.scene.control.cell.ComboBoxTa
                                                                                       | ObservableList t -> IO (Callback (TableColumn s t) (TableCell s t))
                                                                                       | StringConverter t -> MutableIO (JArray t) -> IO (Callback (TableColumn s t) (TableCell s t))
                                                                                       | StringConverter t -> ObservableList t -> IO (Callback (TableColumn s t) (TableCell s t))
- native getConverter :: ComboBoxTableCell s t -> IO (StringConverter t)
+ native getConverter :: ComboBoxTableCell s t -> IO (Maybe (StringConverter t))
  native getItems :: ComboBoxTableCell s t -> IO (ObservableList t)
  native isComboBoxEditable :: ComboBoxTableCell s t -> IO Bool
  native setComboBoxEditable :: ComboBoxTableCell s t -> Bool -> IO ()
@@ -1434,7 +1435,7 @@ data ComboBoxTreeCell t = mutable native javafx.scene.control.cell.ComboBoxTreeC
                                                                                | StringConverter t -> MutableIO (JArray t) -> IO (Callback (TreeView t) (TreeCell t))
                                                                                | ObservableList t -> IO (Callback (TreeView t) (TreeCell t))
                                                                                | StringConverter t -> ObservableList t -> IO (Callback (TreeView t) (TreeCell t))
- native getConverter :: ComboBoxTreeCell t -> IO (StringConverter t)
+ native getConverter :: ComboBoxTreeCell t -> IO (Maybe (StringConverter t))
  native getItems :: ComboBoxTreeCell t -> IO (ObservableList t)
  native isComboBoxEditable :: ComboBoxTreeCell t -> IO Bool
  native setComboBoxEditable :: ComboBoxTreeCell t -> Bool -> IO ()
@@ -1455,7 +1456,7 @@ data ComboBoxTreeTableCell s t = mutable native javafx.scene.control.cell.ComboB
                                                                                                   | ObservableList t -> IO (Callback (TreeTableColumn s t) (TreeTableCell s t))
                                                                                                   | StringConverter t -> MutableIO (JArray t) -> IO (Callback (TreeTableColumn s t) (TreeTableCell s t))
                                                                                                   | StringConverter t -> ObservableList t -> IO (Callback (TreeTableColumn s t) (TreeTableCell s t))
- native getConverter :: ComboBoxTreeTableCell s t -> IO (StringConverter t)
+ native getConverter :: ComboBoxTreeTableCell s t -> IO (Maybe (StringConverter t))
  native getItems :: ComboBoxTreeTableCell s t -> IO (ObservableList t)
  native isComboBoxEditable :: ComboBoxTreeTableCell s t -> IO Bool
  native setComboBoxEditable :: ComboBoxTreeTableCell s t -> Bool -> IO ()
@@ -1493,7 +1494,7 @@ data TextFieldListCell t = mutable native javafx.scene.control.cell.TextFieldLis
  native converterProperty :: TextFieldListCell t -> IO (ObjectProperty (StringConverter t))
  native forListView "javafx.scene.control.cell.TextFieldListCell.forListView" :: StringConverter t -> IO (Callback (ListView t) (ListCell t))
                                                                                 | () -> IO (Callback (ListView String) (ListCell String))
- native getConverter :: TextFieldListCell t -> IO (StringConverter t)
+ native getConverter :: TextFieldListCell t -> IO (Maybe (StringConverter t))
  native setConverter :: TextFieldListCell t -> StringConverter t -> IO ()
  native startEdit :: TextFieldListCell t -> IO ()
  native updateItem :: TextFieldListCell t -> t -> Bool -> IO ()
@@ -1603,7 +1604,7 @@ data ChoiceBox t = mutable native javafx.scene.control.ChoiceBox where
               | ObservableList t -> IO (ChoiceBox t)
  native converterProperty :: ChoiceBox t -> IO (ObjectProperty (StringConverter t))
  native executeAccessibleAction :: ChoiceBox t -> AccessibleAction -> MutableIO (JArray Object) -> IO ()
- native getConverter :: ChoiceBox t -> IO (StringConverter t)
+ native getConverter :: ChoiceBox t -> IO (Maybe (StringConverter t))
  native getItems :: ChoiceBox t -> IO (ObservableList t)
  native getSelectionModel :: ChoiceBox t -> IO (SingleSelectionModel t)
  native getValue :: ChoiceBox t -> IO t
@@ -1646,7 +1647,7 @@ data ComboBox t = mutable native javafx.scene.control.ComboBox where
  native editorProperty :: ComboBox t -> IO (ReadOnlyObjectProperty TextField)
  native getButtonCell :: ComboBox t -> IO (ListCell t)
  native getCellFactory :: ComboBox t -> IO (Callback (ListView t) (ListCell t))
- native getConverter :: ComboBox t -> IO (StringConverter t)
+ native getConverter :: ComboBox t -> IO (Maybe (StringConverter t))
  native getEditor :: ComboBox t -> IO TextField
  native getItems :: ComboBox t -> IO (ObservableList t)
  native getPlaceholder :: ComboBox t -> IO Node
@@ -1675,12 +1676,12 @@ data ComboBoxBase t = mutable native javafx.scene.control.ComboBoxBase where
  native disarm :: ComboBoxBase t -> IO ()
  native editableProperty :: ComboBoxBase t -> IO BooleanProperty
  native executeAccessibleAction :: ComboBoxBase t -> AccessibleAction -> MutableIO (JArray Object) -> IO ()
- native getOnAction :: ComboBoxBase t -> IO (EventHandler ActionEvent)
+ native getOnAction :: ComboBoxBase t -> IO (Maybe (EventHandler ActionEvent))
  native getOnHidden :: ComboBoxBase t -> IO (EventHandler Event)
  native getOnHiding :: ComboBoxBase t -> IO (EventHandler Event)
  native getOnShowing :: ComboBoxBase t -> IO (EventHandler Event)
  native getOnShown :: ComboBoxBase t -> IO (EventHandler Event)
- native getPromptText :: ComboBoxBase t -> IO String
+ native getPromptText :: ComboBoxBase t -> IO (Maybe String)
  native getValue :: ComboBoxBase t -> IO t
  native hide :: ComboBoxBase t -> IO ()
  native isArmed :: ComboBoxBase t -> IO Bool
@@ -1721,7 +1722,7 @@ data ContextMenu = mutable native javafx.scene.control.ContextMenu where
  native new :: () -> IO ContextMenu
               | MutableIO (JArray MenuItem) -> IO ContextMenu
  native getItems :: ContextMenu -> IO (ObservableList MenuItem)
- native getOnAction :: ContextMenu -> IO (EventHandler ActionEvent)
+ native getOnAction :: ContextMenu -> IO (Maybe (EventHandler ActionEvent))
  native hide :: ContextMenu -> IO ()
  native isImpl_showRelativeToWindow :: ContextMenu -> IO Bool
  native onActionProperty :: ContextMenu -> IO (ObjectProperty (EventHandler ActionEvent))
@@ -1776,7 +1777,7 @@ data DatePicker = mutable native javafx.scene.control.DatePicker where
  native getChronology :: DatePicker -> IO Chronology
  native getClassCssMetaData "javafx.scene.control.DatePicker.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
  -- -- native getControlCssMetaData :: DatePicker -> IOMutable (List (CssMetaData Styleable Object))
- native getConverter :: DatePicker -> IO (StringConverter LocalDate)
+ native getConverter :: DatePicker -> IO (Maybe (StringConverter LocalDate))
  native getDayCellFactory :: DatePicker -> IO (Callback DatePicker DateCell)
  native getEditor :: DatePicker -> IO TextField
  native isShowWeekNumbers :: DatePicker -> IO Bool
@@ -1804,7 +1805,7 @@ data Dialog r = mutable native javafx.scene.control.Dialog where
  native getOnHiding :: Dialog r -> IO (EventHandler DialogEvent)
  native getOnShowing :: Dialog r -> IO (EventHandler DialogEvent)
  native getOnShown :: Dialog r -> IO (EventHandler DialogEvent)
- native getOwner :: Dialog r -> IO Window
+ native getOwner :: Dialog r -> IO (Maybe Window)
  native getResult :: Dialog r -> IO r
  native getResultConverter :: Dialog r -> IO (Callback ButtonType r)
  native getTitle :: Dialog r -> IO String
@@ -1991,7 +1992,7 @@ data Labeled = mutable native javafx.scene.control.Labeled where
  native fontProperty :: Labeled -> IO (ObjectProperty Font)
  native getAlignment :: Labeled -> IO Pos
  native getClassCssMetaData "javafx.scene.control.Labeled.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
- native getContentBias :: Labeled -> IO Orientation
+ native getContentBias :: Labeled -> IO (Maybe Orientation)
  native getContentDisplay :: Labeled -> IO ContentDisplay
  native getControlCssMetaData :: Labeled -> IOMutable (List (CssMetaData Styleable Object))
  native getEllipsisString :: Labeled -> IO String
@@ -2167,7 +2168,7 @@ data MenuItem = mutable native javafx.scene.control.MenuItem where
  native getCssMetaData :: MenuItem -> IOMutable (List (CssMetaData Styleable Object))
  native getGraphic :: MenuItem -> IO Node
  native getId :: MenuItem -> IO (Maybe String)
- native getOnAction :: MenuItem -> IO (EventHandler ActionEvent)
+ native getOnAction :: MenuItem -> IO (Maybe (EventHandler ActionEvent))
  native getOnMenuValidation :: MenuItem -> IO (EventHandler Event)
  native getParentMenu :: MenuItem -> IO Menu
  native getParentPopup :: MenuItem -> IO ContextMenu
@@ -2175,10 +2176,10 @@ data MenuItem = mutable native javafx.scene.control.MenuItem where
  native getPseudoClassStates :: MenuItem -> IO (ObservableSet PseudoClass)
  native getStyle :: MenuItem -> IO String
  native getStyleClass :: MenuItem -> IO (ObservableList String)
- native getStyleableParent :: MenuItem -> IO Styleable
+ native getStyleableParent :: MenuItem -> IO (Maybe Styleable)
  native getText :: MenuItem -> IO String
  native getTypeSelector :: MenuItem -> IO String
- native getUserData :: MenuItem -> IO Object
+ native getUserData :: MenuItem -> IO (Maybe Object)
  native graphicProperty :: MenuItem -> IO (ObjectProperty Node)
  native idProperty :: MenuItem -> IO StringProperty
  native isDisable :: MenuItem -> IO Bool
@@ -2291,7 +2292,7 @@ data PopupControl = mutable native javafx.scene.control.PopupControl where
  native getSkin :: PopupControl -> IO (Skin Object)
  native getStyle :: PopupControl -> IO String
  native getStyleClass :: PopupControl -> IO (ObservableList String)
- native getStyleableParent :: PopupControl -> IO Styleable
+ native getStyleableParent :: PopupControl -> IO (Maybe Styleable)
  native getTypeSelector :: PopupControl -> IO String
  native idProperty :: PopupControl -> IO StringProperty
  native maxHeight :: PopupControl -> Double -> IO Double
@@ -2357,7 +2358,7 @@ data RadioMenuItem = mutable native javafx.scene.control.RadioMenuItem where
 --
 data ResizeFeaturesBase s = mutable native javafx.scene.control.ResizeFeaturesBase where
  native new :: TableColumnBase s Object -> Double -> IO (ResizeFeaturesBase s)
- native getColumn :: ResizeFeaturesBase s -> IO (TableColumnBase s Object)
+ native getColumn :: ResizeFeaturesBase s -> IO (Maybe (TableColumnBase s Object))
  native getDelta :: ResizeFeaturesBase s -> IO Double
 --
 data ScrollBar = mutable native javafx.scene.control.ScrollBar where
@@ -2616,7 +2617,7 @@ data Spinner t = mutable native javafx.scene.control.Spinner where
 data SpinnerValueFactory t = mutable native javafx.scene.control.SpinnerValueFactory where
  native converterProperty :: SpinnerValueFactory t -> IO (ObjectProperty (StringConverter t))
  native decrement :: SpinnerValueFactory t -> Int -> IO ()
- native getConverter :: SpinnerValueFactory t -> IO (StringConverter t)
+ native getConverter :: SpinnerValueFactory t -> IO (Maybe (StringConverter t))
  native getValue :: SpinnerValueFactory t -> IO t
  native increment :: SpinnerValueFactory t -> Int -> IO ()
  native isWrapAround :: SpinnerValueFactory t -> IO Bool
@@ -2675,12 +2676,12 @@ data Tab = mutable native javafx.scene.control.Tab where
  native getPseudoClassStates :: Tab -> IO (ObservableSet PseudoClass)
  native getStyle :: Tab -> IO String
  native getStyleClass :: Tab -> IO (ObservableList String)
- native getStyleableParent :: Tab -> IO Styleable
+ native getStyleableParent :: Tab -> IO (Maybe Styleable)
  native getTabPane :: Tab -> IO TabPane
  native getText :: Tab -> IO String
  native getTooltip :: Tab -> IO Tooltip
  native getTypeSelector :: Tab -> IO String
- native getUserData :: Tab -> IO Object
+ native getUserData :: Tab -> IO (Maybe Object)
  native graphicProperty :: Tab -> IO (ObjectProperty Node)
  native hasProperties :: Tab -> IO Bool
  native idProperty :: Tab -> IO StringProperty
@@ -2750,7 +2751,7 @@ data TableColumn s t = mutable native javafx.scene.control.TableColumn where
 -- ENUM --  native getOnEditCommit :: TableColumn s t -> IO (EventHandler (TableColumn_CellEditEvent s t))
 -- ENUM --  native getOnEditStart :: TableColumn s t -> IO (EventHandler (TableColumn_CellEditEvent s t))
 -- ENUM --  native getSortType :: TableColumn s t -> IO TableColumn_SortType
- native getStyleableParent :: TableColumn s t -> IO Styleable
+ native getStyleableParent :: TableColumn s t -> IO (Maybe Styleable)
  native getTableView :: TableColumn s t -> IO (TableView s)
  native getTypeSelector :: TableColumn s t -> IO String
 -- ENUM --  native onEditCancelProperty :: TableColumn s t -> IO (ObjectProperty (EventHandler (TableColumn_CellEditEvent s t)))
@@ -2791,7 +2792,7 @@ data TableColumnBase s t = mutable native javafx.scene.control.TableColumnBase w
  native getStyle :: TableColumnBase s t -> IO String
  native getStyleClass :: TableColumnBase s t -> IO (ObservableList String)
  native getText :: TableColumnBase s t -> IO String
- native getUserData :: TableColumnBase s t -> IO Object
+ native getUserData :: TableColumnBase s t -> IO (Maybe Object)
  native getWidth :: TableColumnBase s t -> IO Double
  native graphicProperty :: TableColumnBase s t -> IO (ObjectProperty Node)
  native hasProperties :: TableColumnBase s t -> IO Bool
@@ -3005,7 +3006,7 @@ data TextField = mutable native javafx.scene.control.TextField where
  native getCharacters :: TextField -> IO CharSequence
  native getClassCssMetaData "javafx.scene.control.TextField.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
  native getControlCssMetaData :: TextField -> IOMutable (List (CssMetaData Styleable Object))
- native getOnAction :: TextField -> IO (EventHandler ActionEvent)
+ native getOnAction :: TextField -> IO (Maybe (EventHandler ActionEvent))
  native getPrefColumnCount :: TextField -> IO Int
  native onActionProperty :: TextField -> IO (ObjectProperty (EventHandler ActionEvent))
  native prefColumnCountProperty :: TextField -> IO IntegerProperty
@@ -3053,7 +3054,7 @@ data TextInputControl = mutable native javafx.scene.control.TextInputControl whe
  native getControlCssMetaData :: TextInputControl -> IOMutable (List (CssMetaData Styleable Object))
  native getFont :: TextInputControl -> IO Font
  native getLength :: TextInputControl -> IO Int
- native getPromptText :: TextInputControl -> IO String
+ native getPromptText :: TextInputControl -> IO (Maybe String)
  native getSelectedText :: TextInputControl -> IO String
  native getSelection :: TextInputControl -> IO IndexRange
  native getText :: TextInputControl -> Int -> Int -> IO String
@@ -3128,7 +3129,7 @@ data TitledPane = mutable native javafx.scene.control.TitledPane where
 data Toggle = mutable native javafx.scene.control.Toggle where
  native getProperties :: Toggle -> IO (ObservableMap Object Object)
  native getToggleGroup :: Toggle -> IO ToggleGroup
- native getUserData :: Toggle -> IO Object
+ native getUserData :: Toggle -> IO (Maybe Object)
  native isSelected :: Toggle -> IO Bool
  native selectedProperty :: Toggle -> IO BooleanProperty
  native setSelected :: Toggle -> Bool -> IO ()
@@ -3154,7 +3155,7 @@ data ToggleGroup = mutable native javafx.scene.control.ToggleGroup where
  native getProperties :: ToggleGroup -> IO (ObservableMap Object Object)
  native getSelectedToggle :: ToggleGroup -> IO Toggle
  native getToggles :: ToggleGroup -> IO (ObservableList Toggle)
- native getUserData :: ToggleGroup -> IO Object
+ native getUserData :: ToggleGroup -> IO (Maybe Object)
  native hasProperties :: ToggleGroup -> IO Bool
  native selectToggle :: ToggleGroup -> Toggle -> IO ()
  native selectedToggleProperty :: ToggleGroup -> IO (ReadOnlyObjectProperty Toggle)
@@ -3182,7 +3183,7 @@ data Tooltip = mutable native javafx.scene.control.Tooltip where
  native getFont :: Tooltip -> IO Font
  native getGraphic :: Tooltip -> IO Node
  native getGraphicTextGap :: Tooltip -> IO Double
- native getStyleableParent :: Tooltip -> IO Styleable
+ native getStyleableParent :: Tooltip -> IO (Maybe Styleable)
  native getText :: Tooltip -> IO String
  native getTextAlignment :: Tooltip -> IO TextAlignment
  native getTextOverrun :: Tooltip -> IO OverrunStyle
@@ -3235,7 +3236,7 @@ data TreeItem t = mutable native javafx.scene.control.TreeItem where
  native expandedProperty :: TreeItem t -> IO BooleanProperty
  native getChildren :: TreeItem t -> IO (ObservableList (TreeItem t))
  native getGraphic :: TreeItem t -> IO Node
- native getParent :: TreeItem t -> IO (TreeItem t)
+ native getParent :: TreeItem t -> IO (Maybe (TreeItem t))
  native getValue :: TreeItem t -> IO t
 -- ENUM --  native graphicChangedEvent "javafx.scene.control.TreeItem.graphicChangedEvent" :: () -> IO (EventType (TreeItem_TreeModificationEvent t))
  native graphicProperty :: TreeItem t -> IO (ObjectProperty Node)
@@ -3302,7 +3303,7 @@ data TreeTableColumn s t = mutable native javafx.scene.control.TreeTableColumn w
 -- ENUM --  native getOnEditCommit :: TreeTableColumn s t -> IO (EventHandler (TreeTableColumn_CellEditEvent s t))
 -- ENUM --  native getOnEditStart :: TreeTableColumn s t -> IO (EventHandler (TreeTableColumn_CellEditEvent s t))
 -- ENUM --  native getSortType :: TreeTableColumn s t -> IO TreeTableColumn_SortType
- native getStyleableParent :: TreeTableColumn s t -> IO Styleable
+ native getStyleableParent :: TreeTableColumn s t -> IO (Maybe Styleable)
  native getTreeTableView :: TreeTableColumn s t -> IO (TreeTableView s)
  native getTypeSelector :: TreeTableColumn s t -> IO String
 -- ENUM --  native onEditCancelProperty :: TreeTableColumn s t -> IO (ObjectProperty (EventHandler (TreeTableColumn_CellEditEvent s t)))
@@ -3373,7 +3374,7 @@ data TreeTableView s = mutable native javafx.scene.control.TreeTableView where
  native getOnScrollToColumn :: TreeTableView s -> IO (EventHandler (ScrollToEvent (TreeTableColumn s Object)))
  native getOnSort :: TreeTableView s -> IO (EventHandler (SortEvent (TreeTableView s)))
  native getPlaceholder :: TreeTableView s -> IO Node
- native getRoot :: TreeTableView s -> IO (TreeItem s)
+ native getRoot :: TreeTableView s -> IO (Maybe (TreeItem s))
  native getRow :: TreeTableView s -> TreeItem s -> IO Int
  native getRowFactory :: TreeTableView s -> IO (Callback (TreeTableView s) (TreeTableRow s))
 -- ENUM --  native getSelectionModel :: TreeTableView s -> IO (TreeTableView_TreeTableViewSelectionModel s)
@@ -3381,7 +3382,7 @@ data TreeTableView s = mutable native javafx.scene.control.TreeTableView where
  native getSortOrder :: TreeTableView s -> IO (ObservableList (TreeTableColumn s Object))
  native getSortPolicy :: TreeTableView s -> IO (Callback (TreeTableView s) Boolean)
  native getTreeColumn :: TreeTableView s -> IO (TreeTableColumn s Object)
- native getTreeItem :: TreeTableView s -> Int -> IO (TreeItem s)
+ native getTreeItem :: TreeTableView s -> Int -> IO (Maybe (TreeItem s))
  native getTreeItemLevel :: TreeTableView s -> TreeItem Object -> IO Int
  native getVisibleLeafColumn :: TreeTableView s -> Int -> IO (TreeTableColumn s Object)
  native getVisibleLeafColumns :: TreeTableView s -> IO (ObservableList (TreeTableColumn s Object))
@@ -3442,7 +3443,7 @@ data TreeView t = mutable native javafx.scene.control.TreeView where
  native getCellFactory :: TreeView t -> IO (Callback (TreeView t) (TreeCell t))
  native getClassCssMetaData "javafx.scene.control.TreeView.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
  native getControlCssMetaData :: TreeView t -> IOMutable (List (CssMetaData Styleable Object))
- native getEditingItem :: TreeView t -> IO (TreeItem t)
+ native getEditingItem :: TreeView t -> IO (Maybe (TreeItem t))
  native getExpandedItemCount :: TreeView t -> IO Int
  native getFixedCellSize :: TreeView t -> IO Double
  native getFocusModel :: TreeView t -> IO (FocusModel (TreeItem t))
@@ -3451,10 +3452,10 @@ data TreeView t = mutable native javafx.scene.control.TreeView where
 -- ENUM --  native getOnEditCommit :: TreeView t -> IO (EventHandler (TreeView_EditEvent t))
 -- ENUM --  native getOnEditStart :: TreeView t -> IO (EventHandler (TreeView_EditEvent t))
  native getOnScrollTo :: TreeView t -> IO (EventHandler (ScrollToEvent Integer))
- native getRoot :: TreeView t -> IO (TreeItem t)
+ native getRoot :: TreeView t -> IO (Maybe (TreeItem t))
  native getRow :: TreeView t -> TreeItem t -> IO Int
  native getSelectionModel :: TreeView t -> IO (MultipleSelectionModel (TreeItem t))
- native getTreeItem :: TreeView t -> Int -> IO (TreeItem t)
+ native getTreeItem :: TreeView t -> Int -> IO (Maybe (TreeItem t))
  native getTreeItemLevel :: TreeView t -> TreeItem Object -> IO Int
  native isEditable :: TreeView t -> IO Bool
  native isShowRoot :: TreeView t -> IO Bool
@@ -4720,7 +4721,7 @@ data MediaPlayer = mutable native javafx.scene.media.MediaPlayer where
  native getCurrentTime :: MediaPlayer -> IO Duration
  native getCycleCount :: MediaPlayer -> IO Int
  native getCycleDuration :: MediaPlayer -> IO Duration
- native getError :: MediaPlayer -> IO MediaException
+ native getError :: MediaPlayer -> IO (Maybe MediaException)
  native getMedia :: MediaPlayer -> IO Media
  native getOnEndOfMedia :: MediaPlayer -> IOMutable Runnable
  native getOnError :: MediaPlayer -> IOMutable Runnable
@@ -4924,7 +4925,7 @@ data Node = mutable native javafx.scene.Node where
  native getOnZoomFinished :: Node -> IO (EventHandler ZoomEvent)
  native getOnZoomStarted :: Node -> IO (EventHandler ZoomEvent)
  native getOpacity :: Node -> IO Double
- native getParent :: Node -> IO Parent
+ native getParent :: Node -> IO (Maybe Parent)
  native getProperties :: Node -> IO (ObservableMap Object Object)
  native getPseudoClassStates :: Node -> IO (ObservableSet PseudoClass)
  native getRotate :: Node -> IO Double
@@ -4933,15 +4934,17 @@ data Node = mutable native javafx.scene.Node where
  native getScaleY :: Node -> IO Double
  native getScaleZ :: Node -> IO Double
  native getScene :: Node -> IO Scene
+ --- A style should never be null. It defaults to the empty string.
+ --- One cannot set a null style through Frege.
  native getStyle :: Node -> IO String
  native getStyleClass :: Node -> IO (ObservableList String)
- native getStyleableParent :: Node -> IO Styleable
+ native getStyleableParent :: Node -> IO (Maybe Styleable)
  native getTransforms :: Node -> IO (ObservableList Transform)
  native getTranslateX :: Node -> IO Double
  native getTranslateY :: Node -> IO Double
  native getTranslateZ :: Node -> IO Double
  native getTypeSelector :: Node -> IO String
- native getUserData :: Node -> IO Object
+ native getUserData :: Node -> IO (Maybe Object)
  native hasProperties :: Node -> IO Bool
  native hoverProperty :: Node -> IO ReadOnlyBooleanProperty
  native idProperty :: Node -> IO StringProperty
@@ -5345,10 +5348,11 @@ data Scene = mutable native javafx.scene.Scene where
  native getOnZoomFinished :: Scene -> IO (EventHandler ZoomEvent)
  native getOnZoomStarted :: Scene -> IO (EventHandler ZoomEvent)
  native getProperties :: Scene -> IO (ObservableMap Object Object)
+ --- We assume that a scene always has a root.
  native getRoot :: Scene -> IO Parent
  native getStylesheets :: Scene -> IO (ObservableList String)
  native getUserAgentStylesheet :: Scene -> IO String
- native getUserData :: Scene -> IO Object
+ native getUserData :: Scene -> IO (Maybe Object)
  native getWidth :: Scene -> IO Double
  native getWindow :: Scene -> IO Window
  native getX :: Scene -> IO Double
@@ -5962,6 +5966,7 @@ data SubScene = mutable native javafx.scene.SubScene where
  native getCamera :: SubScene -> IO Camera
  native getFill :: SubScene -> IO Paint
  native getHeight :: SubScene -> IO Double
+ --- We assume that a subscene always has a root
  native getRoot :: SubScene -> IO Parent
  native getUserAgentStylesheet :: SubScene -> IO String
  native getWidth :: SubScene -> IO Double
@@ -6688,7 +6693,7 @@ data Stage = mutable native javafx.stage.Stage where
  native getMinHeight :: Stage -> IO Double
  native getMinWidth :: Stage -> IO Double
  native getModality :: Stage -> IO Modality
- native getOwner :: Stage -> IO Window
+ native getOwner :: Stage -> IO (Maybe Window)
  native getStyle :: Stage -> IO StageStyle
  native getTitle :: Stage -> IO String
  native iconifiedProperty :: Stage -> IO ReadOnlyBooleanProperty
@@ -6753,7 +6758,7 @@ data Window = mutable native javafx.stage.Window where
  native getOpacity :: Window -> IO Double
  native getProperties :: Window -> IO (ObservableMap Object Object)
  native getScene :: Window -> IO Scene
- native getUserData :: Window -> IO Object
+ native getUserData :: Window -> IO (Maybe Object)
  native getWidth :: Window -> IO Double
  native getX :: Window -> IO Double
  native getY :: Window -> IO Double
@@ -7707,7 +7712,7 @@ data Styleable = mutable native javafx.css.Styleable where
   native getPseudoClassStates :: Styleable -> IO (ObservableSet PseudoClass)
   native getStyle :: Styleable -> IO String
   native getStyleClass :: Styleable -> IO (ObservableList String)
-  native getStyleableParent :: Styleable -> IO Styleable
+  native getStyleableParent :: Styleable -> IO (Maybe Styleable)
   native getTypeSelector :: Styleable -> IO String
 -- ---
 data StyleableBooleanProperty = mutable native javafx.css.StyleableBooleanProperty where
@@ -7842,7 +7847,7 @@ data StyleableStringProperty = mutable native javafx.css.StyleableStringProperty
 
 data CssMetaData s v = mutable native javafx.css.CssMetaData where
   native equals :: CssMetaData s v -> Object -> IO Bool
-  native getConverter :: CssMetaData s v -> IO (StyleConverter Object v)
+  native getConverter :: CssMetaData s v -> IO (Maybe (StyleConverter Object v))
 --  native getInitialValue :: CssMetaData s v -> s -> IO v
   native getProperty :: CssMetaData s v -> IO String
 --  native getStyleableProperty :: CssMetaData s v -> s -> IO (StyleableProperty v)
@@ -8345,7 +8350,7 @@ data StringConverter t = mutable native javafx.util.StringConverter where
 -- data FontCssMetaData s = mutable native javafx.css.FontCssMetaData
 data ParsedValue v t = mutable native javafx.css.ParsedValue where
   native convert :: ParsedValue v t -> Font -> IO t
-  native getConverter :: ParsedValue v t -> IO (StyleConverter v t)
+  native getConverter :: ParsedValue v t -> IO (Maybe (StyleConverter v t))
   native getValue :: ParsedValue v t -> IO v
 -- ---
 data StyleConverter f t = mutable native javafx.css.StyleConverter where
@@ -8508,7 +8513,7 @@ data TimeStringConverter = mutable native javafx.util.converter.TimeStringConver
 
 data Clipboard = mutable native javafx.scene.input.Clipboard where
  native clear :: Clipboard -> IO ()
- native getContent :: Clipboard -> DataFormat -> IO Object
+ native getContent :: Clipboard -> DataFormat -> IO (Maybe Object)
  native getContentTypes :: Clipboard -> IOMutable (Set DataFormat)
  native getFiles :: Clipboard -> IOMutable (List File)
  native getHtml :: Clipboard -> IO String
@@ -9179,7 +9184,7 @@ data TouchPoint = mutable native javafx.scene.input.TouchPoint where
  native getScreenX :: TouchPoint -> IO Double
  native getScreenY :: TouchPoint -> IO Double
 -- ENUM --  native getState :: TouchPoint -> IO TouchPoint_State
- native getTarget :: TouchPoint -> IO EventTarget
+ native getTarget :: TouchPoint -> IO (Maybe EventTarget)
  native getX :: TouchPoint -> IO Double
  native getY :: TouchPoint -> IO Double
  native getZ :: TouchPoint -> IO Double
@@ -9236,7 +9241,7 @@ data Event = mutable native javafx.event.Event where
  native copyFor :: Event -> Object -> EventTarget -> IO Event
  native fireEvent "javafx.event.Event.fireEvent" :: EventTarget -> Event -> IO ()
  native getEventType :: Event -> IO (EventType Event)
- native getTarget :: Event -> IO EventTarget
+ native getTarget :: Event -> IO (Maybe EventTarget)
  native isConsumed :: Event -> IO Bool
 -- derive Serializable Event
 --
