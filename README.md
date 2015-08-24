@@ -1,6 +1,12 @@
 # FregeFX
 Frege language binding and utilities to create JavaFX user interfaces
 
+## Prerequisites
+
+Java8_u40 or higher (which includes JavaFX 8, which we need here)
+
+## Usage
+
 Run the example via
     
     gradlew run
@@ -13,9 +19,9 @@ Known users:
 
 
 
-Copyright and License
----------
-Copyright (c) Dierk König, 2015. All rights reserved.
+# Copyright and License
+
+Copyright (c) Dierk KÃ¶nig, 2015. All rights reserved.
 The use and distribution terms for this software are covered by the
 [BSD 3-clause license](http://opensource.org/licenses/BSD-3-Clause)
 which can be found in the file LICENSE.txt at the root of this distribution.
