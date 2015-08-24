@@ -1626,7 +1626,7 @@ data ChoiceDialog t = mutable native javafx.scene.control.ChoiceDialog where
               | () -> IO (ChoiceDialog t)
  native getDefaultChoice :: ChoiceDialog t -> IO t
  native getItems :: ChoiceDialog t -> IO (ObservableList t)
- native getSelectedItem :: ChoiceDialog t -> IO t
+ native getSelectedItem :: ChoiceDialog t -> IO (Maybe t)
  native selectedItemProperty :: ChoiceDialog t -> IO (ReadOnlyObjectProperty t)
  native setSelectedItem :: ChoiceDialog t -> t -> IO ()
 --
@@ -2469,7 +2469,7 @@ data SelectionModel t = mutable native javafx.scene.control.SelectionModel where
  native clearSelection :: SelectionModel t -> Int -> IO ()
                          | SelectionModel t -> IO ()
  native getSelectedIndex :: SelectionModel t -> IO Int
- native getSelectedItem :: SelectionModel t -> IO t
+ native getSelectedItem :: SelectionModel t -> IO (Maybe t)
  native isEmpty :: SelectionModel t -> IO Bool
  native isSelected :: SelectionModel t -> Int -> IO Bool
  native select :: SelectionModel t -> Int -> IO ()
