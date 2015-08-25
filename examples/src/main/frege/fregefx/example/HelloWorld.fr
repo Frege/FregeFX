@@ -17,7 +17,4 @@ buildUI root stage = do
     button <- Button.new () :: IO Button
     root.getChildren >>= _.add button
     button.setText "Please click me!"
-    clickHandler <- OnEvent.new (\evt -> button.setText "Thanks!")
-    button.setOnAction clickHandler
-
-
+    action button (\evt -> button.setText "Thanks!")
