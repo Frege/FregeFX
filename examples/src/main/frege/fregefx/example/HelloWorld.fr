@@ -1,7 +1,9 @@
 {--
-	The simplest possible example of a JavaFX UI with Frege:
-	a button plus a simple onAction handler.
-	Needs more refinement to make the API nicer to work with.
+	A simple example of a JavaFX UI with Frege:
+	a group with a vbox of two buttons plus simple onAction handlers.
+	UI construction follows a _builder_ style approach,
+	i.e. the implementation details of how to add sub nodes to a parent is hidden
+	but the containment structure is visible in the code layout.
 -}
 module fregefx.example.HelloWorld where
 
@@ -11,10 +13,15 @@ import fregefx.JavaFxUtils
 main args = 
     FregeFX.launch $ withStage buildUI
 
-buildUI :: Group -> Stage -> IO ()
+buildUI :: Group -> Stage -> IO Group
 buildUI root stage = do
     stage.setTitle "FregeFX Hello World"
-    button <- Button.new () :: IO Button
-    root.getChildren >>= _.add button
-    button.setText "Please click me!"
-    action button (\evt -> button.setText "Thanks!")
+    root <: do
+        vbox <- VBox.new 5d :: IO VBox
+        vbox <: do
+            button <- Button.new "Please click me"
+            action button (\_ -> button.setText "Thanks!")
+        vbox <: do
+            button <- Button.new "Another one"
+            action button (\_ -> button.setText "Cool!")
+

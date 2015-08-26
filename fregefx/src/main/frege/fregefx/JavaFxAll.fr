@@ -4120,7 +4120,7 @@ data BorderPane = mutable native javafx.scene.layout.BorderPane where
  native getCenter :: BorderPane -> IO Node
  native getContentBias :: BorderPane -> IO Orientation
  native getLeft :: BorderPane -> IO Node
- native getMargin "javafx.scene.layout.BorderPane.getMargin" :: Node -> IO Insets
+ native getMargin "javafx.scene.layout.BorderPane.getMargin" :: Node -> IO (Maybe Insets)
  native getRight :: BorderPane -> IO Node
  native getTop :: BorderPane -> IO Node
  native leftProperty :: BorderPane -> IO (ObjectProperty Node)
@@ -4282,7 +4282,7 @@ data FlowPane = mutable native javafx.scene.layout.FlowPane where
  native getContentBias :: FlowPane -> IO Orientation
  native getCssMetaData :: FlowPane -> IOMutable (List (CssMetaData Styleable Object))
  native getHgap :: FlowPane -> IO Double
- native getMargin "javafx.scene.layout.FlowPane.getMargin" :: Node -> IO Insets
+ native getMargin "javafx.scene.layout.FlowPane.getMargin" :: Node -> IO (Maybe Insets)
  native getOrientation :: FlowPane -> IO Orientation
  native getPrefWrapLength :: FlowPane -> IO Double
  native getRowValignment :: FlowPane -> IO VPos
@@ -4321,7 +4321,7 @@ data GridPane = mutable native javafx.scene.layout.GridPane where
  native getHalignment "javafx.scene.layout.GridPane.getHalignment" :: Node -> IO HPos
  native getHgap :: GridPane -> IO Double
  native getHgrow "javafx.scene.layout.GridPane.getHgrow" :: Node -> IO Priority
- native getMargin "javafx.scene.layout.GridPane.getMargin" :: Node -> IO Insets
+ native getMargin "javafx.scene.layout.GridPane.getMargin" :: Node -> IO (Maybe Insets)
  native getRowConstraints :: GridPane -> IO (ObservableList RowConstraints)
  native getRowIndex "javafx.scene.layout.GridPane.getRowIndex" :: Node -> IO Int
  native getRowSpan "javafx.scene.layout.GridPane.getRowSpan" :: Node -> IO Int
@@ -4371,7 +4371,7 @@ data HBox = mutable native javafx.scene.layout.HBox where
  native getContentBias :: HBox -> IO Orientation
  native getCssMetaData :: HBox -> IOMutable (List (CssMetaData Styleable Object))
  native getHgrow "javafx.scene.layout.HBox.getHgrow" :: Node -> IO Priority
- native getMargin "javafx.scene.layout.HBox.getMargin" :: Node -> IO Insets
+ native getMargin "javafx.scene.layout.HBox.getMargin" :: Node -> IO (Maybe Insets)
  native getSpacing :: HBox -> IO Double
  native isFillHeight :: HBox -> IO Bool
  native requestLayout :: HBox -> IO ()
@@ -4511,7 +4511,7 @@ data StackPane = mutable native javafx.scene.layout.StackPane where
  native getClassCssMetaData "javafx.scene.layout.StackPane.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
  native getContentBias :: StackPane -> IO Orientation
  native getCssMetaData :: StackPane -> IOMutable (List (CssMetaData Styleable Object))
- native getMargin "javafx.scene.layout.StackPane.getMargin" :: Node -> IO Insets
+ native getMargin "javafx.scene.layout.StackPane.getMargin" :: Node -> IO (Maybe Insets)
  native requestLayout :: StackPane -> IO ()
  native setAlignment :: StackPane -> Pos -> IO ()
  native setStaticAlignment "javafx.scene.layout.StackPane.setAlignment" :: Node -> Pos -> IO ()
@@ -4534,7 +4534,7 @@ data TilePane = mutable native javafx.scene.layout.TilePane where
  native getContentBias :: TilePane -> IO Orientation
  native getCssMetaData :: TilePane -> IOMutable (List (CssMetaData Styleable Object))
  native getHgap :: TilePane -> IO Double
- native getMargin "javafx.scene.layout.TilePane.getMargin" :: Node -> IO Insets
+ native getMargin "javafx.scene.layout.TilePane.getMargin" :: Node -> IO (Maybe Insets)
  native getOrientation :: TilePane -> IO Orientation
  native getPrefColumns :: TilePane -> IO Int
  native getPrefRows :: TilePane -> IO Int
@@ -4579,7 +4579,7 @@ data VBox = mutable native javafx.scene.layout.VBox where
  native getClassCssMetaData "javafx.scene.layout.VBox.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
  native getContentBias :: VBox -> IO Orientation
  native getCssMetaData :: VBox -> IOMutable (List (CssMetaData Styleable Object))
- native getMargin "javafx.scene.layout.VBox.getMargin" :: Node -> IO Insets
+ native getMargin "javafx.scene.layout.VBox.getMargin" :: Node -> IO (Maybe Insets)
  native getSpacing :: VBox -> IO Double
  native getVgrow "javafx.scene.layout.VBox.getVgrow" :: Node -> IO Priority
  native isFillWidth :: VBox -> IO Bool
