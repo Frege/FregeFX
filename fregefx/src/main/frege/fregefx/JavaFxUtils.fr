@@ -16,7 +16,7 @@ withUI f = Platform.runLater =<< Runnable.new f
 
 --- Given a _populate_ logic on how to build a scenegraph below the root group
 --- and a _stage_, assemble the pieces and show the stage.
-withStage :: (Group -> Stage -> IO ()) -> Stage -> IO ()
+withStage :: (Group -> Stage -> IO Group) -> Stage -> IO ()
 withStage populate stage = do
     content <- Group.new ()
     scene   <- Scene.new content
@@ -42,8 +42,43 @@ data OnEvent t = mutable native org.frege.FregeEventHandler where
 
 --- Convenience function to set an action event handler as
 --- > action button $ \event -> button.setText "got it"
-action :: ButtonBase -> (ActionEvent -> IO () ) -> IO ()
-action button eventHandler = button.setOnAction =<< OnEvent.new eventHandler
+action :: ButtonBase -> (ActionEvent -> IO () ) -> IO ButtonBase
+action button eventHandler = do
+    handler <- OnEvent.new eventHandler
+    button.setOnAction handler
+    return button
+
+
+--- A Family type is a type that has _children_ and can attain more of them over time
+class Family family where
+    children :: family -> IO (ObservableList Node)
+
+instance Family Group where
+    children group = group.getChildren
+
+instance Family HBox where
+    children hbox = hbox.getChildren
+
+instance Family VBox where
+    children hbox = hbox.getChildren
+
+
+--- Convenience method to add a control/pane/node to a family
+add :: Family t => t -> IO Region -> IO t
+add family builder = do
+    child <- builder
+    family.children >>= _.add child
+    return family
+
+infixr 3 `<:`
+(<:) = add
+
+
+
+
+
+
+
 
 --- Looking up a node in a scene returns a Node value on the Java side but in order to do
 --- anything sensible with this on the Frege side, we need a specialized subtype like TextArea.
