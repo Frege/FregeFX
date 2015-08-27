@@ -71,7 +71,7 @@ instance Family VBox where
     children hbox = hbox.getChildren
 
 
---- Convenience method to add a control/pane/node to a family
+--- Convenience function to add a control/pane/node to a family
 add :: Family t => t -> IO Region -> IO t
 add family builder = do
     child <- builder
@@ -81,7 +81,11 @@ add family builder = do
 infixr 3 `<:`
 (<:) = add
 
-
+--- Convenience function that applies _add_ to all entries in the list.
+addAll :: Family family => family -> [IO Region] -> IO family
+addAll family builders = do
+    mapM (add family) builders
+    return family
 
 
 

@@ -24,4 +24,8 @@ buildUI root stage = do
         vbox <: do
             button <- Button.new "Another one"
             button `action_` (button.setText "Cool!")
+        -- experiment that dynamically adds 5 buttons
+        vbox `addAll` map (Button.new . ("Button "++) . show) [1..5]
+
+
 
