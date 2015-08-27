@@ -20,8 +20,8 @@ buildUI root stage = do
         vbox <- VBox.new 5d :: IO VBox
         vbox <: do
             button <- Button.new "Please click me"
-            button `action` (\_ -> button.setText "Thanks!")
+            button `action_` (button.setText "Thanks!")
         vbox <: do
             button <- Button.new "Another one"
-            button `action` (\_ -> button.setText "Cool!")
+            button `action_` (button.setText "Cool!")
 

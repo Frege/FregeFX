@@ -48,6 +48,14 @@ action button eventHandler = do
     button.setOnAction handler
     return button
 
+--- Convenience function to set an action event handler
+--- that does not depend on the action event as
+--- > action_ button (button.setText "got it")
+action_ :: ButtonBase -> IO () -> IO ButtonBase
+action_ button plainHandler = do
+    handler <- OnEvent.new (\_ -> plainHandler)
+    button.setOnAction handler
+    return button
 
 --- A Family type is a type that has _children_ and can attain more of them over time
 class Family family where
