@@ -18,6 +18,7 @@ buildUI root stage = do
     stage.setTitle "FregeFX Hello World"
     root <: do
         vbox <- VBox.new 5d :: IO VBox
+        vbox.setPadding =<< insets 10
         vbox <: do
             button <- Button.new "Please click me"
             button `action_` (button.setText "Thanks!")
@@ -26,6 +27,5 @@ buildUI root stage = do
             button `action_` (button.setText "Cool!")
         -- experiment that dynamically adds 5 buttons
         vbox `addAll` map (Button.new . ("Button "++) . show) [1..5]
-
 
 

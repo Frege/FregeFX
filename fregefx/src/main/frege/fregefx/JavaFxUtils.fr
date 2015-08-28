@@ -57,6 +57,10 @@ action_ button plainHandler = do
     button.setOnAction handler
     return button
 
+--- Convenience factory function for insets
+insets :: Double -> IO Insets
+insets n = Insets.new n n n n
+
 --- A Family type is a type that has _children_ and can attain more of them over time
 class Family family where
     children :: family -> IO (ObservableList Node)
