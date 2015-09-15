@@ -14,6 +14,11 @@ boolean runningOnJDK8() {
     System.getProperty('java.version')[0..2].toDouble() == 1.8
 }
 
+
+fregeDoc {
+    xss = "8m"
+}
+
 String locateJfxLibDir() {
     def javaFxHome = System.env['JAVAFX_HOME'] ?: ''
     def javaHome = System.env['JAVA_HOME'] ?: ''

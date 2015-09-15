@@ -16,7 +16,12 @@ Known users:
 * [The FregeFX repl](https://github.com/Dierk/frepl-gui)
 
 
+## Build & Install
 
+For local build and install of e.g testing snapshot versions 
+you better don't start the `examples` subproject and use
+ 
+    gradlew -x startScripts :fregefx:install
 
 
 # Copyright and License

@@ -1,44 +1,36 @@
-buildscript {        // make the frege plugin available in our build
+// for using the local installation of the plugin
+buildscript {
     repositories {
-		mavenLocal() // if you have the plugin installed locally, this is enough
-        mavenCentral()
-        maven {
-            url = "https://oss.sonatype.org/content/groups/public"
-        }
-        maven {
-            url = "https://jitpack.io"
-        }
+        mavenLocal()
+        mavenCentral() // for transitive dependencies
     }
     dependencies {
-        //classpath 'com.github.frege:frege-gradle-plugin:0.4.2-SNAPSHOT'
-	    classpath 'org.frege-lang:frege-gradle-plugin:0.4.2-SNAPSHOT', {
-            exclude module:'frege-native-gen'
-            exclude module:'frege-repl-core'
-        }
+        classpath "org.frege-lang:frege-gradle-plugin:0.4.2-SNAPSHOT"
     }
 }
 
+// for fetching the plugin from gradle plugin portal
+//plugins {
+//  id "org.frege-lang" version "0.4.3"
+//}
+
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'frege'
+    apply plugin: 'org.frege-lang'
+
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-
-    ext {
-        sonatypeUrl = "https://oss.sonatype.org/content/groups/public"
-    }
 
 
     repositories {
         mavenLocal()
         mavenCentral()
-        maven {
-            url = sonatypeUrl
-        }
     }
 
     dependencies {
-        compile "org.frege-lang:frege:3.22.524-gcc99d7e"
+        compile "org.frege-lang:frege:3.23.288-gaa3af0c"
+        frege   "org.frege-lang:frege:3.23.288-gaa3af0c"
     }
+
 }

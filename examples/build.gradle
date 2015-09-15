@@ -1,14 +1,13 @@
 
-
-project.tasks.compileFrege.dependsOn(project.tasks.compileJava) // make java compile first
-
-sourceSets {
-    main {
-        java {
-            compileClasspath += project.files("build/classes/main")
-        }
-    }
-}
+// use if java sources have to be compiled
+//project.tasks.compileFrege.dependsOn(project.tasks.compileJava) // make java compile first
+//sourceSets {
+//    main {
+//        java {
+//            compileClasspath += project.files("build/classes/main")
+//        }
+//    }
+//}
 
 dependencies {
     compile project(':fregefx')
@@ -20,8 +19,8 @@ if (! jdk8) {
     println "You should be using Java 8 but you run ${System.'java.version'} ."
 }
 
+frege {
+    mainModule = "fregefx.example.HelloWorld"
+}
 
-apply plugin: "application"
-
-mainClassName = 'fregefx.example.HelloWorld'
 
