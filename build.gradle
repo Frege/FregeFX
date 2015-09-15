@@ -15,9 +15,7 @@ buildscript {
 //}
 
 subprojects {
-    apply plugin: 'java'
     apply plugin: 'org.frege-lang'
-
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
