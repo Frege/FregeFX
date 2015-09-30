@@ -7959,188 +7959,188 @@ data Duration = mutable native javafx.util.Duration where
   native toString :: Duration -> IO String
   native valueOf "javafx.util.Duration.valueOf" :: String -> IO Duration
 -- derive Serializable Duration
-data Color = mutable native javafx.scene.paint.Color where
-  native transparent "javafx.scene.paint.Color.TRANSPARENT" :: IO Color
-  native aliceblue "javafx.scene.paint.Color.ALICEBLUE" :: IO Color
-  native antiquewhite "javafx.scene.paint.Color.ANTIQUEWHITE" :: IO Color
-  native aqua "javafx.scene.paint.Color.AQUA" :: IO Color
-  native aquamarine "javafx.scene.paint.Color.AQUAMARINE" :: IO Color
-  native azure "javafx.scene.paint.Color.AZURE" :: IO Color
-  native beige "javafx.scene.paint.Color.BEIGE" :: IO Color
-  native bisque "javafx.scene.paint.Color.BISQUE" :: IO Color
-  native black "javafx.scene.paint.Color.BLACK" :: IO Color
-  native blanchedalmond "javafx.scene.paint.Color.BLANCHEDALMOND" :: IO Color
-  native blue "javafx.scene.paint.Color.BLUE" :: IO Color
-  native blueviolet "javafx.scene.paint.Color.BLUEVIOLET" :: IO Color
-  native brown "javafx.scene.paint.Color.BROWN" :: IO Color
-  native burlywood "javafx.scene.paint.Color.BURLYWOOD" :: IO Color
-  native cadetblue "javafx.scene.paint.Color.CADETBLUE" :: IO Color
-  native chartreuse "javafx.scene.paint.Color.CHARTREUSE" :: IO Color
-  native chocolate "javafx.scene.paint.Color.CHOCOLATE" :: IO Color
-  native coral "javafx.scene.paint.Color.CORAL" :: IO Color
-  native cornflowerblue "javafx.scene.paint.Color.CORNFLOWERBLUE" :: IO Color
-  native cornsilk "javafx.scene.paint.Color.CORNSILK" :: IO Color
-  native crimson "javafx.scene.paint.Color.CRIMSON" :: IO Color
-  native cyan "javafx.scene.paint.Color.CYAN" :: IO Color
-  native darkblue "javafx.scene.paint.Color.DARKBLUE" :: IO Color
-  native darkcyan "javafx.scene.paint.Color.DARKCYAN" :: IO Color
-  native darkgoldenrod "javafx.scene.paint.Color.DARKGOLDENROD" :: IO Color
-  native darkgray "javafx.scene.paint.Color.DARKGRAY" :: IO Color
-  native darkgreen "javafx.scene.paint.Color.DARKGREEN" :: IO Color
-  native darkgrey "javafx.scene.paint.Color.DARKGREY" :: IO Color
-  native darkkhaki "javafx.scene.paint.Color.DARKKHAKI" :: IO Color
-  native darkmagenta "javafx.scene.paint.Color.DARKMAGENTA" :: IO Color
-  native darkolivegreen "javafx.scene.paint.Color.DARKOLIVEGREEN" :: IO Color
-  native darkorange "javafx.scene.paint.Color.DARKORANGE" :: IO Color
-  native darkorchid "javafx.scene.paint.Color.DARKORCHID" :: IO Color
-  native darkred "javafx.scene.paint.Color.DARKRED" :: IO Color
-  native darksalmon "javafx.scene.paint.Color.DARKSALMON" :: IO Color
-  native darkseagreen "javafx.scene.paint.Color.DARKSEAGREEN" :: IO Color
-  native darkslateblue "javafx.scene.paint.Color.DARKSLATEBLUE" :: IO Color
-  native darkslategray "javafx.scene.paint.Color.DARKSLATEGRAY" :: IO Color
-  native darkslategrey "javafx.scene.paint.Color.DARKSLATEGREY" :: IO Color
-  native darkturquoise "javafx.scene.paint.Color.DARKTURQUOISE" :: IO Color
-  native darkviolet "javafx.scene.paint.Color.DARKVIOLET" :: IO Color
-  native deeppink "javafx.scene.paint.Color.DEEPPINK" :: IO Color
-  native deepskyblue "javafx.scene.paint.Color.DEEPSKYBLUE" :: IO Color
-  native dimgray "javafx.scene.paint.Color.DIMGRAY" :: IO Color
-  native dimgrey "javafx.scene.paint.Color.DIMGREY" :: IO Color
-  native dodgerblue "javafx.scene.paint.Color.DODGERBLUE" :: IO Color
-  native firebrick "javafx.scene.paint.Color.FIREBRICK" :: IO Color
-  native floralwhite "javafx.scene.paint.Color.FLORALWHITE" :: IO Color
-  native forestgreen "javafx.scene.paint.Color.FORESTGREEN" :: IO Color
-  native fuchsia "javafx.scene.paint.Color.FUCHSIA" :: IO Color
-  native gainsboro "javafx.scene.paint.Color.GAINSBORO" :: IO Color
-  native ghostwhite "javafx.scene.paint.Color.GHOSTWHITE" :: IO Color
-  native gold "javafx.scene.paint.Color.GOLD" :: IO Color
-  native goldenrod "javafx.scene.paint.Color.GOLDENROD" :: IO Color
-  native gray "javafx.scene.paint.Color.GRAY" :: IO Color
-  native green "javafx.scene.paint.Color.GREEN" :: IO Color
-  native greenyellow "javafx.scene.paint.Color.GREENYELLOW" :: IO Color
-  native grey "javafx.scene.paint.Color.GREY" :: IO Color
-  native honeydew "javafx.scene.paint.Color.HONEYDEW" :: IO Color
-  native hotpink "javafx.scene.paint.Color.HOTPINK" :: IO Color
-  native indianred "javafx.scene.paint.Color.INDIANRED" :: IO Color
-  native indigo "javafx.scene.paint.Color.INDIGO" :: IO Color
-  native ivory "javafx.scene.paint.Color.IVORY" :: IO Color
-  native khaki "javafx.scene.paint.Color.KHAKI" :: IO Color
-  native lavender "javafx.scene.paint.Color.LAVENDER" :: IO Color
-  native lavenderblush "javafx.scene.paint.Color.LAVENDERBLUSH" :: IO Color
-  native lawngreen "javafx.scene.paint.Color.LAWNGREEN" :: IO Color
-  native lemonchiffon "javafx.scene.paint.Color.LEMONCHIFFON" :: IO Color
-  native lightblue "javafx.scene.paint.Color.LIGHTBLUE" :: IO Color
-  native lightcoral "javafx.scene.paint.Color.LIGHTCORAL" :: IO Color
-  native lightcyan "javafx.scene.paint.Color.LIGHTCYAN" :: IO Color
-  native lightgoldenrodyellow "javafx.scene.paint.Color.LIGHTGOLDENRODYELLOW" :: IO Color
-  native lightgray "javafx.scene.paint.Color.LIGHTGRAY" :: IO Color
-  native lightgreen "javafx.scene.paint.Color.LIGHTGREEN" :: IO Color
-  native lightgrey "javafx.scene.paint.Color.LIGHTGREY" :: IO Color
-  native lightpink "javafx.scene.paint.Color.LIGHTPINK" :: IO Color
-  native lightsalmon "javafx.scene.paint.Color.LIGHTSALMON" :: IO Color
-  native lightseagreen "javafx.scene.paint.Color.LIGHTSEAGREEN" :: IO Color
-  native lightskyblue "javafx.scene.paint.Color.LIGHTSKYBLUE" :: IO Color
-  native lightslategray "javafx.scene.paint.Color.LIGHTSLATEGRAY" :: IO Color
-  native lightslategrey "javafx.scene.paint.Color.LIGHTSLATEGREY" :: IO Color
-  native lightsteelblue "javafx.scene.paint.Color.LIGHTSTEELBLUE" :: IO Color
-  native lightyellow "javafx.scene.paint.Color.LIGHTYELLOW" :: IO Color
-  native lime "javafx.scene.paint.Color.LIME" :: IO Color
-  native limegreen "javafx.scene.paint.Color.LIMEGREEN" :: IO Color
-  native linen "javafx.scene.paint.Color.LINEN" :: IO Color
-  native magenta "javafx.scene.paint.Color.MAGENTA" :: IO Color
-  native maroon "javafx.scene.paint.Color.MAROON" :: IO Color
-  native mediumaquamarine "javafx.scene.paint.Color.MEDIUMAQUAMARINE" :: IO Color
-  native mediumblue "javafx.scene.paint.Color.MEDIUMBLUE" :: IO Color
-  native mediumorchid "javafx.scene.paint.Color.MEDIUMORCHID" :: IO Color
-  native mediumpurple "javafx.scene.paint.Color.MEDIUMPURPLE" :: IO Color
-  native mediumseagreen "javafx.scene.paint.Color.MEDIUMSEAGREEN" :: IO Color
-  native mediumslateblue "javafx.scene.paint.Color.MEDIUMSLATEBLUE" :: IO Color
-  native mediumspringgreen "javafx.scene.paint.Color.MEDIUMSPRINGGREEN" :: IO Color
-  native mediumturquoise "javafx.scene.paint.Color.MEDIUMTURQUOISE" :: IO Color
-  native mediumvioletred "javafx.scene.paint.Color.MEDIUMVIOLETRED" :: IO Color
-  native midnightblue "javafx.scene.paint.Color.MIDNIGHTBLUE" :: IO Color
-  native mintcream "javafx.scene.paint.Color.MINTCREAM" :: IO Color
-  native mistyrose "javafx.scene.paint.Color.MISTYROSE" :: IO Color
-  native moccasin "javafx.scene.paint.Color.MOCCASIN" :: IO Color
-  native navajowhite "javafx.scene.paint.Color.NAVAJOWHITE" :: IO Color
-  native navy "javafx.scene.paint.Color.NAVY" :: IO Color
-  native oldlace "javafx.scene.paint.Color.OLDLACE" :: IO Color
-  native olive "javafx.scene.paint.Color.OLIVE" :: IO Color
-  native olivedrab "javafx.scene.paint.Color.OLIVEDRAB" :: IO Color
-  native orange "javafx.scene.paint.Color.ORANGE" :: IO Color
-  native orangered "javafx.scene.paint.Color.ORANGERED" :: IO Color
-  native orchid "javafx.scene.paint.Color.ORCHID" :: IO Color
-  native palegoldenrod "javafx.scene.paint.Color.PALEGOLDENROD" :: IO Color
-  native palegreen "javafx.scene.paint.Color.PALEGREEN" :: IO Color
-  native paleturquoise "javafx.scene.paint.Color.PALETURQUOISE" :: IO Color
-  native palevioletred "javafx.scene.paint.Color.PALEVIOLETRED" :: IO Color
-  native papayawhip "javafx.scene.paint.Color.PAPAYAWHIP" :: IO Color
-  native peachpuff "javafx.scene.paint.Color.PEACHPUFF" :: IO Color
-  native peru "javafx.scene.paint.Color.PERU" :: IO Color
-  native pink "javafx.scene.paint.Color.PINK" :: IO Color
-  native plum "javafx.scene.paint.Color.PLUM" :: IO Color
-  native powderblue "javafx.scene.paint.Color.POWDERBLUE" :: IO Color
-  native purple "javafx.scene.paint.Color.PURPLE" :: IO Color
-  native red "javafx.scene.paint.Color.RED" :: IO Color
-  native rosybrown "javafx.scene.paint.Color.ROSYBROWN" :: IO Color
-  native royalblue "javafx.scene.paint.Color.ROYALBLUE" :: IO Color
-  native saddlebrown "javafx.scene.paint.Color.SADDLEBROWN" :: IO Color
-  native salmon "javafx.scene.paint.Color.SALMON" :: IO Color
-  native sandybrown "javafx.scene.paint.Color.SANDYBROWN" :: IO Color
-  native seagreen "javafx.scene.paint.Color.SEAGREEN" :: IO Color
-  native seashell "javafx.scene.paint.Color.SEASHELL" :: IO Color
-  native sienna "javafx.scene.paint.Color.SIENNA" :: IO Color
-  native silver "javafx.scene.paint.Color.SILVER" :: IO Color
-  native skyblue "javafx.scene.paint.Color.SKYBLUE" :: IO Color
-  native slateblue "javafx.scene.paint.Color.SLATEBLUE" :: IO Color
-  native slategray "javafx.scene.paint.Color.SLATEGRAY" :: IO Color
-  native slategrey "javafx.scene.paint.Color.SLATEGREY" :: IO Color
-  native snow "javafx.scene.paint.Color.SNOW" :: IO Color
-  native springgreen "javafx.scene.paint.Color.SPRINGGREEN" :: IO Color
-  native steelblue "javafx.scene.paint.Color.STEELBLUE" :: IO Color
-  native tan "javafx.scene.paint.Color.TAN" :: IO Color
-  native teal "javafx.scene.paint.Color.TEAL" :: IO Color
-  native thistle "javafx.scene.paint.Color.THISTLE" :: IO Color
-  native tomato "javafx.scene.paint.Color.TOMATO" :: IO Color
-  native turquoise "javafx.scene.paint.Color.TURQUOISE" :: IO Color
-  native violet "javafx.scene.paint.Color.VIOLET" :: IO Color
-  native wheat "javafx.scene.paint.Color.WHEAT" :: IO Color
-  native white "javafx.scene.paint.Color.WHITE" :: IO Color
-  native whitesmoke "javafx.scene.paint.Color.WHITESMOKE" :: IO Color
-  native yellow "javafx.scene.paint.Color.YELLOW" :: IO Color
-  native yellowgreen "javafx.scene.paint.Color.YELLOWGREEN" :: IO Color
-  native new :: Double -> Double -> Double -> Double -> IO Color
-  native brighter :: Color -> IO Color
-  native color "javafx.scene.paint.Color.color" :: Double -> Double -> Double -> IO Color
-                                                 | Double -> Double -> Double -> Double -> IO Color
-  native darker :: Color -> IO Color
-  native deriveColor :: Color -> Double -> Double -> Double -> Double -> IO Color
-  native desaturate :: Color -> IO Color
-  native equals :: Color -> Object -> IO Bool
-  native getBlue :: Color -> IO Double
-  native getBrightness :: Color -> IO Double
-  native getGreen :: Color -> IO Double
-  native getHue :: Color -> IO Double
-  native getOpacity :: Color -> IO Double
-  native getRed :: Color -> IO Double
-  native getSaturation :: Color -> IO Double
-  native deriveGray "javafx.scene.paint.Color.gray" :: Double -> Double -> IO Color
-                                                     | Double -> IO Color
-  native grayRgb "javafx.scene.paint.Color.grayRgb" :: Int -> IO Color
-                                                     | Int -> Double -> IO Color
-  native grayscale :: Color -> IO Color
-  native hashCode :: Color -> IO Int
-  native hsb "javafx.scene.paint.Color.hsb" :: Double -> Double -> Double -> IO Color
-                                             | Double -> Double -> Double -> Double -> IO Color
-  native interpolate :: Color -> Color -> Double -> IO Color
-  native invert :: Color -> IO Color
-  native isOpaque :: Color -> IO Bool
-  native rgb "javafx.scene.paint.Color.rgb" :: Int -> Int -> Int -> Double -> IO Color
-                                             | Int -> Int -> Int -> IO Color
-  native saturate :: Color -> IO Color
-  native toString :: Color -> IO String
-  native valueOf "javafx.scene.paint.Color.valueOf" :: String -> IO Color
-  native web "javafx.scene.paint.Color.web" :: String -> Double -> IO Color
-                                             | String -> IO Color
+data Color = pure native javafx.scene.paint.Color where
+  pure native transparent "javafx.scene.paint.Color.TRANSPARENT" :: Color
+  pure native aliceblue "javafx.scene.paint.Color.ALICEBLUE" :: Color
+  pure native antiquewhite "javafx.scene.paint.Color.ANTIQUEWHITE" :: Color
+  pure native aqua "javafx.scene.paint.Color.AQUA" :: Color
+  pure native aquamarine "javafx.scene.paint.Color.AQUAMARINE" :: Color
+  pure native azure "javafx.scene.paint.Color.AZURE" :: Color
+  pure native beige "javafx.scene.paint.Color.BEIGE" :: Color
+  pure native bisque "javafx.scene.paint.Color.BISQUE" :: Color
+  pure native black "javafx.scene.paint.Color.BLACK" :: Color
+  pure native blanchedalmond "javafx.scene.paint.Color.BLANCHEDALMOND" :: Color
+  pure native blue "javafx.scene.paint.Color.BLUE" :: Color
+  pure native blueviolet "javafx.scene.paint.Color.BLUEVIOLET" :: Color
+  pure native brown "javafx.scene.paint.Color.BROWN" :: Color
+  pure native burlywood "javafx.scene.paint.Color.BURLYWOOD" :: Color
+  pure native cadetblue "javafx.scene.paint.Color.CADETBLUE" :: Color
+  pure native chartreuse "javafx.scene.paint.Color.CHARTREUSE" :: Color
+  pure native chocolate "javafx.scene.paint.Color.CHOCOLATE" :: Color
+  pure native coral "javafx.scene.paint.Color.CORAL" :: Color
+  pure native cornflowerblue "javafx.scene.paint.Color.CORNFLOWERBLUE" :: Color
+  pure native cornsilk "javafx.scene.paint.Color.CORNSILK" :: Color
+  pure native crimson "javafx.scene.paint.Color.CRIMSON" :: Color
+  pure native cyan "javafx.scene.paint.Color.CYAN" :: Color
+  pure native darkblue "javafx.scene.paint.Color.DARKBLUE" :: Color
+  pure native darkcyan "javafx.scene.paint.Color.DARKCYAN" :: Color
+  pure native darkgoldenrod "javafx.scene.paint.Color.DARKGOLDENROD" :: Color
+  pure native darkgray "javafx.scene.paint.Color.DARKGRAY" :: Color
+  pure native darkgreen "javafx.scene.paint.Color.DARKGREEN" :: Color
+  pure native darkgrey "javafx.scene.paint.Color.DARKGREY" :: Color
+  pure native darkkhaki "javafx.scene.paint.Color.DARKKHAKI" :: Color
+  pure native darkmagenta "javafx.scene.paint.Color.DARKMAGENTA" :: Color
+  pure native darkolivegreen "javafx.scene.paint.Color.DARKOLIVEGREEN" :: Color
+  pure native darkorange "javafx.scene.paint.Color.DARKORANGE" :: Color
+  pure native darkorchid "javafx.scene.paint.Color.DARKORCHID" :: Color
+  pure native darkred "javafx.scene.paint.Color.DARKRED" :: Color
+  pure native darksalmon "javafx.scene.paint.Color.DARKSALMON" :: Color
+  pure native darkseagreen "javafx.scene.paint.Color.DARKSEAGREEN" :: Color
+  pure native darkslateblue "javafx.scene.paint.Color.DARKSLATEBLUE" :: Color
+  pure native darkslategray "javafx.scene.paint.Color.DARKSLATEGRAY" :: Color
+  pure native darkslategrey "javafx.scene.paint.Color.DARKSLATEGREY" :: Color
+  pure native darkturquoise "javafx.scene.paint.Color.DARKTURQUOISE" :: Color
+  pure native darkviolet "javafx.scene.paint.Color.DARKVIOLET" :: Color
+  pure native deeppink "javafx.scene.paint.Color.DEEPPINK" :: Color
+  pure native deepskyblue "javafx.scene.paint.Color.DEEPSKYBLUE" :: Color
+  pure native dimgray "javafx.scene.paint.Color.DIMGRAY" :: Color
+  pure native dimgrey "javafx.scene.paint.Color.DIMGREY" :: Color
+  pure native dodgerblue "javafx.scene.paint.Color.DODGERBLUE" :: Color
+  pure native firebrick "javafx.scene.paint.Color.FIREBRICK" :: Color
+  pure native floralwhite "javafx.scene.paint.Color.FLORALWHITE" :: Color
+  pure native forestgreen "javafx.scene.paint.Color.FORESTGREEN" :: Color
+  pure native fuchsia "javafx.scene.paint.Color.FUCHSIA" :: Color
+  pure native gainsboro "javafx.scene.paint.Color.GAINSBORO" :: Color
+  pure native ghostwhite "javafx.scene.paint.Color.GHOSTWHITE" :: Color
+  pure native gold "javafx.scene.paint.Color.GOLD" :: Color
+  pure native goldenrod "javafx.scene.paint.Color.GOLDENROD" :: Color
+  pure native gray "javafx.scene.paint.Color.GRAY" :: Color
+  pure native green "javafx.scene.paint.Color.GREEN" :: Color
+  pure native greenyellow "javafx.scene.paint.Color.GREENYELLOW" :: Color
+  pure native grey "javafx.scene.paint.Color.GREY" :: Color
+  pure native honeydew "javafx.scene.paint.Color.HONEYDEW" :: Color
+  pure native hotpink "javafx.scene.paint.Color.HOTPINK" :: Color
+  pure native indianred "javafx.scene.paint.Color.INDIANRED" :: Color
+  pure native indigo "javafx.scene.paint.Color.INDIGO" :: Color
+  pure native ivory "javafx.scene.paint.Color.IVORY" :: Color
+  pure native khaki "javafx.scene.paint.Color.KHAKI" :: Color
+  pure native lavender "javafx.scene.paint.Color.LAVENDER" :: Color
+  pure native lavenderblush "javafx.scene.paint.Color.LAVENDERBLUSH" :: Color
+  pure native lawngreen "javafx.scene.paint.Color.LAWNGREEN" :: Color
+  pure native lemonchiffon "javafx.scene.paint.Color.LEMONCHIFFON" :: Color
+  pure native lightblue "javafx.scene.paint.Color.LIGHTBLUE" :: Color
+  pure native lightcoral "javafx.scene.paint.Color.LIGHTCORAL" :: Color
+  pure native lightcyan "javafx.scene.paint.Color.LIGHTCYAN" :: Color
+  pure native lightgoldenrodyellow "javafx.scene.paint.Color.LIGHTGOLDENRODYELLOW" :: Color
+  pure native lightgray "javafx.scene.paint.Color.LIGHTGRAY" :: Color
+  pure native lightgreen "javafx.scene.paint.Color.LIGHTGREEN" :: Color
+  pure native lightgrey "javafx.scene.paint.Color.LIGHTGREY" :: Color
+  pure native lightpink "javafx.scene.paint.Color.LIGHTPINK" :: Color
+  pure native lightsalmon "javafx.scene.paint.Color.LIGHTSALMON" :: Color
+  pure native lightseagreen "javafx.scene.paint.Color.LIGHTSEAGREEN" :: Color
+  pure native lightskyblue "javafx.scene.paint.Color.LIGHTSKYBLUE" :: Color
+  pure native lightslategray "javafx.scene.paint.Color.LIGHTSLATEGRAY" :: Color
+  pure native lightslategrey "javafx.scene.paint.Color.LIGHTSLATEGREY" :: Color
+  pure native lightsteelblue "javafx.scene.paint.Color.LIGHTSTEELBLUE" :: Color
+  pure native lightyellow "javafx.scene.paint.Color.LIGHTYELLOW" :: Color
+  pure native lime "javafx.scene.paint.Color.LIME" :: Color
+  pure native limegreen "javafx.scene.paint.Color.LIMEGREEN" :: Color
+  pure native linen "javafx.scene.paint.Color.LINEN" :: Color
+  pure native magenta "javafx.scene.paint.Color.MAGENTA" :: Color
+  pure native maroon "javafx.scene.paint.Color.MAROON" :: Color
+  pure native mediumaquamarine "javafx.scene.paint.Color.MEDIUMAQUAMARINE" :: Color
+  pure native mediumblue "javafx.scene.paint.Color.MEDIUMBLUE" :: Color
+  pure native mediumorchid "javafx.scene.paint.Color.MEDIUMORCHID" :: Color
+  pure native mediumpurple "javafx.scene.paint.Color.MEDIUMPURPLE" :: Color
+  pure native mediumseagreen "javafx.scene.paint.Color.MEDIUMSEAGREEN" :: Color
+  pure native mediumslateblue "javafx.scene.paint.Color.MEDIUMSLATEBLUE" :: Color
+  pure native mediumspringgreen "javafx.scene.paint.Color.MEDIUMSPRINGGREEN" :: Color
+  pure native mediumturquoise "javafx.scene.paint.Color.MEDIUMTURQUOISE" :: Color
+  pure native mediumvioletred "javafx.scene.paint.Color.MEDIUMVIOLETRED" :: Color
+  pure native midnightblue "javafx.scene.paint.Color.MIDNIGHTBLUE" :: Color
+  pure native mintcream "javafx.scene.paint.Color.MINTCREAM" :: Color
+  pure native mistyrose "javafx.scene.paint.Color.MISTYROSE" :: Color
+  pure native moccasin "javafx.scene.paint.Color.MOCCASIN" :: Color
+  pure native navajowhite "javafx.scene.paint.Color.NAVAJOWHITE" :: Color
+  pure native navy "javafx.scene.paint.Color.NAVY" :: Color
+  pure native oldlace "javafx.scene.paint.Color.OLDLACE" :: Color
+  pure native olive "javafx.scene.paint.Color.OLIVE" :: Color
+  pure native olivedrab "javafx.scene.paint.Color.OLIVEDRAB" :: Color
+  pure native orange "javafx.scene.paint.Color.ORANGE" :: Color
+  pure native orangered "javafx.scene.paint.Color.ORANGERED" :: Color
+  pure native orchid "javafx.scene.paint.Color.ORCHID" :: Color
+  pure native palegoldenrod "javafx.scene.paint.Color.PALEGOLDENROD" :: Color
+  pure native palegreen "javafx.scene.paint.Color.PALEGREEN" :: Color
+  pure native paleturquoise "javafx.scene.paint.Color.PALETURQUOISE" :: Color
+  pure native palevioletred "javafx.scene.paint.Color.PALEVIOLETRED" :: Color
+  pure native papayawhip "javafx.scene.paint.Color.PAPAYAWHIP" :: Color
+  pure native peachpuff "javafx.scene.paint.Color.PEACHPUFF" :: Color
+  pure native peru "javafx.scene.paint.Color.PERU" :: Color
+  pure native pink "javafx.scene.paint.Color.PINK" :: Color
+  pure native plum "javafx.scene.paint.Color.PLUM" :: Color
+  pure native powderblue "javafx.scene.paint.Color.POWDERBLUE" :: Color
+  pure native purple "javafx.scene.paint.Color.PURPLE" :: Color
+  pure native red "javafx.scene.paint.Color.RED" :: Color
+  pure native rosybrown "javafx.scene.paint.Color.ROSYBROWN" :: Color
+  pure native royalblue "javafx.scene.paint.Color.ROYALBLUE" :: Color
+  pure native saddlebrown "javafx.scene.paint.Color.SADDLEBROWN" :: Color
+  pure native salmon "javafx.scene.paint.Color.SALMON" :: Color
+  pure native sandybrown "javafx.scene.paint.Color.SANDYBROWN" :: Color
+  pure native seagreen "javafx.scene.paint.Color.SEAGREEN" :: Color
+  pure native seashell "javafx.scene.paint.Color.SEASHELL" :: Color
+  pure native sienna "javafx.scene.paint.Color.SIENNA" :: Color
+  pure native silver "javafx.scene.paint.Color.SILVER" :: Color
+  pure native skyblue "javafx.scene.paint.Color.SKYBLUE" :: Color
+  pure native slateblue "javafx.scene.paint.Color.SLATEBLUE" :: Color
+  pure native slategray "javafx.scene.paint.Color.SLATEGRAY" :: Color
+  pure native slategrey "javafx.scene.paint.Color.SLATEGREY" :: Color
+  pure native snow "javafx.scene.paint.Color.SNOW" :: Color
+  pure native springgreen "javafx.scene.paint.Color.SPRINGGREEN" :: Color
+  pure native steelblue "javafx.scene.paint.Color.STEELBLUE" :: Color
+  pure native tan "javafx.scene.paint.Color.TAN" :: Color
+  pure native teal "javafx.scene.paint.Color.TEAL" :: Color
+  pure native thistle "javafx.scene.paint.Color.THISTLE" :: Color
+  pure native tomato "javafx.scene.paint.Color.TOMATO" :: Color
+  pure native turquoise "javafx.scene.paint.Color.TURQUOISE" :: Color
+  pure native violet "javafx.scene.paint.Color.VIOLET" :: Color
+  pure native wheat "javafx.scene.paint.Color.WHEAT" :: Color
+  pure native white "javafx.scene.paint.Color.WHITE" :: Color
+  pure native whitesmoke "javafx.scene.paint.Color.WHITESMOKE" :: Color
+  pure native yellow "javafx.scene.paint.Color.YELLOW" :: Color
+  pure native yellowgreen "javafx.scene.paint.Color.YELLOWGREEN" :: Color
+  pure native new :: Double -> Double -> Double -> Double -> Color
+  pure native brighter :: Color -> Color
+  pure native color "javafx.scene.paint.Color.color" :: Double -> Double -> Double -> Color
+                                                 | Double -> Double -> Double -> Double -> Color
+  pure native darker :: Color -> Color
+  pure native deriveColor :: Color -> Double -> Double -> Double -> Double -> Color
+  pure native desaturate :: Color -> Color
+  pure native equals :: Color -> Object -> Bool
+  pure native getBlue :: Color -> Double
+  pure native getBrightness :: Color -> Double
+  pure native getGreen :: Color -> Double
+  pure native getHue :: Color -> Double
+  pure native getOpacity :: Color -> Double
+  pure native getRed :: Color -> Double
+  pure native getSaturation :: Color -> Double
+  pure native deriveGray "javafx.scene.paint.Color.gray" :: Double -> Double -> Color
+                                                     | Double -> Color
+  pure native grayRgb "javafx.scene.paint.Color.grayRgb" :: Int -> Color
+                                                     | Int -> Double -> Color
+  pure native grayscale :: Color -> Color
+  pure native hashCode :: Color -> Int
+  pure native hsb "javafx.scene.paint.Color.hsb" :: Double -> Double -> Double -> Color
+                                             | Double -> Double -> Double -> Double -> Color
+  pure native interpolate :: Color -> Color -> Double -> Color
+  pure native invert :: Color -> Color
+  pure native isOpaque :: Color -> Bool
+  pure native rgb "javafx.scene.paint.Color.rgb" :: Int -> Int -> Int -> Double -> Color
+                                             | Int -> Int -> Int -> Color
+  pure native saturate :: Color -> Color
+  pure native toString :: Color -> String
+  pure native valueOf "javafx.scene.paint.Color.valueOf" :: String -> Color
+  pure native web "javafx.scene.paint.Color.web" :: String -> Double -> Color
+                                             | String -> Color
 -- ---
 data InvalidationListener = mutable native javafx.beans.InvalidationListener where
   native invalidated :: InvalidationListener -> Observable -> IO ()
