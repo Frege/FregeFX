@@ -18,11 +18,13 @@ Known users:
 
 ## Build & Install
 
-For local build and install of e.g testing snapshot versions 
-you better don't start the `examples` subproject and use
+For local build and install use
  
-    gradlew -x startScripts :fregefx:install
-
+    gradlew install
+    
+For running the contained `example` project use
+    
+    gradlew run
 
 # Copyright and License
 
