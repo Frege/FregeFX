@@ -24,5 +24,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Gradle: org.frege-lang:frege:3.23.288-gaa3af0c" level="project" />
   </component>
 </module>

@@ -16,7 +16,7 @@ boolean runningOnJDK8() {
 
 
 fregeDoc {
-    xss = "8m"
+//    xss = "8m"
 }
 
 String locateJfxLibDir() {

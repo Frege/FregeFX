@@ -19,8 +19,12 @@ if (! jdk8) {
     println "You should be using Java 8 but you run ${System.'java.version'} ."
 }
 
+apply plugin:"application"
+
+mainClassName = "fregefx.example.HelloWorld"
+
 frege {
-    mainModule = "fregefx.example.HelloWorld"
+//    mainModule = "fregefx.example.HelloWorld"
 }
 
 

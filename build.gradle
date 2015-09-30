@@ -1,18 +1,18 @@
 // for using the local installation of the plugin
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral() // for transitive dependencies
-    }
-    dependencies {
-        classpath "org.frege-lang:frege-gradle-plugin:0.4.2-SNAPSHOT"
-    }
-}
+//buildscript {
+//    repositories {
+//        mavenLocal()
+//        mavenCentral() // for transitive dependencies
+//    }
+//    dependencies {
+//        classpath "org.frege-lang:frege-gradle-plugin:0.5-SNAPSHOT"
+//    }
+//}
 
 // for fetching the plugin from gradle plugin portal
-//plugins {
-//  id "org.frege-lang" version "0.4.3"
-//}
+plugins {
+  id "org.frege-lang" version "0.5"
+}
 
 subprojects {
     apply plugin: 'org.frege-lang'
@@ -28,7 +28,7 @@ subprojects {
 
     dependencies {
         compile "org.frege-lang:frege:3.23.288-gaa3af0c"
-        frege   "org.frege-lang:frege:3.23.288-gaa3af0c"
+//        frege   "org.frege-lang:frege:3.23.288-gaa3af0c"
     }
 
 }
