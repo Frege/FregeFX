@@ -4259,8 +4259,8 @@ data CornerRadii = mutable native javafx.scene.layout.CornerRadii where
  native isUniform :: CornerRadii -> IO Bool
  native toString :: CornerRadii -> IO String
 --
--- todo is this needed?
-data CornerRadiiConverter = mutable native javafx.scene.layout.CornerRadiiConverter -- where
+-- disabled since it seems to have gone in Java 8 u 60
+-- data CornerRadiiConverter = mutable native javafx.scene.layout.CornerRadiiConverter -- where
 --   native convert :: CornerRadiiConverter -> ParsedValue (JArray (ParsedValue (JArray (JArray (ParsedValue Object Size))) CornerRadii)) (JArray CornerRadii) -> Font -> IO (JArray CornerRadii)
 --   native getInstance "javafx.scene.layout.CornerRadiiConverter.getInstance" :: () -> IO CornerRadiiConverter
 --
