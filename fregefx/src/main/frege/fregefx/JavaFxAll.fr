@@ -8977,26 +8977,26 @@ data KeyCombination = mutable native javafx.scene.input.KeyCombination where
  native toString :: KeyCombination -> IO String
  native valueOf "javafx.scene.input.KeyCombination.valueOf" :: String -> IO KeyCombination
 --
-data KeyEvent = mutable native javafx.scene.input.KeyEvent where
- native any "javafx.scene.input.KeyEvent.ANY" :: IO (EventType KeyEvent)
- native key_pressed "javafx.scene.input.KeyEvent.KEY_PRESSED" :: IO (EventType KeyEvent)
- native key_released "javafx.scene.input.KeyEvent.KEY_RELEASED" :: IO (EventType KeyEvent)
- native key_typed "javafx.scene.input.KeyEvent.KEY_TYPED" :: IO (EventType KeyEvent)
+data KeyEvent = pure native javafx.scene.input.KeyEvent where
+ pure native any "javafx.scene.input.KeyEvent.ANY" :: EventType KeyEvent
+ pure native key_pressed "javafx.scene.input.KeyEvent.KEY_PRESSED" :: EventType KeyEvent
+ pure native key_released "javafx.scene.input.KeyEvent.KEY_RELEASED" :: EventType KeyEvent
+ pure native key_typed "javafx.scene.input.KeyEvent.KEY_TYPED" :: EventType KeyEvent
  pure native char_undefined "javafx.scene.input.KeyEvent.CHAR_UNDEFINED" :: String
  native new :: Object -> EventTarget -> EventType KeyEvent -> String -> String -> KeyCode -> Bool -> Bool -> Bool -> Bool -> IO KeyEvent
-              | EventType KeyEvent -> String -> String -> KeyCode -> Bool -> Bool -> Bool -> Bool -> IO KeyEvent
+             | EventType KeyEvent -> String -> String -> KeyCode -> Bool -> Bool -> Bool -> Bool -> IO KeyEvent
  native copyFor :: KeyEvent -> Object -> EventTarget -> IO KeyEvent
-                  | KeyEvent -> Object -> EventTarget -> EventType KeyEvent -> IO KeyEvent
- native getCharacter :: KeyEvent -> IO String
- native getCode :: KeyEvent -> IO KeyCode
- native getEventType :: KeyEvent -> IO (EventType KeyEvent)
- native getText :: KeyEvent -> IO String
- native isAltDown :: KeyEvent -> IO Bool
- native isControlDown :: KeyEvent -> IO Bool
- native isMetaDown :: KeyEvent -> IO Bool
- native isShiftDown :: KeyEvent -> IO Bool
- native isShortcutDown :: KeyEvent -> IO Bool
- native toString :: KeyEvent -> IO String
+                 | KeyEvent -> Object -> EventTarget -> EventType KeyEvent -> IO KeyEvent
+ pure native getCharacter :: KeyEvent -> String
+ pure native getCode :: KeyEvent -> KeyCode
+ pure native getEventType :: KeyEvent -> EventType KeyEvent
+ pure native getText :: KeyEvent -> String
+ pure native isAltDown :: KeyEvent -> Bool
+ pure native isControlDown :: KeyEvent -> Bool
+ pure native isMetaDown :: KeyEvent -> Bool
+ pure native isShiftDown :: KeyEvent -> Bool
+ pure native isShortcutDown :: KeyEvent -> Bool
+ pure native toString :: KeyEvent -> String
 -- derive Serializable KeyEvent
 --
 data Mnemonic = mutable native javafx.scene.input.Mnemonic where
@@ -9255,15 +9255,15 @@ data EventHandler t = mutable native javafx.event.EventHandler --where
 data EventTarget = mutable native javafx.event.EventTarget where
  native buildEventDispatchChain :: EventTarget -> EventDispatchChain -> IO EventDispatchChain
 --
-data EventType t = mutable native javafx.event.EventType where
- native root "javafx.event.EventType.ROOT" :: IO (EventType Event)
- native new :: EventType t -> String -> IO (EventType t)
-              | EventType t -> IO (EventType t)
-              | String -> IO (EventType t)
-              | () -> IO (EventType t)
- native getName :: EventType t -> IO String
- native getSuperType :: EventType t -> IO (EventType t)
- native toString :: EventType t -> IO String
+data EventType t = pure native javafx.event.EventType where
+ pure native root "javafx.event.EventType.ROOT" :: EventType Event
+ pure native new :: EventType t -> String -> EventType t
+              | EventType t -> EventType t
+              | String -> EventType t
+              | () -> EventType t
+ pure native getName :: EventType t -> String
+ pure native getSuperType :: EventType t -> EventType t
+ pure native toString :: EventType t -> String
 -- derive Serializable (EventType t)
 --
 data WeakEventHandler t = mutable native javafx.event.WeakEventHandler where
