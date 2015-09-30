@@ -8111,7 +8111,7 @@ data Color = pure native javafx.scene.paint.Color where
   pure native new :: Double -> Double -> Double -> Double -> Color
   pure native brighter :: Color -> Color
   pure native color "javafx.scene.paint.Color.color" :: Double -> Double -> Double -> Color
-                                                 | Double -> Double -> Double -> Double -> Color
+                                                      | Double -> Double -> Double -> Double -> Color
   pure native darker :: Color -> Color
   pure native deriveColor :: Color -> Double -> Double -> Double -> Double -> Color
   pure native desaturate :: Color -> Color
@@ -8124,23 +8124,23 @@ data Color = pure native javafx.scene.paint.Color where
   pure native getRed :: Color -> Double
   pure native getSaturation :: Color -> Double
   pure native deriveGray "javafx.scene.paint.Color.gray" :: Double -> Double -> Color
-                                                     | Double -> Color
+                                                          | Double -> Color
   pure native grayRgb "javafx.scene.paint.Color.grayRgb" :: Int -> Color
-                                                     | Int -> Double -> Color
+                                                          | Int -> Double -> Color
   pure native grayscale :: Color -> Color
   pure native hashCode :: Color -> Int
   pure native hsb "javafx.scene.paint.Color.hsb" :: Double -> Double -> Double -> Color
-                                             | Double -> Double -> Double -> Double -> Color
+                                                  | Double -> Double -> Double -> Double -> Color
   pure native interpolate :: Color -> Color -> Double -> Color
   pure native invert :: Color -> Color
   pure native isOpaque :: Color -> Bool
   pure native rgb "javafx.scene.paint.Color.rgb" :: Int -> Int -> Int -> Double -> Color
-                                             | Int -> Int -> Int -> Color
+                                                  | Int -> Int -> Int -> Color
   pure native saturate :: Color -> Color
   pure native toString :: Color -> String
-  pure native valueOf "javafx.scene.paint.Color.valueOf" :: String -> Color
+  pure native valueOf "javafx.scene.paint.Color.valueOf" :: String -> IllegalArgumentException | Color
   pure native web "javafx.scene.paint.Color.web" :: String -> Double -> Color
-                                             | String -> Color
+                                                 | String -> Color
 -- ---
 data InvalidationListener = mutable native javafx.beans.InvalidationListener where
   native invalidated :: InvalidationListener -> Observable -> IO ()
