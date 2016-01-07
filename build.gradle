@@ -1,21 +1,33 @@
 // for using the local installation of the plugin
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral() // for transitive dependencies
-    }
-    dependencies {
-        classpath "org.frege-lang:frege-gradle-plugin:0.6-SNAPSHOT"
-    }
-}
+//buildscript {
+//    repositories {
+//        mavenLocal()
+//        mavenCentral() // for transitive dependencies
+//    }
+//    dependencies {
+//        classpath "org.frege-lang:frege-gradle-plugin:0.7-SNAPSHOT"
+//    }
+//}
 
 // for fetching the plugin from gradle plugin portal
+// this currently only works when put into each subproject separately
 //plugins {
-//  id "org.frege-lang" version "0.5"
+//  id "org.frege-lang" version "0.6"
+//}
+
+//buildscript {
+//  repositories {
+//    maven {
+//      url "https://plugins.gradle.org/m2/"
+//    }
+//  }
+//  dependencies {
+//    classpath "gradle.plugin.org.frege-lang:frege-gradle-plugin:0.6"
+//  }
 //}
 
 subprojects {
-    apply plugin: 'org.frege-lang'
+    apply plugin: 'java'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -26,10 +38,6 @@ subprojects {
         mavenCentral()
     }
 
-    dependencies {
-//        compile "org.frege-lang:frege:3.23.288-gaa3af0c"
-        compile 'org.frege-lang:frege:3.23.422-ga05a487'
 
-    }
 
 }

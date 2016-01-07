@@ -9,8 +9,18 @@
 //    }
 //}
 
+plugins {
+  id "org.frege-lang" version "0.6"
+}
+apply plugin: 'org.frege-lang'
+
+apply plugin: 'application'
+
+mainClassName = "fregefx.example.HelloWorld"
+
 dependencies {
     compile project(':fregefx')
+    compile fregeVersion
 }
 
 def jdk8 = System.getProperty('java.version')[0..2].toDouble() == 1.8
@@ -19,9 +29,6 @@ if (! jdk8) {
     println "You should be using Java 8 but you run ${System.'java.version'} ."
 }
 
-apply plugin:"application"
-
-mainClassName = "fregefx.example.HelloWorld"
 
 frege {
 //    mainModule = "fregefx.example.HelloWorld"

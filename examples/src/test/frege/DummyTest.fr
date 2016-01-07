@@ -1,0 +1,5 @@
+module DummyTest where
+
+import Test.QuickCheck
+
+dummy = once true

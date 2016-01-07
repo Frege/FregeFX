@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/examples/examples.iml" filepath="$PROJECT_DIR$/examples/examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/examples/examples.iml" filepath="$PROJECT_DIR$/examples/examples.iml" />
       <module fileurl="file://$PROJECT_DIR$/fregefx.iml" filepath="$PROJECT_DIR$/fregefx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fregefx.iml" filepath="$PROJECT_DIR$/fregefx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fregefx/fregefx-fregefx.iml" filepath="$PROJECT_DIR$/fregefx/fregefx-fregefx.iml" />
       <module fileurl="file://$PROJECT_DIR$/fregefx/fregefx-fregefx.iml" filepath="$PROJECT_DIR$/fregefx/fregefx-fregefx.iml" />
     </modules>
   </component>
