@@ -1,20 +1,15 @@
 // for using the local installation of the plugin
-//buildscript {
-//    repositories {
-//        mavenLocal()
-//        mavenCentral() // for transitive dependencies
-//    }
-//    dependencies {
-//        classpath "org.frege-lang:frege-gradle-plugin:0.7-SNAPSHOT"
-//    }
-//}
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral() // for transitive dependencies
+    }
+    dependencies {
+        classpath "org.frege-lang:frege-gradle-plugin:0.7-SNAPSHOT"
+    }
+}
 
-// for fetching the plugin from gradle plugin portal
-// this currently only works when put into each subproject separately
-//plugins {
-//  id "org.frege-lang" version "0.6"
-//}
-
+// use for fetching the plugin from plugin portal
 //buildscript {
 //  repositories {
 //    maven {
@@ -26,8 +21,12 @@
 //  }
 //}
 
-subprojects {
-    apply plugin: 'java'
+//plugins { // this doesn't work if the root isn't a frege project as well
+//  id "org.frege-lang" version "0.6"
+//}
+
+subprojects { subproject ->
+    subproject.apply plugin: 'org.frege-lang'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -38,6 +37,8 @@ subprojects {
         mavenCentral()
     }
 
-
+    dependencies {
+        compile fregeVersion
+    }
 
 }

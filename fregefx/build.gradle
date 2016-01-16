@@ -1,7 +1,3 @@
-plugins {
-  id "org.frege-lang" version "0.6"
-}
-apply plugin: 'org.frege-lang'
 
 apply plugin:'maven'
 
@@ -12,7 +8,6 @@ ext {
 }
 
 dependencies {
-    compile fregeVersion
     runtime files("$jfxLibDir/jfxrt.jar") // TODO: find out why this seems to be necessary even on JDK 8
 }
 

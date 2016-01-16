@@ -9,10 +9,6 @@
 //    }
 //}
 
-plugins {
-  id "org.frege-lang" version "0.6"
-}
-apply plugin: 'org.frege-lang'
 
 apply plugin: 'application'
 
@@ -20,7 +16,6 @@ mainClassName = "fregefx.example.HelloWorld"
 
 dependencies {
     compile project(':fregefx')
-    compile fregeVersion
 }
 
 def jdk8 = System.getProperty('java.version')[0..2].toDouble() == 1.8
@@ -30,8 +25,20 @@ if (! jdk8) {
 }
 
 
-frege {
-//    mainModule = "fregefx.example.HelloWorld"
+fregeQuickCheck {
+    help = true          // default: false
+//    listAvailable = true // default: false
+//    verbose = false      // default: true
+//    num = 500            // default: 100
+//    includePredicates = ['myFirstPred', 'mySecondPred']
+//    excludePredicates = ['myFirstPred', 'mySecondPred']
+    moduleName = 'DummyTest'         // prio 1
+    moduleJar  = 'path/to/my/module.jar'  // prio 2
+
+    moduleDir  = "$project.buildDir/classes/test" // prio 3, default
+//    classpathDirectories = ["$project.buildDir/classes/main", "$project.buildDir/classes/test"]
+    allJvmArgs = ['-Xss4M']
 }
+
 
 
