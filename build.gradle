@@ -1,25 +1,25 @@
 // for using the local installation of the plugin
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral() // for transitive dependencies
-    }
-    dependencies {
-        classpath "org.frege-lang:frege-gradle-plugin:0.7-SNAPSHOT"
-    }
-}
+//buildscript {
+//    repositories {
+//        mavenLocal()
+//        mavenCentral() // for transitive dependencies
+//    }
+//    dependencies {
+//        classpath "org.frege-lang:frege-gradle-plugin:0.8-SNAPSHOT"
+//    }
+//}
 
 // use for fetching the plugin from plugin portal
-//buildscript {
-//  repositories {
-//    maven {
-//      url "https://plugins.gradle.org/m2/"
-//    }
-//  }
-//  dependencies {
-//    classpath "gradle.plugin.org.frege-lang:frege-gradle-plugin:0.6"
-//  }
-//}
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.org.frege-lang:frege-gradle-plugin:0.7"
+  }
+}
 
 //plugins { // this doesn't work if the root isn't a frege project as well
 //  id "org.frege-lang" version "0.6"
