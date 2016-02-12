@@ -1,5 +1,27 @@
 
-apply plugin:'maven'
+//apply plugin:'maven'
+
+plugins {
+    id "com.jfrog.bintray" version "1.6"
+}
+bintray { // see https://github.com/bintray/gradle-bintray-plugin
+    user = bintrayUser // from <user.home>/gradle.properties
+    key = bintrayKey // from <user.home>/gradle.properties
+    pkg {
+        repo = 'fregefx'
+        name = 'FregeFX'
+        //userOrg = bintrayUser
+        licenses = ['BSD 3-Clause']
+        vcsUrl = 'https://github.com/Frege/FregeFX.git'
+        version {
+            name = version
+            desc = 'FregeFX - Frege language binding for JavaFX'
+            released  = new Date()
+            vcsTag = "$version"
+            attributes = [:]
+        }
+    }
+}
 
 project.tasks.compileFrege.dependsOn(project.tasks.compileJava)
 
