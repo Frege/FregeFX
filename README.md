@@ -11,11 +11,15 @@ Run the example via
     
     gradlew run
 
-Known users:
+Known uses:
 
 * [The FregeFX repl](https://github.com/Dierk/frepl-gui)
-
-
+* The [animated image viewer](https://github.com/Dierk/fregeTutorial/blob/master/src/main/frege/CoverFlow.fr) 
+  in the [Frege Tutorial](https://github.com/Dierk/fregeTutorial/),  
+  [video](https://www.youtube.com/watch?v=pxKJ_KPLml8)
+* Purely Functional Doodle [video](https://www.youtube.com/watch?v=9V7w-RSC_1A)
+* Ant Colony STM Demo [video](https://www.youtube.com/watch?v=mu6urVc2Z8Q)
+  
 ## Build & Install
 
 For local build and install use

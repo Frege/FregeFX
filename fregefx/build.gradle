@@ -17,7 +17,7 @@ bintray { // see https://github.com/bintray/gradle-bintray-plugin
             name = version
             desc = 'FregeFX - Frege language binding for JavaFX'
             released  = new Date()
-            vcsTag = "$version"
+            vcsTag = "0.2.0"
             attributes = [:]
         }
     }
