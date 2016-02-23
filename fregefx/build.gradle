@@ -1,27 +1,48 @@
 
-//apply plugin:'maven'
-
 plugins {
     id "com.jfrog.bintray" version "1.6"
 }
+
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+publishing {
+	publications {
+		FregeFxPublication(MavenPublication) {
+			from components.java
+			groupId group
+            artifactId 'fregefx'
+            version project.version
+		}
+	}
+}
+
 bintray { // see https://github.com/bintray/gradle-bintray-plugin
     user = bintrayUser // from <user.home>/gradle.properties
-    key = bintrayKey // from <user.home>/gradle.properties
+    key = bintrayKey   // from <user.home>/gradle.properties
+    publications = ['FregeFxPublication']
     pkg {
         repo = 'fregefx'
         name = 'FregeFX'
+        desc = 'FregeFX - JavaFX with Frege (Haskell for the JVM)'
         //userOrg = bintrayUser
         licenses = ['BSD 3-Clause']
         vcsUrl = 'https://github.com/Frege/FregeFX.git'
+        websiteUrl = 'https://github.com/Frege/FregeFX'
+        issueTrackerUrl = 'https://github.com/Frege/FregeFX/issues'
+        githubRepo = 'Frege/FregeFX'
+        githubReleaseNotesFile = 'README.md'
+        publicDownloadNumbers = true
         version {
-            name = version
+            name = project.version
             desc = 'FregeFX - Frege language binding for JavaFX'
-            released  = new Date()
+            //released  = new Date() // optional; does not work atm
             vcsTag = "0.2.0"
             attributes = [:]
         }
     }
 }
+
 
 project.tasks.compileFrege.dependsOn(project.tasks.compileJava)
 
