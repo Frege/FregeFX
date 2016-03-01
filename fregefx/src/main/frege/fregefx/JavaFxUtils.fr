@@ -94,41 +94,32 @@ addAll family builders = do
 
 
 
-
-
---- Looking up a node in a scene returns a Node value on the Java side but in order to do
---- anything sensible with this on the Frege side, we need a specialized subtype like TextArea.
---- The function lookupNode returns such a specialized by returning an instance of CastTarget.
---- Errors are thrown at runtime if the selector String cannot be found or yields the wrong type.
+{--
+    Unsafe, best-effort function for
+    looking up a node in a scene returns a Node value on the Java side but in order to do
+    anything sensible with this on the Frege side, we need a specialized subtype like @TextArea@.
+    The function lookupNode returns such a specialized type by returning an instance of @IO CastTarget@.
+    Errors are thrown at runtime if the selector String cannot be found or yields the wrong type.
+    *Use only if you are ok with runtime errors!*
+-}
 lookupNode :: CastTarget a => Scene -> String -> IO a
 lookupNode scene selector = do
     mayNode <- scene.lookup selector
     case mayNode of
-        Just node -> downcast node >>= either (\cce -> error $ "cannot cast selector '" ++ selector ++ "'") return
-        Nothing -> error $ "cannot find '" ++ selector ++ "'"
+        Just node -> downcast node >>= either
+            (\cce -> error $ "cannot cast selector '" ++ selector ++ "'. Reason: " ++ show cce.getMessage)
+            return
+        Nothing   -> error $ "cannot find '" ++ selector ++ "'"
 
--- native Java implementation of the downcast since we cannot do that in Frege.
-native module where {
-    public static class Caster {
-        public static <T> T cast(T t) {
-            return t;
-        }
-    }
-}
 
 data ClassCastException = native java.lang.ClassCastException
-
--- specific downcasts
-native toTextArea "Caster.cast" :: Node -> IO (ClassCastException | TextArea    )
-native toListView "Caster.cast" :: Node -> IO (ClassCastException | ListView t  )
-
 
 -- generalized downcast
 class CastTarget a where
     downcast :: Node -> IO (ClassCastException | a)
 
 instance CastTarget TextArea where
-    downcast = toTextArea
+    native downcast "(javafx.scene.control.TextArea)" :: Node -> IO (ClassCastException | TextArea    )
 
 instance CastTarget (ListView t) where
-    downcast = toListView
+    native downcast "(javafx.scene.control.ListView)" :: Node -> IO (ClassCastException | ListView t  )
