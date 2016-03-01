@@ -37,8 +37,15 @@ bintray { // see https://github.com/bintray/gradle-bintray-plugin
             name = project.version
             desc = 'FregeFX - Frege language binding for JavaFX'
             //released  = new Date() // optional; does not work atm
-            vcsTag = "0.2.0"
+            vcsTag = project.version
             attributes = [:]
+            //Optional configuration for Maven Central sync of the version
+            mavenCentralSync {
+                sync = true //Optional (true by default). Determines whether to sync the version to Maven Central.
+                user = sonatypeUsername //OSS user token
+                password = sonatypePassword //OSS user password
+                close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+            }
         }
     }
 }
