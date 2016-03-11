@@ -2,21 +2,23 @@ module fregefx.JavaFxUtils where
 
 import frege.Prelude hiding(ListView)
 
+
+import fregefx.JavaFxType
 import fregefx.JavaFxAll
 
 --- The starter for every FregeFX Application
 data FregeFX = mutable native org.frege.FregeFX where
-    native launch  org.frege.FregeFX.launch :: ( Stage -> IO () ) -> IO ()
-    native fxml    org.frege.FregeFX.fxml   :: String -> String -> IO Parent
+    native launch  org.frege.FregeFX.launch :: ( Stage -> JFX () ) -> IO ()
+    native fxml    org.frege.FregeFX.fxml   :: String -> String -> JFX Parent
 
 --- Run any function _f_ in the JavaFX Application Thread to ensure proper painting.
 --- Any code that touches a JavaFX UI component must run in this thread.
-withUI :: IO () -> IO ()
+withUI :: JFX () -> JFX ()
 withUI f = Platform.runLater =<< Runnable.new f
 
 --- Given a _populate_ logic on how to build a scenegraph below the root group
 --- and a _stage_, assemble the pieces and show the stage.
-withStage :: (Group -> Stage -> IO Group) -> Stage -> IO ()
+withStage :: (Group -> Stage -> JFX Group) -> Stage -> JFX ()
 withStage populate stage = do
     content <- Group.new ()
     scene   <- Scene.new content
@@ -28,21 +30,21 @@ withStage populate stage = do
 --- The mutable java.util.List type is usually not visible in Frege but when
 --- using JavaFX, having these methods accessible is convenient.
 data List e = mutable native java.util.List where
-  native add  :: List e -> e -> IO Bool
-  native size :: List e -> IO Int
-  native remove :: List e -> e -> IO Bool
+  native add  :: List e -> e -> JFX Bool
+  native size :: List e -> JFX Int
+  native remove :: List e -> e -> JFX Bool
 
 --- Generic implementation of the ChangeListener Interface in Java to use from Frege
 data OnChange t = mutable native org.frege.FregeChangeListener where
-    native new :: (t -> t -> IO()) -> IO (OnChange t)
+    native new :: (t -> t -> IO()) -> JFX (OnChange t)
 
 --- Generic implementation of the EventHandler Interface in Java to use from Frege
 data OnEvent t = mutable native org.frege.FregeEventHandler where
-    native new  :: (t -> IO () ) -> IO (OnEvent t)
+    native new  :: (t -> IO () ) -> JFX (OnEvent t)
 
 --- Convenience function to set an action event handler as
 --- > action button $ \event -> button.setText "got it"
-action :: ButtonBase -> (ActionEvent -> IO () ) -> IO ButtonBase
+action :: ButtonBase -> (ActionEvent -> IO () ) -> JFX ButtonBase
 action button eventHandler = do
     handler <- OnEvent.new eventHandler
     button.setOnAction handler
@@ -51,19 +53,19 @@ action button eventHandler = do
 --- Convenience function to set an action event handler
 --- that does not depend on the action event as
 --- > action_ button (button.setText "got it")
-action_ :: ButtonBase -> IO () -> IO ButtonBase
+action_ :: ButtonBase -> IO () -> JFX ButtonBase
 action_ button plainHandler = do
     handler <- OnEvent.new (\_ -> plainHandler)
     button.setOnAction handler
     return button
 
 --- Convenience factory function for insets
-insets :: Double -> IO Insets
+insets :: Double -> JFX Insets
 insets n = Insets.new n n n n
 
 --- A Family type is a type that has _children_ and can attain more of them over time
 class Family family where
-    children :: family -> IO (ObservableList Node)
+    children :: family -> JFX (ObservableList Node)
 
 instance Family Group where
     children group = group.getChildren
@@ -76,7 +78,7 @@ instance Family VBox where
 
 
 --- Convenience function to add a control/pane/node to a family
-add :: Family t => t -> IO Region -> IO t
+add :: Family t => t -> JFX Region -> JFX t
 add family builder = do
     child <- builder
     family.children >>= _.add child
@@ -86,7 +88,7 @@ infixr 3 `<:`
 (<:) = add
 
 --- Convenience function that applies _add_ to all entries in the list.
-addAll :: Family family => family -> [IO Region] -> IO family
+addAll :: Family family => family -> [JFX Region] -> JFX family
 addAll family builders = do
     mapM (add family) builders
     return family
@@ -102,7 +104,7 @@ addAll family builders = do
     Errors are thrown at runtime if the selector String cannot be found or yields the wrong type.
     *Use only if you are ok with runtime errors!*
 -}
-lookupNode :: CastTarget a => Scene -> String -> IO a
+lookupNode :: CastTarget a => Scene -> String -> JFX a
 lookupNode scene selector = do
     mayNode <- scene.lookup selector
     case mayNode of
@@ -116,10 +118,10 @@ data ClassCastException = native java.lang.ClassCastException
 
 -- generalized downcast
 class CastTarget a where
-    downcast :: Node -> IO (ClassCastException | a)
+    downcast :: Node -> JFX (ClassCastException | a)
 
 instance CastTarget TextArea where
-    native downcast "(javafx.scene.control.TextArea)" :: Node -> IO (ClassCastException | TextArea    )
+    native downcast "(javafx.scene.control.TextArea)" :: Node -> JFX (ClassCastException | TextArea    )
 
 instance CastTarget (ListView t) where
-    native downcast "(javafx.scene.control.ListView)" :: Node -> IO (ClassCastException | ListView t  )
+    native downcast "(javafx.scene.control.ListView)" :: Node -> JFX (ClassCastException | ListView t  )
