@@ -12,6 +12,7 @@ import fregefx.JavaFxType
 import fregefx.JavaFxAll
 import fregefx.JavaFxUtils
 
+import Control.Concurrent
 
 main args = 
     FregeFX.launch $ withStage buildUI
@@ -28,6 +29,21 @@ buildUI root stage = do
         vbox <: do
             button <- Button.new "Print to console."
             button `actionIO_` (println "I am IO!")     -- JFX change forbidden by type
+        vbox <: do
+            button <- Button.new "Async action can only be IO"
+            button `actionIO_` do
+                async do
+                    println "printed outside UI thread"
+                return ()
+        vbox <: do
+            button <- Button.new "Async plus wait for completion"
+            button `actionIO_` do
+                mResult <- MVar.newEmpty            -- for thread coordination
+                async do
+                    println "printed outside UI thread"
+                    mResult.put "done"
+                mResult.take
+                println "waited for completion, proceed in UI thread"
         -- experiment that dynamically adds 5 buttons
         vbox `addAll` map (Button.new . ("Button "++) . show) [1..5]
 

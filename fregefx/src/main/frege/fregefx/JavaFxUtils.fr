@@ -5,6 +5,7 @@ import frege.Prelude hiding(ListView)
 
 import fregefx.JavaFxType
 import fregefx.JavaFxAll
+import Control.Concurrent
 
 --- The starter for every FregeFX Application
 data FregeFX = mutable native org.frege.FregeFX where
@@ -38,7 +39,7 @@ data List e = mutable native java.util.List where
 
 --- Generic implementation of the ChangeListener Interface in Java to use from Frege
 data OnChange t = mutable native org.frege.FregeChangeListener where
-    native new :: (t -> t -> JFX()) -> JFX (OnChange t)
+    native new :: (t -> t -> JFX () ) -> JFX (OnChange t)
 
 --- Generic implementation of the EventHandler Interface in Java to use from Frege
 data OnEvent t = mutable native org.frege.FregeEventHandler where
@@ -46,7 +47,7 @@ data OnEvent t = mutable native org.frege.FregeEventHandler where
 
 --- Generic implementation of the ChangeListener Interface in Java to use from Frege
 data OnChangeIO t = mutable native org.frege.FregeChangeListener where
-    native new :: (t -> t -> IO()) -> JFX (OnChangeIO t)
+    native new :: (t -> t -> IO () ) -> JFX (OnChangeIO t)
 
 --- Generic implementation of the EventHandler Interface in Java to use from Frege
 data OnEventIO t = mutable native org.frege.FregeEventHandler where
@@ -70,16 +71,10 @@ actionIO button eventHandler = do
 --- that does not depend on the action event as
 --- > action_ button (button.setText "got it")
 action_ :: ButtonBase -> JFX () -> JFX ButtonBase
-action_ button plainHandler = do
-    handler <- OnEvent.new (\_ -> plainHandler)
-    button.setOnAction handler
-    return button
+action_ button plainHandler = action button (const plainHandler)
 
 actionIO_ :: ButtonBase -> IO () -> JFX ButtonBase
-actionIO_ button plainHandler = do
-    handler <- OnEventIO.new (\_ -> plainHandler)
-    button.setOnAction handler
-    return button
+actionIO_ button plainHandler = actionIO button (const plainHandler)
 
 --- Convenience factory function for insets
 insets :: Double -> JFX Insets
