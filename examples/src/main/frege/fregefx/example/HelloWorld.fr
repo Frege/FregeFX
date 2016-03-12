@@ -8,26 +8,26 @@
 module fregefx.example.HelloWorld where
 
 import frege.Prelude hiding(ListView)
-import fregefx.JavaFxType
+import fregefx.JavaFxType 
 import fregefx.JavaFxAll
 import fregefx.JavaFxUtils
+
 
 main args = 
     FregeFX.launch $ withStage buildUI
 
-buildUI :: Group -> Stage -> JFX Group
+buildUI :: Family a => a -> Stage -> JFX a
 buildUI root stage = do
     stage.setTitle "FregeFX Hello World"
     root <: do
         vbox <- VBox.new 5d :: JFX VBox
         vbox.setPadding =<< insets 10
         vbox <: do
-            button <- Button.new "Please click me"
-            button `action_` (button.setText "Thanks!")
+            button <- Button.new "Please click me for JFX action"
+            button `action_` (button.setText "Thanks!") -- IO forbidden by type
         vbox <: do
-            button <- Button.new "do side effect"
-            -- println "side effect was here" -- not allowed here so it does not compile!
-            button `action_` (println "I am IO!") -- side effect my occur where allowed
+            button <- Button.new "Print to console."
+            button `actionIO_` (println "I am IO!")     -- JFX change forbidden by type
         -- experiment that dynamically adds 5 buttons
         vbox `addAll` map (Button.new . ("Button "++) . show) [1..5]
 

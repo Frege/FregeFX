@@ -1,7 +1,7 @@
 module fregefx.JavaFxType where
 
 --- Analogon to Realworld
-data JFXWorld = pure native frege.runtime.Phantom.JavaFX
+data JFXWorld = pure native org.frege.JavaFxWorld
 
 --- Analogon to IO
 type JFX = ST JFXWorld
@@ -11,3 +11,4 @@ type MutableJFX = Mutable JFXWorld
 
 --- Analogon to IOMutable
 type JFXMutable d = JFX (MutableJFX d)
+

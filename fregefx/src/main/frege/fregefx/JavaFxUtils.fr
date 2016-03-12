@@ -34,28 +34,50 @@ data List e = mutable native java.util.List where
   native size :: List e -> JFX Int
   native remove :: List e -> e -> JFX Bool
 
+-- todo dk: remove duplication below
+
 --- Generic implementation of the ChangeListener Interface in Java to use from Frege
 data OnChange t = mutable native org.frege.FregeChangeListener where
-    native new :: (t -> t -> IO()) -> JFX (OnChange t)
+    native new :: (t -> t -> JFX()) -> JFX (OnChange t)
 
 --- Generic implementation of the EventHandler Interface in Java to use from Frege
 data OnEvent t = mutable native org.frege.FregeEventHandler where
-    native new  :: (t -> IO () ) -> JFX (OnEvent t)
+    native new  :: (t -> JFX () ) -> JFX (OnEvent t)
+
+--- Generic implementation of the ChangeListener Interface in Java to use from Frege
+data OnChangeIO t = mutable native org.frege.FregeChangeListener where
+    native new :: (t -> t -> IO()) -> JFX (OnChangeIO t)
+
+--- Generic implementation of the EventHandler Interface in Java to use from Frege
+data OnEventIO t = mutable native org.frege.FregeEventHandler where
+    native new  :: (t -> IO () ) -> JFX (OnEventIO t)
 
 --- Convenience function to set an action event handler as
 --- > action button $ \event -> button.setText "got it"
-action :: ButtonBase -> (ActionEvent -> IO () ) -> JFX ButtonBase
+action :: ButtonBase -> (ActionEvent -> JFX () ) -> JFX ButtonBase
 action button eventHandler = do
     handler <- OnEvent.new eventHandler
+    button.setOnAction handler
+    return button
+
+actionIO :: ButtonBase -> (ActionEvent -> IO () ) -> JFX ButtonBase
+actionIO button eventHandler = do
+    handler <- OnEventIO.new eventHandler
     button.setOnAction handler
     return button
 
 --- Convenience function to set an action event handler
 --- that does not depend on the action event as
 --- > action_ button (button.setText "got it")
-action_ :: ButtonBase -> IO () -> JFX ButtonBase
+action_ :: ButtonBase -> JFX () -> JFX ButtonBase
 action_ button plainHandler = do
     handler <- OnEvent.new (\_ -> plainHandler)
+    button.setOnAction handler
+    return button
+
+actionIO_ :: ButtonBase -> IO () -> JFX ButtonBase
+actionIO_ button plainHandler = do
+    handler <- OnEventIO.new (\_ -> plainHandler)
     button.setOnAction handler
     return button
 
