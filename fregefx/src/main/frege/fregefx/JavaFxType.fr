@@ -6,6 +6,11 @@ data JFXWorld = pure native org.frege.JavaFxWorld
 --- Analogon to IO
 type JFX = ST JFXWorld
 
+-- in STM is it like so
+--data JFX a = JFX (ST JFXWorld a)
+--atomically :: JFX α -> IO α
+--atomically (State s a) = return a
+
 --- Analogon to MutableIO
 type MutableJFX = Mutable JFXWorld
 

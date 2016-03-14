@@ -14,8 +14,8 @@ import fregefx.JavaFxUtils
 
 import Control.Concurrent
 
-main args = 
-    FregeFX.launch $ withStage buildUI
+main args = do
+    FregeFX.launch $ withStage buildUI -- runs in UI Thread
 
 buildUI :: Family a => a -> Stage -> JFX a
 buildUI root stage = do
@@ -28,7 +28,10 @@ buildUI root stage = do
             button `action_` (button.setText "Thanks!") -- IO forbidden by type
         vbox <: do
             button <- Button.new "Print to console."
-            button `actionIO_` (println "I am IO!")     -- JFX change forbidden by type
+            button `actionIO_` (println "****")      -- JFX change forbidden by type
+        vbox <: do
+            button <- Button.new "Bridge from IO to JFX inside UI thread"
+            bridgeAction button (\_ -> println "bridge" >> return "bridge") (\t -> button.setText t)
         vbox <: do
             button <- Button.new "Async action can only be IO"
             button `actionIO_` do

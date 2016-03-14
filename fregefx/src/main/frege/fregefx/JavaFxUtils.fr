@@ -53,6 +53,18 @@ data OnChangeIO t = mutable native org.frege.FregeChangeListener where
 data OnEventIO t = mutable native org.frege.FregeEventHandler where
     native new  :: (t -> IO () ) -> JFX (OnEventIO t)
 
+data Bridge t = mutable native org.frege.FregeIoJfxBridge where
+    native new :: (()->IO t) -> (t -> JFX ()) -> JFX (Bridge t)
+    native bridge :: Bridge t -> JFX ()
+
+bridgeAction :: ButtonBase -> (()->IO t) -> (t -> JFX ()) -> JFX ButtonBase
+bridgeAction button ioAction jfxAction = do
+    newBridge <- Bridge.new ioAction jfxAction
+    handler <- OnEvent.new (\_ -> newBridge.bridge )
+    button.setOnAction handler
+    return button
+
+
 --- Convenience function to set an action event handler as
 --- > action button $ \event -> button.setText "got it"
 action :: ButtonBase -> (ActionEvent -> JFX () ) -> JFX ButtonBase

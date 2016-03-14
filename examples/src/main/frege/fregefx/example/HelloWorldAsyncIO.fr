@@ -1,0 +1,45 @@
+{--
+	Like HelloWorld but running all IO actions outside the UI Application thread
+	asynchronously but in strict order.
+-}
+module fregefx.example.HelloWorldAsyncIO where
+
+import frege.Prelude hiding(ListView)
+import fregefx.JavaFxType 
+import fregefx.JavaFxAll
+import fregefx.JavaFxUtils
+
+import Control.Concurrent
+
+type IOQueue = MVar (IO ())
+
+main args = do
+    ioQ <- MVar.newEmpty
+    FregeFX.launch $ withStage (buildUI ioQ) -- runs in UI Thread
+    loop ioQ                                 -- runs in main Thread
+
+loop :: IOQueue -> IO()
+loop ioQ = do
+    ioAction <- ioQ.take
+    result <- ioAction
+    loop ioQ
+
+runIn :: IOQueue -> IO() -> IO ()
+runIn ioQ ioAction =
+    ioQ.put ioAction >> return ()
+
+
+buildUI :: Family a => IOQueue -> a -> Stage -> JFX a
+buildUI ioQ root stage = do
+    stage.setTitle "FregeFX Hello World"
+    root <: do
+        vbox <- VBox.new 5d :: JFX VBox
+        vbox.setPadding =<< insets 10
+        vbox <: do
+            button <- Button.new "Please click me for JFX action"
+            button `action_` (button.setText "Thanks!") -- IO forbidden by type
+        vbox <: do
+            button <- Button.new "Print async to console."
+            button `actionIO_` (runIn ioQ (println "Printing asynchronously outside") )     -- JFX change forbidden by type
+
+
