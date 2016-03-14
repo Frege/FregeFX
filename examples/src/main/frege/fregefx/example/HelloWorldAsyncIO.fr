@@ -1,6 +1,6 @@
 {--
 	Like HelloWorld but running all IO actions outside the UI Application thread
-	asynchronously but in strict order.
+	asynchronously but in strict order. Pretty much an actor.
 -}
 module fregefx.example.HelloWorldAsyncIO where
 
