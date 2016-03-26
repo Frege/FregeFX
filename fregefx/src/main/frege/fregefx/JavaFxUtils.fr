@@ -73,9 +73,12 @@ action button eventHandler = do
     button.setOnAction handler
     return button
 
+
+import Control.Concurrent (async)
+--- forces io action to run outside UI thread
 actionIO :: ButtonBase -> (ActionEvent -> IO () ) -> JFX ButtonBase
 actionIO button eventHandler = do
-    handler <- OnEventIO.new eventHandler
+    handler <- OnEventIO.new (\e -> async (eventHandler e) >> return () )
     button.setOnAction handler
     return button
 

@@ -27,15 +27,19 @@ buildUI root stage = do
             button <- Button.new "Please click me for JFX action"
             button `action_` (button.setText "Thanks!") -- IO forbidden by type
         vbox <: do
-            button <- Button.new "Print to console."
-            button `actionIO_` (println "****")      -- JFX change forbidden by type
+            button <- Button.new "Print current thread to console"
+            button `actionIO_`  do       -- JFX change forbidden by type
+                thread <- Thread.current()
+                name   <- thread.getName
+                println $ "thread is " ++ name
+
         vbox <: do
             button <- Button.new "Bridge from IO to JFX inside UI thread"
-            bridgeAction button (\_ -> println "bridge" >> return "bridge") (\t -> button.setText t)
+            bridgeAction button (\_ -> println "bridge" >> return "hello from IO") (\t -> button.setText t)
         vbox <: do
             button <- Button.new "Async action can only be IO"
             button `actionIO_` do
-                async do
+                async do -- this is async inside async, but who cares
                     println "printed outside UI thread"
                 return ()
         vbox <: do
