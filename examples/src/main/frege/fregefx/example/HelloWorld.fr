@@ -32,10 +32,9 @@ buildUI root stage = do
                 thread <- Thread.current()
                 name   <- thread.getName
                 println $ "thread is " ++ name
-
         vbox <: do
-            button <- Button.new "Bridge from IO to JFX inside UI thread"
-            bridgeAction button (\_ -> println "bridge" >> return "hello from IO") (\t -> button.setText t)
+            button <- Button.new "Bridge from async IO to JFX inside UI thread"
+            bridgeAction button (\_ -> Thread.current() >>= Thread.getName ) button.setText
         vbox <: do
             button <- Button.new "Async action can only be IO"
             button `actionIO_` do
