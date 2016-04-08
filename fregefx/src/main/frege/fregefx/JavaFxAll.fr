@@ -3909,16 +3909,16 @@ data Group = mutable native javafx.scene.Group where
 data ImageView = mutable native javafx.scene.image.ImageView where
  pure native smooth_default "javafx.scene.image.ImageView.SMOOTH_DEFAULT" :: Bool
  native new :: Image -> JFX ImageView
-              | String -> JFX ImageView
-              | () -> JFX ImageView
+              | String -> JFX ImageView -- String should rather be a URL type
+              | () -> JFX ImageView -- this should be used with caution. Leads to null image
  native fitHeightProperty :: ImageView -> JFX DoubleProperty
  native fitWidthProperty :: ImageView -> JFX DoubleProperty
  native getClassCssMetaData "javafx.scene.image.ImageView.getClassCssMetaData" :: () -> JFXMutable (List(CssMetaData Styleable Object))
  native getCssMetaData :: ImageView -> JFXMutable (List (CssMetaData Styleable Object))
  native getFitHeight :: ImageView -> JFX Double
  native getFitWidth :: ImageView -> JFX Double
- native getImage :: ImageView -> JFX Image
- native getViewport :: ImageView -> JFX Rectangle2D
+ native getImage :: ImageView -> JFX (Maybe Image)
+ native getViewport :: ImageView -> JFX Rectangle2D -- todo dk: check whether this can ever be null
  native getX :: ImageView -> JFX Double
  native getY :: ImageView -> JFX Double
  native imageProperty :: ImageView -> JFX (ObjectProperty Image)
@@ -9510,6 +9510,7 @@ data Pair k v = mutable native javafx.util.Pair where
 --
 
 --
+-- todo dk: once loaded, an image is essentially pure. We may want to put that in the type.
 data Image = mutable native javafx.scene.image.Image where
  native new :: InputStream -> JFX Image
               | String -> Double -> Double -> Bool -> Bool -> Bool -> JFX Image
