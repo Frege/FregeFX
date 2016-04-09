@@ -4,10 +4,86 @@ import frege.Prelude hiding(ListView)
 
 import fregefx.JavaFxAll
 
+{- define the Java stuff inline ... this way it works for both java7/java8 -}
+native module where {
+    public static class FregeFX extends javafx.application.Application {
+        private static Func.U<javafx.stage.Stage, Func.U<RealWorld, Short>> lambda;
+
+        @Override
+        public void start(javafx.stage.Stage primaryStage) throws Exception {
+            final Lazy<javafx.stage.Stage> lazyStage= Thunk.<javafx.stage.Stage>lazy(primaryStage);
+            try {
+                PreludeBase.TST.performUnsafe(lambda.apply(lazyStage).call()).call();
+            } catch(RuntimeException re) {
+                re.printStackTrace();
+                throw re;
+            }
+        }
+
+        /**
+         * @param callback The callback lambda that will receive the primaryStage to work on.
+         */
+         public static void launch(Func.U<javafx.stage.Stage, Func.U<RealWorld, Short>> callback) {
+             lambda = callback;
+             javafx.application.Application.launch();
+         }
+    
+        public static javafx.scene.Parent fxml(String className, String resourceName ) {
+            try {
+                return javafx.fxml.FXMLLoader.load(Class.forName(className).getClass().getResource(resourceName));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (java.io.IOException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+            return new javafx.scene.control.Label("could not load " + resourceName);
+        }
+    }
+
+    // event handling
+    public static<T extends javafx.event.Event> javafx.event.EventHandler<T> 
+        onAction(final Func.U<T, Func.U<RealWorld, Short>> lambda) {
+        return new javafx.event.EventHandler<T>() {
+            @Override
+            public void handle(T event) {
+                Lazy<T> lazyEvent = Thunk.<T>lazy(event);
+                try {
+                    PreludeBase.TST.performUnsafe( lambda.apply(lazyEvent).call() ).call();
+                } catch(RuntimeException re) {
+                    re.printStackTrace();
+                    throw re;
+                }
+            }
+        };
+    }
+
+    // change handling
+    public static<T>  javafx.beans.value.ChangeListener<T> 
+        onChange(final Func.U<T, Func.U<T, Func.U<RealWorld, Short>>> lambda) {
+        return new javafx.beans.value.ChangeListener<T>() {
+            @Override
+            public void changed(javafx.beans.value.ObservableValue<? extends T> observable, T oldValue, T newValue) {
+                try {
+                    Lazy<T> alt = Thunk.<T>lazy(oldValue);
+                    Lazy<T> neu = Thunk.<T>lazy(newValue);
+                    PreludeBase.TST.performUnsafe(lambda.apply(alt).call().apply(neu).call()).call();
+                    // Applicable inter = lambda.apply(oldValue).apply(newValue);
+                    // Delayed.forced(inter.apply(null).result().forced()); // the second argument is the IO context
+                } catch(RuntimeException re) {
+                    re.printStackTrace();
+                    throw re;
+                }
+            }
+        };
+    }
+}
+
 --- The starter for every FregeFX Application
-data FregeFX = mutable native org.frege.FregeFX where
-    native launch  org.frege.FregeFX.launch :: ( Stage -> IO () ) -> IO ()
-    native fxml    org.frege.FregeFX.fxml   :: String -> String -> IO Parent
+data FregeFX = mutable native javafx.application.Application where
+    native launch  JavaFxUtils.FregeFX.launch :: ( Stage -> IO () ) -> IO ()
+    native fxml    JavaFxUtils.FregeFX.fxml   :: String -> String -> IO Parent
 
 --- Run any function _f_ in the JavaFX Application Thread to ensure proper painting.
 --- Any code that touches a JavaFX UI component must run in this thread.
@@ -32,29 +108,29 @@ data List e = mutable native java.util.List where
   native size :: List e -> IO Int
   native remove :: List e -> e -> IO Bool
 
---- Generic implementation of the ChangeListener Interface in Java to use from Frege
-data OnChange t = mutable native org.frege.FregeChangeListener where
-    native new :: (t -> t -> IO()) -> IO (OnChange t)
 
---- Generic implementation of the EventHandler Interface in Java to use from Frege
-data OnEvent t = mutable native org.frege.FregeEventHandler{} where
-    native new  :: (t -> IO () ) -> IO (OnEvent t)
-    native asEventHandler "(javafx.event.EventHandler)" :: OnEvent t -> IO (EventHandler t) 
+
+pure native onChange  JavaFxUtils.onChange{t} :: (t -> t -> IO()) -> ChangeListener t
+
+pure native onAction  JavaFxUtils.onAction{t} :: (t -> IO () ) -> EventHandler t
+
 
 --- Convenience function to set an action event handler as
---- > action button $ \event -> button.setText "got it"
+--- > action button $ \event -> button.OnEvent.new eventHandlersetText "got it"
 action :: ButtonBase -> (ActionEvent -> IO () ) -> IO ButtonBase
 action button eventHandler = do
-    handler <- OnEvent.new eventHandler >>= _.asEventHandler
-    button.setOnAction handler
-    return button
+    --handler <- OnEvent.new eventHandler >>= _.asEventHandler
+    --button.setOnAction handler
+    --return button
+    button.setOnAction (onAction eventHandler)
+    pure button
 
 --- Convenience function to set an action event handler
 --- that does not depend on the action event as
 --- > action_ button (button.setText "got it")
 action_ :: ButtonBase -> IO () -> IO ButtonBase
 action_ button plainHandler = do
-    handler <- OnEvent.new (\_ -> plainHandler) >>= _.asEventHandler
+    let handler = onAction (\_ -> plainHandler)
     button.setOnAction handler
     return button
 
