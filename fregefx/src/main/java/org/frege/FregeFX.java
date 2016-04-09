@@ -1,22 +1,30 @@
 package org.frege;
 
 import frege.runtime.*;
+import frege.runtime.Phantom.RealWorld;
+import frege.prelude.PreludeBase;
+import frege.run7.Func;
+import frege.run7.Lazy;
+import frege.run7.Thunk;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+// The type of Stage -> IO () is
+// Func.U<Stage, Func.U<RealWorld, Short>>
+
 import java.io.IOException;
 
 public class FregeFX extends Application {
-    private static Lambda lambda;
+    private static Func.U<Stage, Func.U<RealWorld, Short>> lambda;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+    	final Lazy<Stage> lazyStage= Thunk.<Stage>lazy(primaryStage);
         try {
-            Applicable inter = lambda.apply(primaryStage);
-            Delayed.forced(inter.apply(null).result().forced()); // the second argument is the IO context
+        	PreludeBase.TST.performUnsafe(lambda.apply(lazyStage).call()).call();
         } catch(RuntimeException re) {
             re.printStackTrace();
             throw re;
@@ -26,7 +34,7 @@ public class FregeFX extends Application {
     /**
      * @param callback The callback lambda that will receive the primaryStage to work on.
      */
-     public static void launch(Lambda callback) {
+     public static void launch(Func.U<Stage, Func.U<RealWorld, Short>> callback) {
          lambda = callback;
          Application.launch();
      }

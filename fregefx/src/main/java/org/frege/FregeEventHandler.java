@@ -1,23 +1,27 @@
 package org.frege;
 
-import frege.runtime.Applicable;
-import frege.runtime.Delayed;
-import frege.runtime.Lambda;
+import frege.prelude.PreludeBase;
+import frege.run7.Func;
+import frege.run7.Lazy;
+import frege.run7.Thunk;
+import frege.runtime.Phantom.RealWorld;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 
-public class FregeEventHandler implements EventHandler {
-    protected Lambda lambda;
+// type t -> IO ()   ==>  Func.U<T, Func.U<RealWorld, Short>> 
 
-    public FregeEventHandler(Lambda lambda) {
+public class FregeEventHandler<T extends Event> implements EventHandler<T> {
+    protected Func.U<T, Func.U<RealWorld, Short>> lambda;
+
+    public FregeEventHandler(Func.U<T, Func.U<RealWorld, Short>> lambda) {
         this.lambda = lambda;
     }
 
     @Override
-    public void handle(Event event) {
+    public void handle(T event) {
+    	Lazy<T> lazyEvent = Thunk.<T>lazy(event);
         try {
-            Applicable inter = lambda.apply(event);
-            Delayed.forced(inter.apply(null).result().forced()); // the second argument is the IO context
+            PreludeBase.TST.performUnsafe( lambda.apply(lazyEvent).call() ).call();
         } catch(RuntimeException re) {
             re.printStackTrace();
             throw re;

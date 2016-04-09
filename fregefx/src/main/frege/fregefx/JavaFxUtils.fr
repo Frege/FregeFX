@@ -37,14 +37,15 @@ data OnChange t = mutable native org.frege.FregeChangeListener where
     native new :: (t -> t -> IO()) -> IO (OnChange t)
 
 --- Generic implementation of the EventHandler Interface in Java to use from Frege
-data OnEvent t = mutable native org.frege.FregeEventHandler where
+data OnEvent t = mutable native org.frege.FregeEventHandler{} where
     native new  :: (t -> IO () ) -> IO (OnEvent t)
+    native asEventHandler "(javafx.event.EventHandler)" :: OnEvent t -> IO (EventHandler t) 
 
 --- Convenience function to set an action event handler as
 --- > action button $ \event -> button.setText "got it"
 action :: ButtonBase -> (ActionEvent -> IO () ) -> IO ButtonBase
 action button eventHandler = do
-    handler <- OnEvent.new eventHandler
+    handler <- OnEvent.new eventHandler >>= _.asEventHandler
     button.setOnAction handler
     return button
 
@@ -53,7 +54,7 @@ action button eventHandler = do
 --- > action_ button (button.setText "got it")
 action_ :: ButtonBase -> IO () -> IO ButtonBase
 action_ button plainHandler = do
-    handler <- OnEvent.new (\_ -> plainHandler)
+    handler <- OnEvent.new (\_ -> plainHandler) >>= _.asEventHandler
     button.setOnAction handler
     return button
 
