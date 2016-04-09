@@ -7555,7 +7555,7 @@ data StringPropertyBase = mutable native javafx.beans.property.StringPropertyBas
   native toString :: StringPropertyBase -> IO String
   native unbind :: StringPropertyBase -> IO ()
 ---- ---
-data ChangeListener t = mutable native javafx.beans.value.ChangeListener where
+data ChangeListener t = pure native javafx.beans.value.ChangeListener where
   native changed :: ChangeListener t -> ObservableValue t -> t -> t -> IO ()
 ---- ---
 --data ObservableBooleanValue = mutable native javafx.beans.value.ObservableBooleanValue where
