@@ -103,7 +103,7 @@ withStage populate stage = do
 --- JavaFX users will work with ObservableList a lot, which inherits from List.
 --- The mutable java.util.List type is usually not visible in Frege but when
 --- using JavaFX, having these methods accessible is convenient.
-data List e = mutable native java.util.List where
+data List e = mutable native java.util.List{e} where
   native add  :: List e -> e -> IO Bool
   native size :: List e -> IO Int
   native remove :: List e -> e -> IO Bool
@@ -149,6 +149,9 @@ instance Family HBox where
     children hbox = hbox.getChildren
 
 instance Family VBox where
+    children hbox = hbox.getChildren
+
+instance Family Pane where
     children hbox = hbox.getChildren
 
 

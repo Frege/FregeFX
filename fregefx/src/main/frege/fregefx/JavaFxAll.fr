@@ -1726,18 +1726,18 @@ data ButtonBase = mutable native javafx.scene.control.ButtonBase where
 -- native values "javafx.scene.control.ContentDisplay.values" :: () -> STMutable s (JArray ContentDisplay)
 ---- derive Serializable ContentDisplay
 ----
---data ContextMenu = mutable native javafx.scene.control.ContextMenu where
--- native new :: () -> IO ContextMenu
---              | MutableIO (JArray MenuItem) -> IO ContextMenu
--- native getItems :: ContextMenu -> IO (ObservableList MenuItem)
+data ContextMenu = mutable native javafx.scene.control.ContextMenu where
+ native new :: () -> IO ContextMenu
+              | MutableIO (JArray MenuItem) -> IO ContextMenu
+ native getItems :: ContextMenu -> IO (ObservableList MenuItem)
 -- native getOnAction :: ContextMenu -> IO (Maybe (EventHandler ActionEvent))
--- native hide :: ContextMenu -> IO ()
+ native hide :: ContextMenu -> IO ()
 -- native isImpl_showRelativeToWindow :: ContextMenu -> IO Bool
 -- native onActionProperty :: ContextMenu -> IO (ObjectProperty (EventHandler ActionEvent))
 -- native setImpl_showRelativeToWindow :: ContextMenu -> Bool -> IO ()
--- native setOnAction :: ContextMenu -> EventHandler ActionEvent -> IO ()
--- native show :: ContextMenu -> Node -> Side -> Double -> Double -> IO ()
---               | ContextMenu -> Node -> Double -> Double -> IO ()
+ native setOnAction :: ContextMenu -> EventHandler ActionEvent -> IO ()
+ native show :: ContextMenu -> Node -> Side -> Double -> Double -> IO ()
+               | ContextMenu -> Node -> Double -> Double -> IO ()
 ----
 --data Control = mutable native javafx.scene.control.Control where
 -- native contextMenuProperty :: Control -> IO (ObjectProperty ContextMenu)
@@ -2162,58 +2162,58 @@ data ListView t = mutable native javafx.scene.control.ListView where
 -- native show :: MenuButton -> IO ()
 -- native showingProperty :: MenuButton -> IO ReadOnlyBooleanProperty
 ----
---data MenuItem = mutable native javafx.scene.control.MenuItem where
--- native menu_validation_event "javafx.scene.control.MenuItem.MENU_VALIDATION_EVENT" :: IO (EventType Event)
--- native new :: String -> Node -> IO MenuItem
---              | String -> IO MenuItem
---              | () -> IO MenuItem
+data MenuItem = mutable native javafx.scene.control.MenuItem where
+ native menu_validation_event "javafx.scene.control.MenuItem.MENU_VALIDATION_EVENT" :: IO (EventType Event)
+ native new :: String -> Node -> IO MenuItem
+              | String -> IO MenuItem
+              | () -> IO MenuItem
 -- native acceleratorProperty :: MenuItem -> IO (ObjectProperty KeyCombination)
--- native addEventHandler :: MenuItem -> EventType e -> EventHandler e -> IO ()
--- native buildEventDispatchChain :: MenuItem -> EventDispatchChain -> IO EventDispatchChain
--- native disableProperty :: MenuItem -> IO BooleanProperty
--- native fire :: MenuItem -> IO ()
+ native addEventHandler{} :: MenuItem -> EventType e -> EventHandler e -> IO ()
+ native buildEventDispatchChain :: MenuItem -> EventDispatchChain -> IO EventDispatchChain
+ native disableProperty :: MenuItem -> IO BooleanProperty
+ native fire :: MenuItem -> IO ()
 -- native getAccelerator :: MenuItem -> IO KeyCombination
 -- native getCssMetaData :: MenuItem -> IOMutable (List (CssMetaData Styleable Object))
--- native getGraphic :: MenuItem -> IO Node
--- native getId :: MenuItem -> IO (Maybe String)
+ native getGraphic :: MenuItem -> IO Node
+ native getId :: MenuItem -> IO (Maybe String)
 -- native getOnAction :: MenuItem -> IO (Maybe (EventHandler ActionEvent))
--- native getOnMenuValidation :: MenuItem -> IO (EventHandler Event)
+ native getOnMenuValidation :: MenuItem -> IO (EventHandler Event)
 -- native getParentMenu :: MenuItem -> IO Menu
--- native getParentPopup :: MenuItem -> IO ContextMenu
+ native getParentPopup :: MenuItem -> IO ContextMenu
 -- native getProperties :: MenuItem -> IO (ObservableMap Object Object)
 -- native getPseudoClassStates :: MenuItem -> IO (ObservableSet PseudoClass)
--- native getStyle :: MenuItem -> IO String
--- native getStyleClass :: MenuItem -> IO (ObservableList String)
+ native getStyle :: MenuItem -> IO String
+ native getStyleClass :: MenuItem -> IO (ObservableList String)
 -- native getStyleableParent :: MenuItem -> IO (Maybe Styleable)
--- native getText :: MenuItem -> IO String
--- native getTypeSelector :: MenuItem -> IO String
--- native getUserData :: MenuItem -> IO (Maybe Object)
--- native graphicProperty :: MenuItem -> IO (ObjectProperty Node)
--- native idProperty :: MenuItem -> IO StringProperty
--- native isDisable :: MenuItem -> IO Bool
--- native isMnemonicParsing :: MenuItem -> IO Bool
--- native isVisible :: MenuItem -> IO Bool
--- native mnemonicParsingProperty :: MenuItem -> IO BooleanProperty
+ native getText :: MenuItem -> IO String
+ native getTypeSelector :: MenuItem -> IO String
+ native getUserData :: MenuItem -> IO (Maybe Object)
+ native graphicProperty :: MenuItem -> IO (ObjectProperty Node)
+ native idProperty :: MenuItem -> IO StringProperty
+ native isDisable :: MenuItem -> IO Bool
+ native isMnemonicParsing :: MenuItem -> IO Bool
+ native isVisible :: MenuItem -> IO Bool
+ native mnemonicParsingProperty :: MenuItem -> IO BooleanProperty
 -- native onActionProperty :: MenuItem -> IO (ObjectProperty (EventHandler ActionEvent))
 -- native onMenuValidationProperty :: MenuItem -> IO (ObjectProperty (EventHandler Event))
 -- native parentMenuProperty :: MenuItem -> IO (ReadOnlyObjectProperty Menu)
--- native parentPopupProperty :: MenuItem -> IO (ReadOnlyObjectProperty ContextMenu)
--- native removeEventHandler :: MenuItem -> EventType e -> EventHandler e -> IO ()
+ native parentPopupProperty :: MenuItem -> IO (ReadOnlyObjectProperty ContextMenu)
+ native removeEventHandler{} :: MenuItem -> EventType e -> EventHandler e -> IO ()
 -- native setAccelerator :: MenuItem -> KeyCombination -> IO ()
--- native setDisable :: MenuItem -> Bool -> IO ()
--- native setGraphic :: MenuItem -> Node -> IO ()
--- native setId :: MenuItem -> String -> IO ()
--- native setMnemonicParsing :: MenuItem -> Bool -> IO ()
--- native setOnAction :: MenuItem -> EventHandler ActionEvent -> IO ()
--- native setOnMenuValidation :: MenuItem -> EventHandler Event -> IO ()
--- native setStyle :: MenuItem -> String -> IO ()
--- native setText :: MenuItem -> String -> IO ()
--- native setUserData :: MenuItem -> Object -> IO ()
--- native setVisible :: MenuItem -> Bool -> IO ()
--- native styleProperty :: MenuItem -> IO StringProperty
--- native textProperty :: MenuItem -> IO StringProperty
--- native toString :: MenuItem -> IO String
--- native visibleProperty :: MenuItem -> IO BooleanProperty
+ native setDisable :: MenuItem -> Bool -> IO ()
+ native setGraphic :: MenuItem -> Node -> IO ()
+ native setId :: MenuItem -> String -> IO ()
+ native setMnemonicParsing :: MenuItem -> Bool -> IO ()
+ native setOnAction :: MenuItem -> EventHandler ActionEvent -> IO ()
+ native setOnMenuValidation :: MenuItem -> EventHandler Event -> IO ()
+ native setStyle :: MenuItem -> String -> IO ()
+ native setText :: MenuItem -> String -> IO ()
+ native setUserData :: MenuItem -> Object -> IO ()
+ native setVisible :: MenuItem -> Bool -> IO ()
+ native styleProperty :: MenuItem -> IO StringProperty
+ native textProperty :: MenuItem -> IO StringProperty
+ native toString :: MenuItem -> IO String
+ native visibleProperty :: MenuItem -> IO BooleanProperty
 ----
 --data MultipleSelectionModel t = mutable native javafx.scene.control.MultipleSelectionModel where
 -- native getSelectedIndices :: MultipleSelectionModel t -> IO (ObservableList Integer)
@@ -2244,16 +2244,16 @@ data ListView t = mutable native javafx.scene.control.ListView where
 ---- native selectNext :: MultipleSelectionModelBase t -> IO ()
 ---- native selectPrevious :: MultipleSelectionModelBase t -> IO ()
 ----
---data OverrunStyle = mutable native javafx.scene.control.OverrunStyle where
--- native clip "javafx.scene.control.OverrunStyle.CLIP" :: IO OverrunStyle
--- native ellipsis "javafx.scene.control.OverrunStyle.ELLIPSIS" :: IO OverrunStyle
--- native word_ellipsis "javafx.scene.control.OverrunStyle.WORD_ELLIPSIS" :: IO OverrunStyle
--- native center_ellipsis "javafx.scene.control.OverrunStyle.CENTER_ELLIPSIS" :: IO OverrunStyle
--- native center_word_ellipsis "javafx.scene.control.OverrunStyle.CENTER_WORD_ELLIPSIS" :: IO OverrunStyle
--- native leading_ellipsis "javafx.scene.control.OverrunStyle.LEADING_ELLIPSIS" :: IO OverrunStyle
--- native leading_word_ellipsis "javafx.scene.control.OverrunStyle.LEADING_WORD_ELLIPSIS" :: IO OverrunStyle
--- native valueOf "javafx.scene.control.OverrunStyle.valueOf" :: String -> IO OverrunStyle
--- native values "javafx.scene.control.OverrunStyle.values" :: () -> STMutable s (JArray OverrunStyle)
+data OverrunStyle = pure native javafx.scene.control.OverrunStyle where
+ pure native clip "javafx.scene.control.OverrunStyle.CLIP" :: OverrunStyle
+ pure native ellipsis "javafx.scene.control.OverrunStyle.ELLIPSIS" :: OverrunStyle
+ pure native word_ellipsis "javafx.scene.control.OverrunStyle.WORD_ELLIPSIS" :: OverrunStyle
+ pure native center_ellipsis "javafx.scene.control.OverrunStyle.CENTER_ELLIPSIS" :: OverrunStyle
+ pure native center_word_ellipsis "javafx.scene.control.OverrunStyle.CENTER_WORD_ELLIPSIS" :: OverrunStyle
+ pure native leading_ellipsis "javafx.scene.control.OverrunStyle.LEADING_ELLIPSIS" :: OverrunStyle
+ pure native leading_word_ellipsis "javafx.scene.control.OverrunStyle.LEADING_WORD_ELLIPSIS" :: OverrunStyle
+ pure native valueOf "javafx.scene.control.OverrunStyle.valueOf" :: String -> OverrunStyle
+ pure native values "javafx.scene.control.OverrunStyle.values" :: () -> (JArray OverrunStyle)
 ---- derive Serializable OverrunStyle
 ----
 --data Pagination = mutable native javafx.scene.control.Pagination where
@@ -2507,18 +2507,18 @@ data ListView t = mutable native javafx.scene.control.ListView where
 --data SeparatorMenuItem = mutable native javafx.scene.control.SeparatorMenuItem where
 -- native new :: () -> IO SeparatorMenuItem
 ----
---data SingleSelectionModel t = mutable native javafx.scene.control.SingleSelectionModel where
--- native clearAndSelect :: SingleSelectionModel t -> Int -> IO ()
--- native clearSelection :: SingleSelectionModel t -> IO ()
---                         | SingleSelectionModel t -> Int -> IO ()
--- native isEmpty :: SingleSelectionModel t -> IO Bool
--- native isSelected :: SingleSelectionModel t -> Int -> IO Bool
--- native select :: SingleSelectionModel t -> Int -> IO ()
---                 | SingleSelectionModel t -> t -> IO ()
--- native selectFirst :: SingleSelectionModel t -> IO ()
--- native selectLast :: SingleSelectionModel t -> IO ()
--- native selectNext :: SingleSelectionModel t -> IO ()
--- native selectPrevious :: SingleSelectionModel t -> IO ()
+data SingleSelectionModel t = mutable native javafx.scene.control.SingleSelectionModel where
+ native clearAndSelect :: SingleSelectionModel t -> Int -> IO ()
+ native clearSelection :: SingleSelectionModel t -> IO ()
+                         | SingleSelectionModel t -> Int -> IO ()
+ native isEmpty :: SingleSelectionModel t -> IO Bool
+ native isSelected :: SingleSelectionModel t -> Int -> IO Bool
+ native select :: SingleSelectionModel t -> Int -> IO ()
+                 | SingleSelectionModel t -> t -> IO ()
+ native selectFirst :: SingleSelectionModel t -> IO ()
+ native selectLast :: SingleSelectionModel t -> IO ()
+ native selectNext :: SingleSelectionModel t -> IO ()
+ native selectPrevious :: SingleSelectionModel t -> IO ()
 ----
 --data Skin c = mutable native javafx.scene.control.Skin where
 -- native dispose :: Skin c -> IO ()
@@ -2658,66 +2658,66 @@ data ListView t = mutable native javafx.scene.control.ListView where
 -- native setOrientation :: SplitPane -> Orientation -> IO ()
 -- native setResizableWithParent "javafx.scene.control.SplitPane.setResizableWithParent" :: Node -> Boolean -> IO ()
 ----
---data Tab = mutable native javafx.scene.control.Tab where
--- native selection_changed_event "javafx.scene.control.Tab.SELECTION_CHANGED_EVENT" :: IO (EventType Event)
--- native closed_event "javafx.scene.control.Tab.CLOSED_EVENT" :: IO (EventType Event)
--- native tab_close_request_event "javafx.scene.control.Tab.TAB_CLOSE_REQUEST_EVENT" :: IO (EventType Event)
--- native new :: String -> Node -> IO Tab
---              | String -> IO Tab
---              | () -> IO Tab
--- native buildEventDispatchChain :: Tab -> EventDispatchChain -> IO EventDispatchChain
--- native closableProperty :: Tab -> IO BooleanProperty
--- native contentProperty :: Tab -> IO (ObjectProperty Node)
--- native contextMenuProperty :: Tab -> IO (ObjectProperty ContextMenu)
--- native disableProperty :: Tab -> IO BooleanProperty
--- native disabledProperty :: Tab -> IO ReadOnlyBooleanProperty
--- native getClassCssMetaData "javafx.scene.control.Tab.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
--- native getContent :: Tab -> IO Node
--- native getContextMenu :: Tab -> IO ContextMenu
--- native getCssMetaData :: Tab -> IOMutable (List (CssMetaData Styleable Object))
--- native getGraphic :: Tab -> IO Node
--- native getId :: Tab -> IO (Maybe String)
--- native getOnCloseRequest :: Tab -> IO (EventHandler Event)
--- native getOnClosed :: Tab -> IO (EventHandler Event)
--- native getOnSelectionChanged :: Tab -> IO (EventHandler Event)
--- native getProperties :: Tab -> IO (ObservableMap Object Object)
--- native getPseudoClassStates :: Tab -> IO (ObservableSet PseudoClass)
--- native getStyle :: Tab -> IO String
--- native getStyleClass :: Tab -> IO (ObservableList String)
--- native getStyleableParent :: Tab -> IO (Maybe Styleable)
--- native getTabPane :: Tab -> IO TabPane
--- native getText :: Tab -> IO String
--- native getTooltip :: Tab -> IO Tooltip
--- native getTypeSelector :: Tab -> IO String
--- native getUserData :: Tab -> IO (Maybe Object)
--- native graphicProperty :: Tab -> IO (ObjectProperty Node)
--- native hasProperties :: Tab -> IO Bool
--- native idProperty :: Tab -> IO StringProperty
--- native isClosable :: Tab -> IO Bool
--- native isDisable :: Tab -> IO Bool
--- native isDisabled :: Tab -> IO Bool
--- native isSelected :: Tab -> IO Bool
--- native onCloseRequestProperty :: Tab -> IO (ObjectProperty (EventHandler Event))
--- native onClosedProperty :: Tab -> IO (ObjectProperty (EventHandler Event))
--- native onSelectionChangedProperty :: Tab -> IO (ObjectProperty (EventHandler Event))
--- native selectedProperty :: Tab -> IO ReadOnlyBooleanProperty
--- native setClosable :: Tab -> Bool -> IO ()
--- native setContent :: Tab -> Node -> IO ()
--- native setContextMenu :: Tab -> ContextMenu -> IO ()
--- native setDisable :: Tab -> Bool -> IO ()
--- native setGraphic :: Tab -> Node -> IO ()
--- native setId :: Tab -> String -> IO ()
--- native setOnCloseRequest :: Tab -> EventHandler Event -> IO ()
--- native setOnClosed :: Tab -> EventHandler Event -> IO ()
--- native setOnSelectionChanged :: Tab -> EventHandler Event -> IO ()
--- native setStyle :: Tab -> String -> IO ()
--- native setText :: Tab -> String -> IO ()
--- native setTooltip :: Tab -> Tooltip -> IO ()
--- native setUserData :: Tab -> Object -> IO ()
--- native styleProperty :: Tab -> IO StringProperty
--- native tabPaneProperty :: Tab -> IO (ReadOnlyObjectProperty TabPane)
--- native textProperty :: Tab -> IO StringProperty
--- native tooltipProperty :: Tab -> IO (ObjectProperty Tooltip)
+data Tab = mutable native javafx.scene.control.Tab where
+ native selection_changed_event "javafx.scene.control.Tab.SELECTION_CHANGED_EVENT" :: IO (EventType Event)
+ native closed_event "javafx.scene.control.Tab.CLOSED_EVENT" :: IO (EventType Event)
+ native tab_close_request_event "javafx.scene.control.Tab.TAB_CLOSE_REQUEST_EVENT" :: IO (EventType Event)
+ native new :: String -> Node -> IO Tab
+              | String -> IO Tab
+              | () -> IO Tab
+ native buildEventDispatchChain :: Tab -> EventDispatchChain -> IO EventDispatchChain
+ native closableProperty :: Tab -> IO BooleanProperty
+ native contentProperty :: Tab -> IO (ObjectProperty Node)
+ native contextMenuProperty :: Tab -> IO (ObjectProperty ContextMenu)
+ native disableProperty :: Tab -> IO BooleanProperty
+ native disabledProperty :: Tab -> IO ReadOnlyBooleanProperty
+ -- native getClassCssMetaData "javafx.scene.control.Tab.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
+ native getContent :: Tab -> IO Node
+ native getContextMenu :: Tab -> IO ContextMenu
+ -- native getCssMetaData :: Tab -> IOMutable (List (CssMetaData Styleable Object))
+ native getGraphic :: Tab -> IO Node
+ native getId :: Tab -> IO (Maybe String)
+ native getOnCloseRequest :: Tab -> IO (EventHandler Event)
+ native getOnClosed :: Tab -> IO (EventHandler Event)
+ native getOnSelectionChanged :: Tab -> IO (EventHandler Event)
+ -- native getProperties :: Tab -> IO (ObservableMap Object Object)
+ -- native getPseudoClassStates :: Tab -> IO (ObservableSet PseudoClass)
+ native getStyle :: Tab -> IO String
+ native getStyleClass :: Tab -> IO (ObservableList String)
+ -- native getStyleableParent :: Tab -> IO (Maybe Styleable)
+ native getTabPane :: Tab -> IO TabPane
+ native getText :: Tab -> IO String
+ native getTooltip :: Tab -> IO Tooltip
+ native getTypeSelector :: Tab -> IO String
+ native getUserData :: Tab -> IO (Maybe Object)
+ native graphicProperty :: Tab -> IO (ObjectProperty Node)
+ native hasProperties :: Tab -> IO Bool
+ native idProperty :: Tab -> IO StringProperty
+ native isClosable :: Tab -> IO Bool
+ native isDisable :: Tab -> IO Bool
+ native isDisabled :: Tab -> IO Bool
+ native isSelected :: Tab -> IO Bool
+ --native onCloseRequestProperty :: Tab -> IO (ObjectProperty (EventHandler Event))
+ --native onClosedProperty :: Tab -> IO (ObjectProperty (EventHandler Event))
+ --native onSelectionChangedProperty :: Tab -> IO (ObjectProperty (EventHandler Event))
+ native selectedProperty :: Tab -> IO ReadOnlyBooleanProperty
+ native setClosable :: Tab -> Bool -> IO ()
+ native setContent :: Tab -> Node -> IO ()
+ native setContextMenu :: Tab -> ContextMenu -> IO ()
+ native setDisable :: Tab -> Bool -> IO ()
+ native setGraphic :: Tab -> Node -> IO ()
+ native setId :: Tab -> String -> IO ()
+ native setOnCloseRequest :: Tab -> EventHandler Event -> IO ()
+ native setOnClosed :: Tab -> EventHandler Event -> IO ()
+ native setOnSelectionChanged :: Tab -> EventHandler Event -> IO ()
+ native setStyle :: Tab -> String -> IO ()
+ native setText :: Tab -> String -> IO ()
+ native setTooltip :: Tab -> Tooltip -> IO ()
+ native setUserData :: Tab -> Object -> IO ()
+ native styleProperty :: Tab -> IO StringProperty
+ native tabPaneProperty :: Tab -> IO (ReadOnlyObjectProperty TabPane)
+ native textProperty :: Tab -> IO StringProperty
+ native tooltipProperty :: Tab -> IO (ObjectProperty Tooltip)
 ----
 --
 --data TableCell s t = mutable native javafx.scene.control.TableCell where
@@ -2946,39 +2946,39 @@ data ListView t = mutable native javafx.scene.control.ListView where
 -- native sortPolicyProperty :: TableView s -> IO (ObjectProperty (Callback (TableView s) Boolean))
 -- native tableMenuButtonVisibleProperty :: TableView s -> IO BooleanProperty
 ----
---data TabPane = mutable native javafx.scene.control.TabPane where
--- pure native style_class_floating "javafx.scene.control.TabPane.STYLE_CLASS_FLOATING" :: String
--- native new :: () -> IO TabPane
---              | MutableIO (JArray Tab) -> IO TabPane
--- native getClassCssMetaData "javafx.scene.control.TabPane.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
--- native getControlCssMetaData :: TabPane -> IOMutable (List (CssMetaData Styleable Object))
--- native getSelectionModel :: TabPane -> IO (SingleSelectionModel Tab)
--- native getSide :: TabPane -> IO Side
----- ENUM --  native getTabClosingPolicy :: TabPane -> IO TabPane_TabClosingPolicy
--- native getTabMaxHeight :: TabPane -> IO Double
--- native getTabMaxWidth :: TabPane -> IO Double
--- native getTabMinHeight :: TabPane -> IO Double
--- native getTabMinWidth :: TabPane -> IO Double
--- native getTabs :: TabPane -> IO (ObservableList Tab)
--- native isRotateGraphic :: TabPane -> IO Bool
--- native lookup :: TabPane -> String -> IO (Maybe Node)
--- native lookupAll :: TabPane -> String -> IOMutable (Set Node)
--- native rotateGraphicProperty :: TabPane -> IO BooleanProperty
--- native selectionModelProperty :: TabPane -> IO (ObjectProperty (SingleSelectionModel Tab))
--- native setRotateGraphic :: TabPane -> Bool -> IO ()
--- native setSelectionModel :: TabPane -> SingleSelectionModel Tab -> IO ()
--- native setSide :: TabPane -> Side -> IO ()
----- ENUM --  native setTabClosingPolicy :: TabPane -> TabPane_TabClosingPolicy -> IO ()
--- native setTabMaxHeight :: TabPane -> Double -> IO ()
--- native setTabMaxWidth :: TabPane -> Double -> IO ()
--- native setTabMinHeight :: TabPane -> Double -> IO ()
--- native setTabMinWidth :: TabPane -> Double -> IO ()
--- native sideProperty :: TabPane -> IO (ObjectProperty Side)
----- ENUM --  native tabClosingPolicyProperty :: TabPane -> IO (ObjectProperty TabPane_TabClosingPolicy)
--- native tabMaxHeightProperty :: TabPane -> IO DoubleProperty
--- native tabMaxWidthProperty :: TabPane -> IO DoubleProperty
--- native tabMinHeightProperty :: TabPane -> IO DoubleProperty
--- native tabMinWidthProperty :: TabPane -> IO DoubleProperty
+data TabPane = mutable native javafx.scene.control.TabPane where
+ pure native style_class_floating "javafx.scene.control.TabPane.STYLE_CLASS_FLOATING" :: String
+ native new :: () -> IO TabPane
+              | MutableIO (JArray Tab) -> IO TabPane
+ -- native getClassCssMetaData "javafx.scene.control.TabPane.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
+ -- native getControlCssMetaData :: TabPane -> IOMutable (List (CssMetaData Styleable Object))
+ native getSelectionModel :: TabPane -> IO (SingleSelectionModel Tab)
+ native getSide :: TabPane -> IO Side
+-- native getTabClosingPolicy :: TabPane -> IO TabPane_TabClosingPolicy
+ native getTabMaxHeight :: TabPane -> IO Double
+ native getTabMaxWidth :: TabPane -> IO Double
+ native getTabMinHeight :: TabPane -> IO Double
+ native getTabMinWidth :: TabPane -> IO Double
+ native getTabs :: TabPane -> IO (ObservableList Tab)
+ native isRotateGraphic :: TabPane -> IO Bool
+ native lookup :: TabPane -> String -> IO (Maybe Node)
+ native lookupAll :: TabPane -> String -> IOMutable (Set Node)
+ native rotateGraphicProperty :: TabPane -> IO BooleanProperty
+ native selectionModelProperty :: TabPane -> IO (ObjectProperty (SingleSelectionModel Tab))
+ native setRotateGraphic :: TabPane -> Bool -> IO ()
+ native setSelectionModel :: TabPane -> SingleSelectionModel Tab -> IO ()
+ native setSide :: TabPane -> Side -> IO ()
+-- ENUM --  native setTabClosingPolicy :: TabPane -> TabPane_TabClosingPolicy -> IO ()
+ native setTabMaxHeight :: TabPane -> Double -> IO ()
+ native setTabMaxWidth :: TabPane -> Double -> IO ()
+ native setTabMinHeight :: TabPane -> Double -> IO ()
+ native setTabMinWidth :: TabPane -> Double -> IO ()
+ native sideProperty :: TabPane -> IO (ObjectProperty Side)
+-- ENUM --  native tabClosingPolicyProperty :: TabPane -> IO (ObjectProperty TabPane_TabClosingPolicy)
+ native tabMaxHeightProperty :: TabPane -> IO DoubleProperty
+ native tabMaxWidthProperty :: TabPane -> IO DoubleProperty
+ native tabMinHeightProperty :: TabPane -> IO DoubleProperty
+ native tabMinWidthProperty :: TabPane -> IO DoubleProperty
 
 data TextArea = mutable native javafx.scene.control.TextArea where
      pure native default_pref_column_count "javafx.scene.control.TextArea.DEFAULT_PREF_COLUMN_COUNT" :: Int
@@ -3034,78 +3034,78 @@ data TextArea = mutable native javafx.scene.control.TextArea where
 -- native setValue :: TextFormatter v -> v -> IO ()
 -- native valueProperty :: TextFormatter v -> IO (ObjectProperty v)
 ----
---data TextInputControl = mutable native javafx.scene.control.TextInputControl where
--- native anchorProperty :: TextInputControl -> IO ReadOnlyIntegerProperty
--- native appendText :: TextInputControl -> String -> IO ()
--- native backward :: TextInputControl -> IO ()
--- native cancelEdit :: TextInputControl -> IO ()
--- native caretPositionProperty :: TextInputControl -> IO ReadOnlyIntegerProperty
--- native clear :: TextInputControl -> IO ()
--- native commitValue :: TextInputControl -> IO ()
--- native copy :: TextInputControl -> IO ()
--- native cut :: TextInputControl -> IO ()
--- native deleteNextChar :: TextInputControl -> IO Bool
--- native deletePreviousChar :: TextInputControl -> IO Bool
--- native deleteText :: TextInputControl -> Int -> Int -> IO ()
---                     | TextInputControl -> IndexRange -> IO ()
--- native deselect :: TextInputControl -> IO ()
--- native editableProperty :: TextInputControl -> IO BooleanProperty
--- native end :: TextInputControl -> IO ()
--- native endOfNextWord :: TextInputControl -> IO ()
+data TextInputControl = mutable native javafx.scene.control.TextInputControl where
+ native anchorProperty :: TextInputControl -> IO ReadOnlyIntegerProperty
+ native appendText :: TextInputControl -> String -> IO ()
+ native backward :: TextInputControl -> IO ()
+ native cancelEdit :: TextInputControl -> IO ()
+ native caretPositionProperty :: TextInputControl -> IO ReadOnlyIntegerProperty
+ native clear :: TextInputControl -> IO ()
+ native commitValue :: TextInputControl -> IO ()
+ native copy :: TextInputControl -> IO ()
+ native cut :: TextInputControl -> IO ()
+ native deleteNextChar :: TextInputControl -> IO Bool
+ native deletePreviousChar :: TextInputControl -> IO Bool
+ native deleteText :: TextInputControl -> Int -> Int -> IO ()
+                   --  | TextInputControl -> IndexRange -> IO ()
+ native deselect :: TextInputControl -> IO ()
+ native editableProperty :: TextInputControl -> IO BooleanProperty
+ native end :: TextInputControl -> IO ()
+ native endOfNextWord :: TextInputControl -> IO ()
 -- native executeAccessibleAction :: TextInputControl -> AccessibleAction -> MutableIO (JArray Object) -> IO ()
--- native extendSelection :: TextInputControl -> Int -> IO ()
--- native fontProperty :: TextInputControl -> IO (ObjectProperty Font)
--- native forward :: TextInputControl -> IO ()
--- native getAnchor :: TextInputControl -> IO Int
--- native getCaretPosition :: TextInputControl -> IO Int
+ native extendSelection :: TextInputControl -> Int -> IO ()
+ native fontProperty :: TextInputControl -> IO (ObjectProperty Font)
+ native forward :: TextInputControl -> IO ()
+ native getAnchor :: TextInputControl -> IO Int
+ native getCaretPosition :: TextInputControl -> IO Int
 -- native getClassCssMetaData "javafx.scene.control.TextInputControl.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
 -- native getControlCssMetaData :: TextInputControl -> IOMutable (List (CssMetaData Styleable Object))
--- native getFont :: TextInputControl -> IO Font
--- native getLength :: TextInputControl -> IO Int
--- native getPromptText :: TextInputControl -> IO (Maybe String)
--- native getSelectedText :: TextInputControl -> IO String
+ native getFont :: TextInputControl -> IO Font
+ native getLength :: TextInputControl -> IO Int
+ native getPromptText :: TextInputControl -> IO (Maybe String)
+ native getSelectedText :: TextInputControl -> IO String
 -- native getSelection :: TextInputControl -> IO IndexRange
--- native getText :: TextInputControl -> Int -> Int -> IO String
---                  | TextInputControl -> IO String
+ native getText :: TextInputControl -> Int -> Int -> IO String
+                  | TextInputControl -> IO String
 -- native getTextFormatter :: TextInputControl -> IO (TextFormatter Object)
--- native home :: TextInputControl -> IO ()
--- native insertText :: TextInputControl -> Int -> String -> IO ()
--- native isEditable :: TextInputControl -> IO Bool
--- native isRedoable :: TextInputControl -> IO Bool
--- native isUndoable :: TextInputControl -> IO Bool
--- native lengthProperty :: TextInputControl -> IO ReadOnlyIntegerProperty
--- native nextWord :: TextInputControl -> IO ()
--- native paste :: TextInputControl -> IO ()
--- native positionCaret :: TextInputControl -> Int -> IO ()
--- native previousWord :: TextInputControl -> IO ()
--- native promptTextProperty :: TextInputControl -> IO StringProperty
+ native home :: TextInputControl -> IO ()
+ native insertText :: TextInputControl -> Int -> String -> IO ()
+ native isEditable :: TextInputControl -> IO Bool
+ native isRedoable :: TextInputControl -> IO Bool
+ native isUndoable :: TextInputControl -> IO Bool
+ native lengthProperty :: TextInputControl -> IO ReadOnlyIntegerProperty
+ native nextWord :: TextInputControl -> IO ()
+ native paste :: TextInputControl -> IO ()
+ native positionCaret :: TextInputControl -> Int -> IO ()
+ native previousWord :: TextInputControl -> IO ()
+ native promptTextProperty :: TextInputControl -> IO StringProperty
 -- native queryAccessibleAttribute :: TextInputControl -> AccessibleAttribute -> MutableIO (JArray Object) -> IO Object
--- native redo :: TextInputControl -> IO ()
--- native redoableProperty :: TextInputControl -> IO ReadOnlyBooleanProperty
--- native replaceSelection :: TextInputControl -> String -> IO ()
--- native replaceText :: TextInputControl -> Int -> Int -> String -> IO ()
---                      | TextInputControl -> IndexRange -> String -> IO ()
--- native selectAll :: TextInputControl -> IO ()
--- native selectBackward :: TextInputControl -> IO ()
--- native selectEnd :: TextInputControl -> IO ()
--- native selectEndOfNextWord :: TextInputControl -> IO ()
--- native selectForward :: TextInputControl -> IO ()
--- native selectHome :: TextInputControl -> IO ()
--- native selectNextWord :: TextInputControl -> IO ()
--- native selectPositionCaret :: TextInputControl -> Int -> IO ()
--- native selectPreviousWord :: TextInputControl -> IO ()
--- native selectRange :: TextInputControl -> Int -> Int -> IO ()
--- native selectedTextProperty :: TextInputControl -> IO ReadOnlyStringProperty
+ native redo :: TextInputControl -> IO ()
+ native redoableProperty :: TextInputControl -> IO ReadOnlyBooleanProperty
+ native replaceSelection :: TextInputControl -> String -> IO ()
+ native replaceText :: TextInputControl -> Int -> Int -> String -> IO ()
+                      -- TextInputControl -> IndexRange -> String -> IO ()
+ native selectAll :: TextInputControl -> IO ()
+ native selectBackward :: TextInputControl -> IO ()
+ native selectEnd :: TextInputControl -> IO ()
+ native selectEndOfNextWord :: TextInputControl -> IO ()
+ native selectForward :: TextInputControl -> IO ()
+ native selectHome :: TextInputControl -> IO ()
+ native selectNextWord :: TextInputControl -> IO ()
+ native selectPositionCaret :: TextInputControl -> Int -> IO ()
+ native selectPreviousWord :: TextInputControl -> IO ()
+ native selectRange :: TextInputControl -> Int -> Int -> IO ()
+ native selectedTextProperty :: TextInputControl -> IO ReadOnlyStringProperty
 -- native selectionProperty :: TextInputControl -> IO (ReadOnlyObjectProperty IndexRange)
--- native setEditable :: TextInputControl -> Bool -> IO ()
--- native setFont :: TextInputControl -> Font -> IO ()
--- native setPromptText :: TextInputControl -> String -> IO ()
--- native setText :: TextInputControl -> String -> IO ()
+ native setEditable :: TextInputControl -> Bool -> IO ()
+ native setFont :: TextInputControl -> Font -> IO ()
+ native setPromptText :: TextInputControl -> String -> IO ()
+ native setText :: TextInputControl -> String -> IO ()
 -- native setTextFormatter :: TextInputControl -> TextFormatter Object -> IO ()
 -- native textFormatterProperty :: TextInputControl -> IO (ObjectProperty (TextFormatter Object))
--- native textProperty :: TextInputControl -> IO StringProperty
--- native undo :: TextInputControl -> IO ()
--- native undoableProperty :: TextInputControl -> IO ReadOnlyBooleanProperty
+ native textProperty :: TextInputControl -> IO StringProperty
+ native undo :: TextInputControl -> IO ()
+ native undoableProperty :: TextInputControl -> IO ReadOnlyBooleanProperty
 ----
 --data TextInputDialog = mutable native javafx.scene.control.TextInputDialog where
 -- native new :: () -> IO TextInputDialog
@@ -3179,40 +3179,40 @@ data TextArea = mutable native javafx.scene.control.TextArea where
 -- native orientationProperty :: ToolBar -> IO (ObjectProperty Orientation)
 -- native setOrientation :: ToolBar -> Orientation -> IO ()
 ----
---data Tooltip = mutable native javafx.scene.control.Tooltip where
--- native new :: String -> IO Tooltip
---              | () -> IO Tooltip
--- native activatedProperty :: Tooltip -> IO ReadOnlyBooleanProperty
+data Tooltip = mutable native javafx.scene.control.Tooltip where
+ native new :: String -> IO Tooltip
+              | () -> IO Tooltip
+ native activatedProperty :: Tooltip -> IO ReadOnlyBooleanProperty
 -- native contentDisplayProperty :: Tooltip -> IO (ObjectProperty ContentDisplay)
--- native fontProperty :: Tooltip -> IO (ObjectProperty Font)
+ native fontProperty :: Tooltip -> IO (ObjectProperty Font)
 -- native getClassCssMetaData "javafx.scene.control.Tooltip.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
 -- native getContentDisplay :: Tooltip -> IO ContentDisplay
 -- native getCssMetaData :: Tooltip -> IOMutable (List (CssMetaData Styleable Object))
--- native getFont :: Tooltip -> IO Font
--- native getGraphic :: Tooltip -> IO Node
--- native getGraphicTextGap :: Tooltip -> IO Double
+ native getFont :: Tooltip -> IO Font
+ native getGraphic :: Tooltip -> IO Node
+ native getGraphicTextGap :: Tooltip -> IO Double
 -- native getStyleableParent :: Tooltip -> IO (Maybe Styleable)
--- native getText :: Tooltip -> IO String
--- native getTextAlignment :: Tooltip -> IO TextAlignment
--- native getTextOverrun :: Tooltip -> IO OverrunStyle
--- native graphicProperty :: Tooltip -> IO (ObjectProperty Node)
--- native graphicTextGapProperty :: Tooltip -> IO DoubleProperty
--- native install "javafx.scene.control.Tooltip.install" :: Node -> Tooltip -> IO ()
--- native isActivated :: Tooltip -> IO Bool
--- native isWrapText :: Tooltip -> IO Bool
+ native getText :: Tooltip -> IO String
+ native getTextAlignment :: Tooltip -> IO TextAlignment
+ native getTextOverrun :: Tooltip -> IO OverrunStyle
+ native graphicProperty :: Tooltip -> IO (ObjectProperty Node)
+ native graphicTextGapProperty :: Tooltip -> IO DoubleProperty
+ native install "javafx.scene.control.Tooltip.install" :: Node -> Tooltip -> IO ()
+ native isActivated :: Tooltip -> IO Bool
+ native isWrapText :: Tooltip -> IO Bool
 -- native setContentDisplay :: Tooltip -> ContentDisplay -> IO ()
--- native setFont :: Tooltip -> Font -> IO ()
--- native setGraphic :: Tooltip -> Node -> IO ()
--- native setGraphicTextGap :: Tooltip -> Double -> IO ()
--- native setText :: Tooltip -> String -> IO ()
--- native setTextAlignment :: Tooltip -> TextAlignment -> IO ()
--- native setTextOverrun :: Tooltip -> OverrunStyle -> IO ()
--- native setWrapText :: Tooltip -> Bool -> IO ()
--- native textAlignmentProperty :: Tooltip -> IO (ObjectProperty TextAlignment)
--- native textOverrunProperty :: Tooltip -> IO (ObjectProperty OverrunStyle)
--- native textProperty :: Tooltip -> IO StringProperty
--- native uninstall "javafx.scene.control.Tooltip.uninstall" :: Node -> Tooltip -> IO ()
--- native wrapTextProperty :: Tooltip -> IO BooleanProperty
+ native setFont :: Tooltip -> Font -> IO ()
+ native setGraphic :: Tooltip -> Node -> IO ()
+ native setGraphicTextGap :: Tooltip -> Double -> IO ()
+ native setText :: Tooltip -> String -> IO ()
+ native setTextAlignment :: Tooltip -> TextAlignment -> IO ()
+ native setTextOverrun :: Tooltip -> OverrunStyle -> IO ()
+ native setWrapText :: Tooltip -> Bool -> IO ()
+ native textAlignmentProperty :: Tooltip -> IO (ObjectProperty TextAlignment)
+ native textOverrunProperty :: Tooltip -> IO (ObjectProperty OverrunStyle)
+ native textProperty :: Tooltip -> IO StringProperty
+ native uninstall "javafx.scene.control.Tooltip.uninstall" :: Node -> Tooltip -> IO ()
+ native wrapTextProperty :: Tooltip -> IO BooleanProperty
 ----
 --data TreeCell t = mutable native javafx.scene.control.TreeCell where
 -- native new :: () -> IO (TreeCell t)
@@ -4116,31 +4116,31 @@ data Border = mutable native javafx.scene.layout.Border where
 -- native hashCode :: BorderImage -> IO Int
 -- native isFilled :: BorderImage -> IO Bool
 ----
---data BorderPane = mutable native javafx.scene.layout.BorderPane where
--- native new :: Node -> IO BorderPane
---              | Node -> Node -> Node -> Node -> Node -> IO BorderPane
---              | () -> IO BorderPane
--- native bottomProperty :: BorderPane -> IO (ObjectProperty Node)
--- native centerProperty :: BorderPane -> IO (ObjectProperty Node)
--- native clearConstraints "javafx.scene.layout.BorderPane.clearConstraints" :: Node -> IO ()
--- native getAlignment "javafx.scene.layout.BorderPane.getAlignment" :: Node -> IO Pos
--- native getBottom :: BorderPane -> IO Node
--- native getCenter :: BorderPane -> IO Node
--- native getContentBias :: BorderPane -> IO Orientation
--- native getLeft :: BorderPane -> IO Node
--- native getMargin "javafx.scene.layout.BorderPane.getMargin" :: Node -> IO (Maybe Insets)
--- native getRight :: BorderPane -> IO Node
--- native getTop :: BorderPane -> IO Node
--- native leftProperty :: BorderPane -> IO (ObjectProperty Node)
--- native rightProperty :: BorderPane -> IO (ObjectProperty Node)
--- native setAlignment "javafx.scene.layout.BorderPane.setAlignment" :: Node -> Pos -> IO ()
--- native setBottom :: BorderPane -> Node -> IO ()
--- native setCenter :: BorderPane -> Node -> IO ()
--- native setLeft :: BorderPane -> Node -> IO ()
--- native setMargin "javafx.scene.layout.BorderPane.setMargin" :: Node -> Insets -> IO ()
--- native setRight :: BorderPane -> Node -> IO ()
--- native setTop :: BorderPane -> Node -> IO ()
--- native topProperty :: BorderPane -> IO (ObjectProperty Node)
+data BorderPane = mutable native javafx.scene.layout.BorderPane where
+ native new :: Node -> IO BorderPane
+              | Node -> Node -> Node -> Node -> Node -> IO BorderPane
+              | () -> IO BorderPane
+ native bottomProperty :: BorderPane -> IO (ObjectProperty Node)
+ native centerProperty :: BorderPane -> IO (ObjectProperty Node)
+ native clearConstraints "javafx.scene.layout.BorderPane.clearConstraints" :: Node -> IO ()
+ native getAlignment "javafx.scene.layout.BorderPane.getAlignment" :: Node -> IO Pos
+ native getBottom :: BorderPane -> IO Node
+ native getCenter :: BorderPane -> IO Node
+ native getContentBias :: BorderPane -> IO Orientation
+ native getLeft :: BorderPane -> IO Node
+ native getMargin "javafx.scene.layout.BorderPane.getMargin" :: Node -> IO (Maybe Insets)
+ native getRight :: BorderPane -> IO Node
+ native getTop :: BorderPane -> IO Node
+ native leftProperty :: BorderPane -> IO (ObjectProperty Node)
+ native rightProperty :: BorderPane -> IO (ObjectProperty Node)
+ native setAlignment "javafx.scene.layout.BorderPane.setAlignment" :: Node -> Pos -> IO ()
+ native setBottom :: BorderPane -> Node -> IO ()
+ native setCenter :: BorderPane -> Node -> IO ()
+ native setLeft :: BorderPane -> Node -> IO ()
+ native setMargin "javafx.scene.layout.BorderPane.setMargin" :: Node -> Insets -> IO ()
+ native setRight :: BorderPane -> Node -> IO ()
+ native setTop :: BorderPane -> Node -> IO ()
+ native topProperty :: BorderPane -> IO (ObjectProperty Node)
 ----
 --data BorderRepeat = mutable native javafx.scene.layout.BorderRepeat where
 -- native stretch "javafx.scene.layout.BorderRepeat.STRETCH" :: IO BorderRepeat
@@ -6044,12 +6044,12 @@ data Shape = mutable native javafx.scene.shape.Shape where
 -- native xProperty :: Text -> IO DoubleProperty
 -- native yProperty :: Text -> IO DoubleProperty
 ----
---data TextAlignment = mutable native javafx.scene.text.TextAlignment where
--- native left "javafx.scene.text.TextAlignment.LEFT" :: IO TextAlignment
--- native center "javafx.scene.text.TextAlignment.CENTER" :: IO TextAlignment
--- native right "javafx.scene.text.TextAlignment.RIGHT" :: IO TextAlignment
--- native justify "javafx.scene.text.TextAlignment.JUSTIFY" :: IO TextAlignment
--- native valueOf "javafx.scene.text.TextAlignment.valueOf" :: String -> IO TextAlignment
+data TextAlignment = pure native javafx.scene.text.TextAlignment where
+ pure native left "javafx.scene.text.TextAlignment.LEFT" :: TextAlignment
+ pure native center "javafx.scene.text.TextAlignment.CENTER" :: TextAlignment
+ pure native right "javafx.scene.text.TextAlignment.RIGHT" :: TextAlignment
+ pure native justify "javafx.scene.text.TextAlignment.JUSTIFY" :: TextAlignment
+ pure native valueOf "javafx.scene.text.TextAlignment.valueOf" :: String -> TextAlignment
 -- native values "javafx.scene.text.TextAlignment.values" :: () -> STMutable s (JArray TextAlignment)
 ---- derive Serializable TextAlignment
 ----
@@ -7254,10 +7254,10 @@ data ReadOnlyDoubleProperty = mutable native javafx.beans.property.ReadOnlyDoubl
 --  native removeListener :: ReadOnlyFloatWrapper -> ChangeListener Number -> IO ()
 --                         | ReadOnlyFloatWrapper -> InvalidationListener -> IO ()
 ---- ---
---data ReadOnlyIntegerProperty = mutable native javafx.beans.property.ReadOnlyIntegerProperty where
---  native asObject :: ReadOnlyIntegerProperty -> IO (ReadOnlyObjectProperty Integer)
---  native readOnlyIntegerProperty "javafx.beans.property.ReadOnlyIntegerProperty.readOnlyIntegerProperty" :: ReadOnlyProperty t -> IO ReadOnlyIntegerProperty
---  native toString :: ReadOnlyIntegerProperty -> IO String
+data ReadOnlyIntegerProperty = mutable native javafx.beans.property.ReadOnlyIntegerProperty where
+  native asObject :: ReadOnlyIntegerProperty -> IO (ReadOnlyObjectProperty Int)
+  native readOnlyIntegerProperty "javafx.beans.property.ReadOnlyIntegerProperty.readOnlyIntegerProperty" :: ReadOnlyProperty Number -> IO ReadOnlyIntegerProperty
+  native toString :: ReadOnlyIntegerProperty -> IO String
 ---- ---
 --data ReadOnlyIntegerPropertyBase = mutable native javafx.beans.property.ReadOnlyIntegerPropertyBase where
 --  native addListener :: ReadOnlyIntegerPropertyBase -> ChangeListener Number -> IO ()
@@ -7360,6 +7360,7 @@ data ReadOnlyDoubleProperty = mutable native javafx.beans.property.ReadOnlyDoubl
 
 data ReadOnlyObjectProperty t = mutable native javafx.beans.property.ReadOnlyObjectProperty where
   native toString :: ReadOnlyObjectProperty t -> IO String
+  native getValue :: ReadOnlyObjectProperty t -> IO t
 
 data ReadOnlyObjectPropertyBase t = mutable native javafx.beans.property.ReadOnlyObjectPropertyBase where
   native addListener :: ReadOnlyObjectPropertyBase t -> ChangeListener t -> IO ()
@@ -7381,6 +7382,7 @@ data ReadOnlyObjectWrapper t = mutable native javafx.beans.property.ReadOnlyObje
 data ReadOnlyProperty t = mutable native javafx.beans.property.ReadOnlyProperty{t} where
   native getBean :: ReadOnlyProperty t -> IO Object
   native getName :: ReadOnlyProperty t -> IO String
+
 ---- ---
 --data ReadOnlySetProperty e = mutable native javafx.beans.property.ReadOnlySetProperty where
 --  native bindContent :: ReadOnlySetProperty e -> ObservableSet e -> IO ()
@@ -7411,15 +7413,15 @@ data ReadOnlyProperty t = mutable native javafx.beans.property.ReadOnlyProperty{
 --  native removeListener :: ReadOnlySetWrapper e -> ChangeListener (ObservableSet e) -> IO ()
 --                         | ReadOnlySetWrapper e -> SetChangeListener e -> IO ()
 --                         | ReadOnlySetWrapper e -> InvalidationListener -> IO ()
----- ---
---data ReadOnlyStringProperty = mutable native javafx.beans.property.ReadOnlyStringProperty where
---  native toString :: ReadOnlyStringProperty -> IO String
----- ---
---data ReadOnlyStringPropertyBase = mutable native javafx.beans.property.ReadOnlyStringPropertyBase where
---  native addListener :: ReadOnlyStringPropertyBase -> ChangeListener String -> IO ()
---                      | ReadOnlyStringPropertyBase -> InvalidationListener -> IO ()
---  native removeListener :: ReadOnlyStringPropertyBase -> InvalidationListener -> IO ()
---                         | ReadOnlyStringPropertyBase -> ChangeListener String -> IO ()
+
+data ReadOnlyStringProperty = mutable native javafx.beans.property.ReadOnlyStringProperty where
+    native toString :: ReadOnlyStringProperty -> IO String
+
+data ReadOnlyStringPropertyBase = mutable native javafx.beans.property.ReadOnlyStringPropertyBase where
+  native addListener :: ReadOnlyStringPropertyBase -> ChangeListener String -> IO ()
+                      -- ReadOnlyStringPropertyBase -> InvalidationListener -> IO ()
+  native removeListener :: -- ReadOnlyStringPropertyBase -> InvalidationListener -> IO () |
+                        ReadOnlyStringPropertyBase -> ChangeListener String -> IO ()
 ---- ---
 --data ReadOnlyStringWrapper = mutable native javafx.beans.property.ReadOnlyStringWrapper where
 --  native new :: Object -> String -> String -> IO ReadOnlyStringWrapper
@@ -8166,8 +8168,9 @@ data FontWeight = pure native javafx.scene.text.FontWeight where
 --  native addListener :: Observable -> InvalidationListener -> IO ()
 --  native removeListener :: Observable -> InvalidationListener -> IO ()
 
-data ObservableList e = mutable native javafx.collections.ObservableList where
+data ObservableList e = mutable native javafx.collections.ObservableList{e} where
     native addAll :: ObservableList e -> MutableIO (JArray e) -> IO Bool
+    native add    :: ObservableList e -> e -> IO Bool
 --  native addListener :: ObservableList e -> ListChangeListener e -> IO ()
 --  native filtered :: ObservableList e -> Predicate e -> IO (FilteredList e)
 --  native remove :: ObservableList e -> Int -> Int -> IO ()
@@ -8564,27 +8567,26 @@ data ObservableList e = mutable native javafx.collections.ObservableList where
 -- native putRtf :: ClipboardContent -> String -> IO Bool
 -- native putString :: ClipboardContent -> String -> IO Bool
 -- native putUrl :: ClipboardContent -> String -> IO Bool
----- derive Serializable ClipboardContent
-----
---data ContextMenuEvent = mutable native javafx.scene.input.ContextMenuEvent where
--- native context_menu_requested "javafx.scene.input.ContextMenuEvent.CONTEXT_MENU_REQUESTED" :: IO (EventType ContextMenuEvent)
--- native any "javafx.scene.input.ContextMenuEvent.ANY" :: IO (EventType ContextMenuEvent)
--- native new :: Object -> EventTarget -> EventType ContextMenuEvent -> Double -> Double -> Double -> Double -> Bool -> PickResult -> IO ContextMenuEvent
---              | EventType ContextMenuEvent -> Double -> Double -> Double -> Double -> Bool -> PickResult -> IO ContextMenuEvent
--- native copyFor :: ContextMenuEvent -> Object -> EventTarget -> IO ContextMenuEvent
--- native getEventType :: ContextMenuEvent -> IO (EventType ContextMenuEvent)
--- native getPickResult :: ContextMenuEvent -> IO PickResult
--- native getSceneX :: ContextMenuEvent -> IO Double
--- native getSceneY :: ContextMenuEvent -> IO Double
--- native getScreenX :: ContextMenuEvent -> IO Double
--- native getScreenY :: ContextMenuEvent -> IO Double
--- native getX :: ContextMenuEvent -> IO Double
--- native getY :: ContextMenuEvent -> IO Double
--- native getZ :: ContextMenuEvent -> IO Double
--- native isKeyboardTrigger :: ContextMenuEvent -> IO Bool
--- native toString :: ContextMenuEvent -> IO String
----- derive Serializable ContextMenuEvent
-----
+-- derive Serializable ClipboardContent
+
+data ContextMenuEvent = mutable native javafx.scene.input.ContextMenuEvent where
+ native context_menu_requested "javafx.scene.input.ContextMenuEvent.CONTEXT_MENU_REQUESTED" :: IO (EventType ContextMenuEvent)
+ native any "javafx.scene.input.ContextMenuEvent.ANY" :: IO (EventType ContextMenuEvent)
+ native new :: Object -> EventTarget -> EventType ContextMenuEvent -> Double -> Double -> Double -> Double -> Bool -> PickResult -> IO ContextMenuEvent
+              | EventType ContextMenuEvent -> Double -> Double -> Double -> Double -> Bool -> PickResult -> IO ContextMenuEvent
+ native copyFor :: ContextMenuEvent -> Object -> EventTarget -> IO ContextMenuEvent
+ native getEventType :: ContextMenuEvent -> IO (EventType ContextMenuEvent)
+ native getPickResult :: ContextMenuEvent -> IO PickResult
+ native getSceneX :: ContextMenuEvent -> IO Double
+ native getSceneY :: ContextMenuEvent -> IO Double
+ native getScreenX :: ContextMenuEvent -> IO Double
+ native getScreenY :: ContextMenuEvent -> IO Double
+ native getX :: ContextMenuEvent -> IO Double
+ native getY :: ContextMenuEvent -> IO Double
+ native getZ :: ContextMenuEvent -> IO Double
+ native isKeyboardTrigger :: ContextMenuEvent -> IO Bool
+ native toString :: ContextMenuEvent -> IO String
+-- derive Serializable ContextMenuEvent
 --data DataFormat = mutable native javafx.scene.input.DataFormat where
 -- native plain_text "javafx.scene.input.DataFormat.PLAIN_TEXT" :: IO DataFormat
 -- native html "javafx.scene.input.DataFormat.HTML" :: IO DataFormat
@@ -9094,19 +9096,19 @@ data ObservableList e = mutable native javafx.collections.ObservableList where
 -- native toString :: MouseEvent -> IO String
 ---- derive Serializable MouseEvent
 ----
---data PickResult = mutable native javafx.scene.input.PickResult where
--- pure native face_undefined "javafx.scene.input.PickResult.FACE_UNDEFINED" :: Int
--- native new :: EventTarget -> Double -> Double -> IO PickResult
---              | Node -> Point3D -> Double -> IO PickResult
---              | Node -> Point3D -> Double -> Int -> Point3D -> Point2D -> IO PickResult
---              | Node -> Point3D -> Double -> Int -> Point2D -> IO PickResult
--- native getIntersectedDistance :: PickResult -> IO Double
--- native getIntersectedFace :: PickResult -> IO Int
--- native getIntersectedNode :: PickResult -> IO Node
--- native getIntersectedNormal :: PickResult -> IO Point3D
--- native getIntersectedPoint :: PickResult -> IO Point3D
--- native getIntersectedTexCoord :: PickResult -> IO Point2D
--- native toString :: PickResult -> IO String
+data PickResult = mutable native javafx.scene.input.PickResult where
+ pure native face_undefined "javafx.scene.input.PickResult.FACE_UNDEFINED" :: Int
+ native new :: EventTarget -> Double -> Double -> IO PickResult
+              | Node -> Point3D -> Double -> IO PickResult
+              | Node -> Point3D -> Double -> Int -> Point3D -> Point2D -> IO PickResult
+              | Node -> Point3D -> Double -> Int -> Point2D -> IO PickResult
+ native getIntersectedDistance :: PickResult -> IO Double
+ native getIntersectedFace :: PickResult -> IO Int
+ native getIntersectedNode :: PickResult -> IO Node
+ native getIntersectedNormal :: PickResult -> IO Point3D
+ native getIntersectedPoint :: PickResult -> IO Point3D
+ native getIntersectedTexCoord :: PickResult -> IO Point2D
+ native toString :: PickResult -> IO String
 ----
 --data RotateEvent = mutable native javafx.scene.input.RotateEvent where
 -- native any "javafx.scene.input.RotateEvent.ANY" :: IO (EventType RotateEvent)
@@ -9363,85 +9365,85 @@ data HPos = pure native javafx.geometry.HPos where
 -- native values "javafx.geometry.NodeOrientation.values" :: () -> STMutable s (JArray NodeOrientation)
 ---- derive Serializable NodeOrientation
 ----
---data Orientation = mutable native javafx.geometry.Orientation where
--- native horizontal "javafx.geometry.Orientation.HORIZONTAL" :: IO Orientation
--- native vertical "javafx.geometry.Orientation.VERTICAL" :: IO Orientation
--- native valueOf "javafx.geometry.Orientation.valueOf" :: String -> IO Orientation
--- native values "javafx.geometry.Orientation.values" :: () -> STMutable s (JArray Orientation)
----- derive Serializable Orientation
-----
---data Point2D = mutable native javafx.geometry.Point2D where
--- native zero "javafx.geometry.Point2D.ZERO" :: IO Point2D
--- native new :: Double -> Double -> IO Point2D
--- native add :: Point2D -> Point2D -> IO Point2D
---              | Point2D -> Double -> Double -> IO Point2D
--- native angle :: Point2D -> Double -> Double -> IO Double
---                | Point2D -> Point2D -> IO Double
---                | Point2D -> Point2D -> Point2D -> IO Double
--- native crossProduct :: Point2D -> Point2D -> IO Point3D
---                       | Point2D -> Double -> Double -> IO Point3D
--- native distance :: Point2D -> Point2D -> IO Double
---                   | Point2D -> Double -> Double -> IO Double
--- native dotProduct :: Point2D -> Double -> Double -> IO Double
---                     | Point2D -> Point2D -> IO Double
--- native equals :: Point2D -> Object -> IO Bool
--- native getX :: Point2D -> IO Double
--- native getY :: Point2D -> IO Double
--- native hashCode :: Point2D -> IO Int
--- native magnitude :: Point2D -> IO Double
--- native midpoint :: Point2D -> Point2D -> IO Point2D
---                   | Point2D -> Double -> Double -> IO Point2D
--- native multiply :: Point2D -> Double -> IO Point2D
--- native normalize :: Point2D -> IO Point2D
--- native subtract :: Point2D -> Point2D -> IO Point2D
---                   | Point2D -> Double -> Double -> IO Point2D
--- native toString :: Point2D -> IO String
-----
---data Point3D = mutable native javafx.geometry.Point3D where
--- native zero "javafx.geometry.Point3D.ZERO" :: IO Point3D
--- native new :: Double -> Double -> Double -> IO Point3D
--- native add :: Point3D -> Point3D -> IO Point3D
---              | Point3D -> Double -> Double -> Double -> IO Point3D
--- native angle :: Point3D -> Point3D -> IO Double
---                | Point3D -> Double -> Double -> Double -> IO Double
---                | Point3D -> Point3D -> Point3D -> IO Double
--- native crossProduct :: Point3D -> Double -> Double -> Double -> IO Point3D
---                       | Point3D -> Point3D -> IO Point3D
--- native distance :: Point3D -> Double -> Double -> Double -> IO Double
---                   | Point3D -> Point3D -> IO Double
--- native dotProduct :: Point3D -> Double -> Double -> Double -> IO Double
---                     | Point3D -> Point3D -> IO Double
--- native equals :: Point3D -> Object -> IO Bool
--- native getX :: Point3D -> IO Double
--- native getY :: Point3D -> IO Double
--- native getZ :: Point3D -> IO Double
--- native hashCode :: Point3D -> IO Int
--- native magnitude :: Point3D -> IO Double
--- native midpoint :: Point3D -> Point3D -> IO Point3D
---                   | Point3D -> Double -> Double -> Double -> IO Point3D
--- native multiply :: Point3D -> Double -> IO Point3D
--- native normalize :: Point3D -> IO Point3D
--- native subtract :: Point3D -> Point3D -> IO Point3D
---                   | Point3D -> Double -> Double -> Double -> IO Point3D
--- native toString :: Point3D -> IO String
-----
---data Pos = mutable native javafx.geometry.Pos where
--- native top_left "javafx.geometry.Pos.TOP_LEFT" :: IO Pos
--- native top_center "javafx.geometry.Pos.TOP_CENTER" :: IO Pos
--- native top_right "javafx.geometry.Pos.TOP_RIGHT" :: IO Pos
--- native center_left "javafx.geometry.Pos.CENTER_LEFT" :: IO Pos
--- native center "javafx.geometry.Pos.CENTER" :: IO Pos
--- native center_right "javafx.geometry.Pos.CENTER_RIGHT" :: IO Pos
--- native bottom_left "javafx.geometry.Pos.BOTTOM_LEFT" :: IO Pos
--- native bottom_center "javafx.geometry.Pos.BOTTOM_CENTER" :: IO Pos
--- native bottom_right "javafx.geometry.Pos.BOTTOM_RIGHT" :: IO Pos
--- native baseline_left "javafx.geometry.Pos.BASELINE_LEFT" :: IO Pos
--- native baseline_center "javafx.geometry.Pos.BASELINE_CENTER" :: IO Pos
--- native baseline_right "javafx.geometry.Pos.BASELINE_RIGHT" :: IO Pos
--- native getHpos :: Pos -> IO HPos
--- native getVpos :: Pos -> IO VPos
--- native valueOf "javafx.geometry.Pos.valueOf" :: String -> IO Pos
--- native values "javafx.geometry.Pos.values" :: () -> STMutable s (JArray Pos)
+data Orientation = pure native javafx.geometry.Orientation where
+    pure  native horizontal "javafx.geometry.Orientation.HORIZONTAL" :: Orientation
+    pure  native vertical "javafx.geometry.Orientation.VERTICAL" :: Orientation
+    pure native valueOf "javafx.geometry.Orientation.valueOf" :: String -> Orientation
+    pure native values "javafx.geometry.Orientation.values" :: () -> JArray Orientation
+-- derive Serializable Orientation
+--
+data Point2D = mutable native javafx.geometry.Point2D where
+ native zero "javafx.geometry.Point2D.ZERO" :: IO Point2D
+ native new :: Double -> Double -> IO Point2D
+ native add :: Point2D -> Point2D -> IO Point2D
+              | Point2D -> Double -> Double -> IO Point2D
+ native angle :: Point2D -> Double -> Double -> IO Double
+                | Point2D -> Point2D -> IO Double
+                | Point2D -> Point2D -> Point2D -> IO Double
+ native crossProduct :: Point2D -> Point2D -> IO Point3D
+                       | Point2D -> Double -> Double -> IO Point3D
+ native distance :: Point2D -> Point2D -> IO Double
+                   | Point2D -> Double -> Double -> IO Double
+ native dotProduct :: Point2D -> Double -> Double -> IO Double
+                     | Point2D -> Point2D -> IO Double
+ native equals :: Point2D -> Object -> IO Bool
+ native getX :: Point2D -> IO Double
+ native getY :: Point2D -> IO Double
+ native hashCode :: Point2D -> IO Int
+ native magnitude :: Point2D -> IO Double
+ native midpoint :: Point2D -> Point2D -> IO Point2D
+                   | Point2D -> Double -> Double -> IO Point2D
+ native multiply :: Point2D -> Double -> IO Point2D
+ native normalize :: Point2D -> IO Point2D
+ native subtract :: Point2D -> Point2D -> IO Point2D
+                   | Point2D -> Double -> Double -> IO Point2D
+ native toString :: Point2D -> IO String
+--
+data Point3D = mutable native javafx.geometry.Point3D where
+ native zero "javafx.geometry.Point3D.ZERO" :: IO Point3D
+ native new :: Double -> Double -> Double -> IO Point3D
+ native add :: Point3D -> Point3D -> IO Point3D
+              | Point3D -> Double -> Double -> Double -> IO Point3D
+ native angle :: Point3D -> Point3D -> IO Double
+                | Point3D -> Double -> Double -> Double -> IO Double
+                | Point3D -> Point3D -> Point3D -> IO Double
+ native crossProduct :: Point3D -> Double -> Double -> Double -> IO Point3D
+                       | Point3D -> Point3D -> IO Point3D
+ native distance :: Point3D -> Double -> Double -> Double -> IO Double
+                   | Point3D -> Point3D -> IO Double
+ native dotProduct :: Point3D -> Double -> Double -> Double -> IO Double
+                     | Point3D -> Point3D -> IO Double
+ native equals :: Point3D -> Object -> IO Bool
+ native getX :: Point3D -> IO Double
+ native getY :: Point3D -> IO Double
+ native getZ :: Point3D -> IO Double
+ native hashCode :: Point3D -> IO Int
+ native magnitude :: Point3D -> IO Double
+ native midpoint :: Point3D -> Point3D -> IO Point3D
+                   | Point3D -> Double -> Double -> Double -> IO Point3D
+ native multiply :: Point3D -> Double -> IO Point3D
+ native normalize :: Point3D -> IO Point3D
+ native subtract :: Point3D -> Point3D -> IO Point3D
+                   | Point3D -> Double -> Double -> Double -> IO Point3D
+ native toString :: Point3D -> IO String
+
+data Pos = pure native javafx.geometry.Pos where
+    pure native top_left "javafx.geometry.Pos.TOP_LEFT" :: Pos
+    pure native top_center "javafx.geometry.Pos.TOP_CENTER" :: Pos
+    pure native top_right "javafx.geometry.Pos.TOP_RIGHT" :: Pos
+    pure native center_left "javafx.geometry.Pos.CENTER_LEFT" :: Pos
+    pure native center "javafx.geometry.Pos.CENTER" :: Pos
+    pure native center_right "javafx.geometry.Pos.CENTER_RIGHT" :: Pos
+    pure native bottom_left "javafx.geometry.Pos.BOTTOM_LEFT" :: Pos
+    pure native bottom_center "javafx.geometry.Pos.BOTTOM_CENTER" :: Pos
+    pure native bottom_right "javafx.geometry.Pos.BOTTOM_RIGHT" :: Pos
+    pure native baseline_left "javafx.geometry.Pos.BASELINE_LEFT" :: Pos
+    pure native baseline_center "javafx.geometry.Pos.BASELINE_CENTER" :: Pos
+    pure native baseline_right "javafx.geometry.Pos.BASELINE_RIGHT" :: Pos
+    pure native getHpos :: Pos -> HPos
+    pure native getVpos :: Pos -> VPos
+    pure native valueOf "javafx.geometry.Pos.valueOf" :: String -> Pos
+    pure native values "javafx.geometry.Pos.values" :: () -> (JArray Pos)
 ---- derive Serializable Pos
 --
 --
@@ -9464,16 +9466,16 @@ data HPos = pure native javafx.geometry.HPos where
 --                     | Rectangle2D -> Rectangle2D -> IO Bool
 -- native toString :: Rectangle2D -> IO String
 ----
---data Side = mutable native javafx.geometry.Side where
--- native top "javafx.geometry.Side.TOP" :: IO Side
--- native bottom "javafx.geometry.Side.BOTTOM" :: IO Side
--- native left "javafx.geometry.Side.LEFT" :: IO Side
--- native right "javafx.geometry.Side.RIGHT" :: IO Side
--- native isHorizontal :: Side -> IO Bool
--- native isVertical :: Side -> IO Bool
--- native valueOf "javafx.geometry.Side.valueOf" :: String -> IO Side
--- native values "javafx.geometry.Side.values" :: () -> STMutable s (JArray Side)
----- derive Serializable Side
+data Side = pure native javafx.geometry.Side where
+ pure native top "javafx.geometry.Side.TOP" ::  Side
+ pure native bottom "javafx.geometry.Side.BOTTOM" ::  Side
+ pure native left "javafx.geometry.Side.LEFT" ::  Side
+ pure native right "javafx.geometry.Side.RIGHT" ::  Side
+ pure native isHorizontal :: Side ->  Bool
+ pure native isVertical :: Side ->  Bool
+ pure native valueOf "javafx.geometry.Side.valueOf" :: String -> Side
+ pure native values "javafx.geometry.Side.values" :: JArray Side
+-- derive Serializable Side
 ----
 --data VerticalDirection = mutable native javafx.geometry.VerticalDirection where
 -- native up "javafx.geometry.VerticalDirection.UP" :: IO VerticalDirection
