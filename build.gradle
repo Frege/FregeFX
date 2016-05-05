@@ -17,7 +17,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.org.frege-lang:frege-gradle-plugin:0.7"
+    classpath "gradle.plugin.org.frege-lang:frege-gradle-plugin:0.8"
   }
 }
 
