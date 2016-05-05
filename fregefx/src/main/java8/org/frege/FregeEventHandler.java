@@ -1,9 +1,9 @@
 package org.frege;
 
 import frege.prelude.PreludeBase;
-import frege.run7.Func;
-import frege.run7.Lazy;
-import frege.run7.Thunk;
+import frege.run8.Func;
+import frege.run8.Lazy;
+import frege.run8.Thunk;
 import frege.runtime.Phantom.RealWorld;
 import javafx.event.Event;
 import javafx.event.EventHandler;

@@ -4,9 +4,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import frege.runtime.Phantom.RealWorld;
 import frege.prelude.PreludeBase;
-import frege.run7.Func;
-import frege.run7.Lazy;
-import frege.run7.Thunk;
+import frege.run8.Func;
+import frege.run8.Lazy;
+import frege.run8.Thunk;
 
 //type t -> IO ()   ==>  Func.U<T, Func.U<T, Func.U<RealWorld, Short>>> 
 
