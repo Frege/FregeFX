@@ -83,22 +83,22 @@ String locateJfxLibDir() {
 
     def result = "$javaFxHome/rt/lib"
     if (new File("$result/jfxrt.jar").exists()) {
-        logger.info "using javafx from explicit JAVAFX_HOME: $result"
+        println "using javafx from explicit JAVAFX_HOME: $result"
         return result
     }
     result = "$jdkHome/lib/ext/"
     if (jdk8 && new File("$result/jfxrt.jar").exists()) {
-        logger.info "using javafx from current java 8: $result"
+        println "using javafx from current java 8: $result"
         return result
     }
     result = "$javaHome/jre/lib/"
     if (new File("$result/jfxrt.jar").exists()) {
-        logger.info "using javafx from explicit JAVA_HOME: $result"
+        println "using javafx from explicit JAVA_HOME: $result"
         return result
     }
     result = "$javaHome/lib/"
     if (new File("$result/jfxrt.jar").exists()) {
-        logger.info "using javafx from explicit JAVA_HOME: $result"
+        println "using javafx from explicit JAVA_HOME: $result"
         return result
     }
     logger.error "please use a Java Version 8"

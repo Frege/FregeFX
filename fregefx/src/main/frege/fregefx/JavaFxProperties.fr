@@ -1,5 +1,6 @@
 module fregefx.JavaFxProperties where
-
+foo = 1
+{-
 -- ---
 import frege.Prelude   hiding(ListView)
 import frege.java.Util hiding(Observable)
@@ -3749,5 +3750,5 @@ data WorkerStateEvent = mutable native javafx.concurrent.WorkerStateEvent where
 -- native getSource :: WorkerStateEvent -> IO Worker
 -- derive Serializable WorkerStateEvent
 --
-
+-}
 

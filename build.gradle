@@ -28,8 +28,8 @@ buildscript {
 subprojects { subproject ->
     subproject.apply plugin: 'org.frege-lang'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
 
 
     repositories {
@@ -39,6 +39,10 @@ subprojects { subproject ->
 
     dependencies {
         compile fregeVersion
+    }
+
+    compileFrege {
+        target = "1.7"
     }
 
 }

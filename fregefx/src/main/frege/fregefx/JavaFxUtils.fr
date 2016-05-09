@@ -2,18 +2,19 @@ module fregefx.JavaFxUtils where
 
 import frege.Prelude hiding(ListView)
 
+import fregefx.JavaFxType
 import fregefx.JavaFxAll
 
 {- define the Java stuff inline ... this way it works for both java7/java8 -}
 native module where {
     public static class FregeFX extends javafx.application.Application {
-        private static Func.U<javafx.stage.Stage, Func.U<RealWorld, Short>> lambda;
+        private static Func.U<javafx.stage.Stage, Func.U<org.frege.JavaFxWorld, Short>> lambda;
 
         @Override
         public void start(javafx.stage.Stage primaryStage) throws Exception {
             final Lazy<javafx.stage.Stage> lazyStage= Thunk.<javafx.stage.Stage>lazy(primaryStage);
             try {
-                PreludeBase.TST.performUnsafe(lambda.apply(lazyStage).call()).call();
+                lambda.apply(lazyStage).call().apply(Thunk.lazy(org.frege.JavaFxWorld.INSTANCE)).call();
             } catch(RuntimeException re) {
                 re.printStackTrace();
                 throw re;
@@ -23,7 +24,7 @@ native module where {
         /**
          * @param callback The callback lambda that will receive the primaryStage to work on.
          */
-         public static void launch(Func.U<javafx.stage.Stage, Func.U<RealWorld, Short>> callback) {
+         public static void launch(Func.U<javafx.stage.Stage, Func.U<org.frege.JavaFxWorld, Short>> callback) {
              lambda = callback;
              javafx.application.Application.launch();
          }
@@ -43,14 +44,14 @@ native module where {
     }
 
     // event handling
-    public static<T extends javafx.event.Event> javafx.event.EventHandler<T> 
-        onAction(final Func.U<T, Func.U<RealWorld, Short>> lambda) {
+    public static<T extends javafx.event.Event> javafx.event.EventHandler<T>
+        onAction(final Func.U<T, Func.U<org.frege.JavaFxWorld, Short>> lambda) {
         return new javafx.event.EventHandler<T>() {
             @Override
             public void handle(T event) {
                 Lazy<T> lazyEvent = Thunk.<T>lazy(event);
                 try {
-                    PreludeBase.TST.performUnsafe( lambda.apply(lazyEvent).call() ).call();
+                    lambda.apply(lazyEvent).call().apply(Thunk.lazy(org.frege.JavaFxWorld.INSTANCE)).call();
                 } catch(RuntimeException re) {
                     re.printStackTrace();
                     throw re;
@@ -61,16 +62,14 @@ native module where {
 
     // change handling
     public static<T>  javafx.beans.value.ChangeListener<T> 
-        onChange(final Func.U<T, Func.U<T, Func.U<RealWorld, Short>>> lambda) {
+        onChange(final Func.U<T, Func.U<T, Func.U<org.frege.JavaFxWorld, Short>>> lambda) {
         return new javafx.beans.value.ChangeListener<T>() {
             @Override
             public void changed(javafx.beans.value.ObservableValue<? extends T> observable, T oldValue, T newValue) {
                 try {
                     Lazy<T> alt = Thunk.<T>lazy(oldValue);
                     Lazy<T> neu = Thunk.<T>lazy(newValue);
-                    PreludeBase.TST.performUnsafe(lambda.apply(alt).call().apply(neu).call()).call();
-                    // Applicable inter = lambda.apply(oldValue).apply(newValue);
-                    // Delayed.forced(inter.apply(null).result().forced()); // the second argument is the IO context
+                    lambda.apply(alt).call().apply(neu).call().apply(Thunk.lazy(org.frege.JavaFxWorld.INSTANCE)).call();
                 } catch(RuntimeException re) {
                     re.printStackTrace();
                     throw re;
@@ -78,21 +77,59 @@ native module where {
             }
         };
     }
+
+    public static <T> void doBridge(final Func.U<Short, Func.U<RealWorld, T>> ioLambda, final Func.U<T, Func.U<org.frege.JavaFxWorld, Short>> jfxLambda) {
+        try {
+
+            final java.util.concurrent.FutureTask<Object> ioFuture =
+                new java.util.concurrent.FutureTask<Object>(new java.util.concurrent.Callable<Object>() {
+                    public Object call() {
+                        final Lazy<T> erg = PreludeBase.TST.performUnsafe( ioLambda.apply(Thunk.lazyUnit).call() );
+
+                        javafx.application.Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                jfxLambda.apply(erg).call().apply(Thunk.lazy(org.frege.JavaFxWorld.INSTANCE)).call();
+                            }
+                        });
+                        return null;
+                    }
+                });
+
+            java.util.concurrent.ForkJoinPool.commonPool().execute(ioFuture);
+
+
+        } catch(RuntimeException re) {
+            re.printStackTrace();
+            throw re;
+        }
+    }
+
 }
 
 --- The starter for every FregeFX Application
 data FregeFX = mutable native javafx.application.Application where
-    native launch  JavaFxUtils.FregeFX.launch :: ( Stage -> IO () ) -> IO ()
-    native fxml    JavaFxUtils.FregeFX.fxml   :: String -> String -> IO Parent
+    native launch  JavaFxUtils.FregeFX.launch :: ( Stage -> JFX () ) -> IO ()
+    native fxml    JavaFxUtils.FregeFX.fxml   :: String -> String -> JFX Parent
+
+
+bridgeAction :: ButtonBase -> ( () -> IO t ) -> ( t -> JFX () ) -> JFX ButtonBase
+bridgeAction button ioAction jfxAction = do
+    button.setOnAction (onAction $ \_ -> bridge ioAction jfxAction)
+    pure button
+
+actionIO_ :: ButtonBase -> IO () -> JFX ButtonBase
+actionIO_ button ioAction = bridgeAction button (const ioAction) (\_ -> return ())
+
 
 --- Run any function _f_ in the JavaFX Application Thread to ensure proper painting.
 --- Any code that touches a JavaFX UI component must run in this thread.
-withUI :: IO () -> IO ()
+withUI :: JFX () -> JFX ()
 withUI f = Platform.runLater =<< Runnable.new f
 
 --- Given a _populate_ logic on how to build a scenegraph below the root group
 --- and a _stage_, assemble the pieces and show the stage.
-withStage :: (Group -> Stage -> IO Group) -> Stage -> IO ()
+withStage :: (Group -> Stage -> JFX Group) -> Stage -> JFX ()
 withStage populate stage = do
     content <- Group.new ()
     scene   <- Scene.new content
@@ -104,20 +141,22 @@ withStage populate stage = do
 --- The mutable java.util.List type is usually not visible in Frege but when
 --- using JavaFX, having these methods accessible is convenient.
 data List e = mutable native java.util.List{e} where
-  native add  :: List e -> e -> IO Bool
-  native size :: List e -> IO Int
-  native remove :: List e -> e -> IO Bool
+  native add  :: List e -> e -> JFX Bool
+  native size :: List e -> JFX Int
+  native remove :: List e -> e -> JFX Bool
 
 
 
-pure native onChange  JavaFxUtils.onChange{t} :: (t -> t -> IO()) -> ChangeListener t
+pure native onChange  JavaFxUtils.onChange{t} :: (t -> t -> JFX ()) -> ChangeListener t
 
-pure native onAction  JavaFxUtils.onAction{t} :: (t -> IO () ) -> EventHandler t
+pure native onAction  JavaFxUtils.onAction{t} :: (t -> JFX () ) -> EventHandler t
+
+native bridge         JavaFxUtils.doBridge{t} :: ( () -> IO t ) -> ( t -> JFX () ) -> JFX ()
 
 
 --- Convenience function to set an action event handler as
---- > action button $ \event -> button.OnEvent.new eventHandlersetText "got it"
-action :: ButtonBase -> (ActionEvent -> IO () ) -> IO ButtonBase
+--- > action button $ \event -> button.OnEvent.new eventHandler setText "got it"
+action :: ButtonBase -> (ActionEvent -> JFX () ) -> JFX ButtonBase
 action button eventHandler = do
     --handler <- OnEvent.new eventHandler >>= _.asEventHandler
     --button.setOnAction handler
@@ -128,19 +167,27 @@ action button eventHandler = do
 --- Convenience function to set an action event handler
 --- that does not depend on the action event as
 --- > action_ button (button.setText "got it")
-action_ :: ButtonBase -> IO () -> IO ButtonBase
+action_ :: ButtonBase -> JFX () -> JFX ButtonBase
 action_ button plainHandler = do
     let handler = onAction (\_ -> plainHandler)
     button.setOnAction handler
     return button
 
+import Control.Concurrent (async)
+--- forces io action to run outside UI thread
+--actionIO :: ButtonBase -> (ActionEvent -> IO () ) -> JFX ButtonBase
+--actionIO button eventHandler = do
+--    handler <- onActionIO (\e -> async (eventHandler e) >> return () )
+--    button.setOnActionIO handler
+--    return button
+
 --- Convenience factory function for insets
-insets :: Double -> IO Insets
+insets :: Double -> JFX Insets
 insets n = Insets.new n n n n
 
 --- A Family type is a type that has _children_ and can attain more of them over time
 class Family family where
-    children :: family -> IO (ObservableList Node)
+    children :: family -> JFX (ObservableList Node)
 
 instance Family Group where
     children group = group.getChildren
@@ -156,7 +203,7 @@ instance Family Pane where
 
 
 --- Convenience function to add a control/pane/node to a family
-add :: Family t => t -> IO Region -> IO t
+add :: Family t => t -> JFX Region -> JFX t
 add family builder = do
     child <- builder
     family.children >>= _.add child
@@ -166,7 +213,7 @@ infixr 3 `<:`
 (<:) = add
 
 --- Convenience function that applies _add_ to all entries in the list.
-addAll :: Family family => family -> [IO Region] -> IO family
+addAll :: Family family => family -> [JFX Region] -> JFX family
 addAll family builders = do
     mapM (add family) builders
     return family
@@ -178,11 +225,11 @@ addAll family builders = do
     Unsafe, best-effort function for looking up a node in a scene.
     This returns a Node value on the Java side but in order to do
     anything sensible with this on the Frege side, we need a specialized subtype like @TextArea@.
-    The function lookupNode returns such a specialized type by returning an instance of @IO CastTarget@.
+    The function lookupNode returns such a specialized type by returning an instance of @JFX CastTarget@.
     Errors are thrown at runtime if the selector String cannot be found or yields the wrong type.
     *Use only if you are ok with runtime errors!*
 -}
-lookupNode :: CastTarget a => Scene -> String -> IO a
+lookupNode :: CastTarget a => Scene -> String -> JFX a
 lookupNode scene selector = do
     mayNode <- scene.lookup selector
     case mayNode of
@@ -196,10 +243,10 @@ data ClassCastException = native java.lang.ClassCastException
 
 -- generalized downcast
 class CastTarget a where
-    downcast :: Node -> IO (ClassCastException | a)
+    downcast :: Node -> JFX (ClassCastException | a)
 
 instance CastTarget TextArea where
-    native downcast "(javafx.scene.control.TextArea)" :: Node -> IO (ClassCastException | TextArea    )
+    native downcast "(javafx.scene.control.TextArea)" :: Node -> JFX (ClassCastException | TextArea    )
 
 instance CastTarget (ListView t) where
-    native downcast "(javafx.scene.control.ListView)" :: Node -> IO (ClassCastException | ListView t  )
+    native downcast "(javafx.scene.control.ListView)" :: Node -> JFX (ClassCastException | ListView t  )
