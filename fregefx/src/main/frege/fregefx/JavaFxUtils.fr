@@ -78,14 +78,14 @@ native module where {
         };
     }
 
-    public static <T> void doBridge(final Func.U<Short, Func.U<RealWorld, T>> ioLambda, final Func.U<T, Func.U<org.frege.JavaFxWorld, Short>> jfxLambda) {
+    // bridging async IO actions to JFX actions, relaying any value that was obtained in IO as pure for rendering in JFX
+    public static <T> void doBridge(final Func.U<RealWorld, T> ioLambda, final Func.U<T, Func.U<org.frege.JavaFxWorld, Short>> jfxLambda) {
         try {
-
             final java.util.concurrent.FutureTask<Object> ioFuture =
                 new java.util.concurrent.FutureTask<Object>(new java.util.concurrent.Callable<Object>() {
                     public Object call() {
-                        final Lazy<T> erg = PreludeBase.TST.performUnsafe( ioLambda.apply(Thunk.lazyUnit).call() );
-
+                        final Lazy<T> erg = PreludeBase.TST.performUnsafe( ioLambda );
+                        erg.call(); // force evaluation
                         javafx.application.Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
@@ -95,16 +95,12 @@ native module where {
                         return null;
                     }
                 });
-
             java.util.concurrent.ForkJoinPool.commonPool().execute(ioFuture);
-
-
         } catch(RuntimeException re) {
             re.printStackTrace();
             throw re;
         }
     }
-
 }
 
 --- The starter for every FregeFX Application
@@ -113,13 +109,13 @@ data FregeFX = mutable native javafx.application.Application where
     native fxml    JavaFxUtils.FregeFX.fxml   :: String -> String -> JFX Parent
 
 
-bridgeAction :: ButtonBase -> ( () -> IO t ) -> ( t -> JFX () ) -> JFX ButtonBase
+bridgeAction :: ButtonBase -> IO t -> ( t -> JFX () ) -> JFX ButtonBase
 bridgeAction button ioAction jfxAction = do
     button.setOnAction (onAction $ \_ -> bridge ioAction jfxAction)
     pure button
 
 actionIO_ :: ButtonBase -> IO () -> JFX ButtonBase
-actionIO_ button ioAction = bridgeAction button (const ioAction) (\_ -> return ())
+actionIO_ button ioAction = bridgeAction button ioAction (\_ -> return ())
 
 
 --- Run any function _f_ in the JavaFX Application Thread to ensure proper painting.
@@ -151,7 +147,7 @@ pure native onChange  JavaFxUtils.onChange{t} :: (t -> t -> JFX ()) -> ChangeLis
 
 pure native onAction  JavaFxUtils.onAction{t} :: (t -> JFX () ) -> EventHandler t
 
-native bridge         JavaFxUtils.doBridge{t} :: ( () -> IO t ) -> ( t -> JFX () ) -> JFX ()
+native bridge         JavaFxUtils.doBridge{t} :: IO t -> ( t -> JFX () ) -> JFX ()
 
 
 --- Convenience function to set an action event handler as
