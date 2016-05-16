@@ -29,7 +29,7 @@ subprojects { subproject ->
     subproject.apply plugin: 'org.frege-lang'
 
     sourceCompatibility = 1.7
-    targetCompatibility = 1.7
+    targetCompatibility = javaTarget
 
 
     repositories {
@@ -42,7 +42,10 @@ subprojects { subproject ->
     }
 
     compileFrege {
-        target = "1.7"
+        target = javaTarget
+    }
+    compileTestFrege {
+        target = javaTarget
     }
 
 }

@@ -17,3 +17,5 @@ type MutableJFX = Mutable JFXWorld
 --- Analogon to IOMutable
 type JFXMutable d = JFX (MutableJFX d)
 
+--- A mutable reference to a value in the JFX context
+type JFXRef a = MutableJFX (Ref a)

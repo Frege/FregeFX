@@ -109,14 +109,17 @@ data FregeFX = mutable native javafx.application.Application where
     native fxml    JavaFxUtils.FregeFX.fxml   :: String -> String -> JFX Parent
 
 
+--- Logging a message in the JFX context. For debugging/tracing purposes only
+jfxlog :: String -> JFX ()
+jfxlog message = if (traceLn message) then return () else return ()
+
 bridgeAction :: ButtonBase -> IO t -> ( t -> JFX () ) -> JFX ButtonBase
 bridgeAction button ioAction jfxAction = do
-    button.setOnAction (onAction $ \_ -> bridge ioAction jfxAction)
+    button.setOnAction (onAction $ \_ -> ioAction `thenDo` jfxAction)
     pure button
 
 actionIO_ :: ButtonBase -> IO () -> JFX ButtonBase
 actionIO_ button ioAction = bridgeAction button ioAction (\_ -> return ())
-
 
 --- Run any function _f_ in the JavaFX Application Thread to ensure proper painting.
 --- Any code that touches a JavaFX UI component must run in this thread.
@@ -147,16 +150,13 @@ pure native onChange  JavaFxUtils.onChange{t} :: (t -> t -> JFX ()) -> ChangeLis
 
 pure native onAction  JavaFxUtils.onAction{t} :: (t -> JFX () ) -> EventHandler t
 
-native bridge         JavaFxUtils.doBridge{t} :: IO t -> ( t -> JFX () ) -> JFX ()
+native thenDo         JavaFxUtils.doBridge{t} :: IO t -> ( t -> JFX () ) -> JFX ()
 
 
 --- Convenience function to set an action event handler as
 --- > action button $ \event -> button.OnEvent.new eventHandler setText "got it"
 action :: ButtonBase -> (ActionEvent -> JFX () ) -> JFX ButtonBase
 action button eventHandler = do
-    --handler <- OnEvent.new eventHandler >>= _.asEventHandler
-    --button.setOnAction handler
-    --return button
     button.setOnAction (onAction eventHandler)
     pure button
 
@@ -168,14 +168,6 @@ action_ button plainHandler = do
     let handler = onAction (\_ -> plainHandler)
     button.setOnAction handler
     return button
-
-import Control.Concurrent (async)
---- forces io action to run outside UI thread
---actionIO :: ButtonBase -> (ActionEvent -> IO () ) -> JFX ButtonBase
---actionIO button eventHandler = do
---    handler <- onActionIO (\e -> async (eventHandler e) >> return () )
---    button.setOnActionIO handler
---    return button
 
 --- Convenience factory function for insets
 insets :: Double -> JFX Insets
@@ -192,10 +184,10 @@ instance Family HBox where
     children hbox = hbox.getChildren
 
 instance Family VBox where
-    children hbox = hbox.getChildren
+    children vbox = vbox.getChildren
 
 instance Family Pane where
-    children hbox = hbox.getChildren
+    children pane = pane.getChildren
 
 
 --- Convenience function to add a control/pane/node to a family
@@ -214,7 +206,12 @@ addAll family builders = do
     mapM (add family) builders
     return family
 
-
+--- Nodes can be added just like Regions.
+addNode :: Family t => t -> JFX Node -> JFX t
+addNode family builder = do
+    child <- builder
+    family.children >>= _.add child
+    return family
 
 
 {--
