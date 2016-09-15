@@ -40,6 +40,7 @@ buildUI root stage = do
             button `actionIO_` do
                 async do -- this is async inside async, but who cares
                     println "printed outside UI thread"
+                inIO button.getText println
                 return ()
         vbox <: do
             button <- Button.new "Async plus wait for completion"

@@ -101,6 +101,26 @@ native module where {
             throw re;
         }
     }
+
+    // make a function foo that takes a JFX t value and passes the t into an IO action
+    // even though it must return an IO (), it must run inside the UI thread
+    // foo :: JFX t -> (t -> IO ()) -> IO ()
+    public static <T> void bridgeDo(final Func.U<org.frege.JavaFxWorld, T> jfxLambda, final Func.U<T, Func.U<RealWorld, Short>> ioLambda) {
+        try {
+            javafx.application.Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    final Lazy<T> erg = jfxLambda.apply(Thunk.lazy(org.frege.JavaFxWorld.INSTANCE));
+                    erg.call();
+                    ioLambda.apply(erg).call().apply(Thunk.lazy(frege.runtime.Phantom.theRealWorld)).call();
+                }
+            });
+
+        } catch(RuntimeException re) {
+            re.printStackTrace();
+            throw re;
+        }
+    }
 }
 
 --- The starter for every FregeFX Application
@@ -112,6 +132,7 @@ data FregeFX = mutable native javafx.application.Application where
 --- Logging a message in the JFX context. For debugging/tracing purposes only
 jfxlog :: String -> JFX ()
 jfxlog message = if (traceLn message) then return () else return ()
+
 
 bridgeAction :: ButtonBase -> IO t -> ( t -> JFX () ) -> JFX ButtonBase
 bridgeAction button ioAction jfxAction = do
@@ -151,6 +172,8 @@ pure native onChange  JavaFxUtils.onChange{t} :: (t -> t -> JFX ()) -> ChangeLis
 pure native onAction  JavaFxUtils.onAction{t} :: (t -> JFX () ) -> EventHandler t
 
 native thenDo         JavaFxUtils.doBridge{t} :: IO t -> ( t -> JFX () ) -> JFX ()
+
+native inIO           JavaFxUtils.bridgeDo{t} :: JFX t -> (t -> IO () ) -> IO ()
 
 
 --- Convenience function to set an action event handler as

@@ -75,7 +75,7 @@ data Animation = mutable native javafx.animation.Animation where
 --  native setAutoReverse :: Animation -> Bool -> JFX ()
 --  native setCycleCount :: Animation -> Int -> JFX ()
 --  native setDelay :: Animation -> Duration -> JFX ()
---  native setOnFinished :: Animation -> EventHandler ActionEvent -> JFX ()
+  native setOnFinished :: Animation -> EventHandler ActionEvent -> JFX ()
 --  native setRate :: Animation -> Double -> JFX ()
 --  native statusProperty :: Animation -> JFX (ReadOnlyObjectProperty Animation_Status)
 --  native stop :: Animation -> JFX ()
@@ -3006,22 +3006,22 @@ data TextArea = mutable native javafx.scene.control.TextArea where
      native setWrapText :: TextArea -> Bool -> JFX ()
      native wrapTextProperty :: TextArea -> JFX BooleanProperty
 -- --
---data TextField = mutable native javafx.scene.control.TextField where
--- pure native default_pref_column_count "javafx.scene.control.TextField.DEFAULT_PREF_COLUMN_COUNT" :: Int
--- native new :: () -> JFX TextField
---              | String -> JFX TextField
--- native alignmentProperty :: TextField -> JFX (ObjectProperty Pos)
--- native getAlignment :: TextField -> JFX Pos
--- native getCharacters :: TextField -> JFX CharSequence
+data TextField = mutable native javafx.scene.control.TextField where
+ pure native default_pref_column_count "javafx.scene.control.TextField.DEFAULT_PREF_COLUMN_COUNT" :: Int
+ native new :: () -> JFX TextField
+              | String -> JFX TextField
+ native alignmentProperty :: TextField -> JFX (ObjectProperty Pos)
+ native getAlignment :: TextField -> JFX Pos
+ native getCharacters :: TextField -> JFX CharSequence
 -- native getClassCssMetaData "javafx.scene.control.TextField.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
 -- native getControlCssMetaData :: TextField -> IOMutable (List (CssMetaData Styleable Object))
 -- native getOnAction :: TextField -> JFX (Maybe (EventHandler ActionEvent))
--- native getPrefColumnCount :: TextField -> JFX Int
+ native getPrefColumnCount :: TextField -> JFX Int
 -- native onActionProperty :: TextField -> JFX (ObjectProperty (EventHandler ActionEvent))
--- native prefColumnCountProperty :: TextField -> JFX IntegerProperty
--- native setAlignment :: TextField -> Pos -> JFX ()
--- native setOnAction :: TextField -> EventHandler ActionEvent -> JFX ()
--- native setPrefColumnCount :: TextField -> Int -> JFX ()
+ native prefColumnCountProperty :: TextField -> JFX IntegerProperty
+ native setAlignment :: TextField -> Pos -> JFX ()
+ native setOnAction :: TextField -> EventHandler ActionEvent -> JFX ()
+ native setPrefColumnCount :: TextField -> Int -> JFX ()
 -- --
 --data TextFormatter v = mutable native javafx.scene.control.TextFormatter where
 -- native identity_string_converter "javafx.scene.control.TextFormatter.IDENTITY_STRING_CONVERTER" :: JFX (StringConverter String)
