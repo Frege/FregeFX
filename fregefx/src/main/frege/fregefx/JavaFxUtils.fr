@@ -112,7 +112,15 @@ native module where {
                 public void run() {
                     final Lazy<T> erg = jfxLambda.apply(Thunk.lazy(org.frege.JavaFxWorld.INSTANCE));
                     erg.call();
-                    ioLambda.apply(erg).call().apply(Thunk.lazy(frege.runtime.Phantom.theRealWorld)).call();
+
+                    final java.util.concurrent.FutureTask<Object> ioFuture =
+                        new java.util.concurrent.FutureTask<Object>(new java.util.concurrent.Callable<Object>() {
+                            public Object call() {
+                                ioLambda.apply(erg).call().apply(Thunk.lazy(frege.runtime.Phantom.theRealWorld)).call();
+                                return null;
+                            }
+                        });
+                    java.util.concurrent.ForkJoinPool.commonPool().execute(ioFuture);
                 }
             });
 
