@@ -1,4 +1,3 @@
-
 plugins {
     id "com.jfrog.bintray" version "1.6"
 }
@@ -7,19 +6,19 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 publishing {
-	publications {
-		FregeFxPublication(MavenPublication) {
-			from components.java
-			groupId group
+    publications {
+        FregeFxPublication(MavenPublication) {
+            from components.java
+            groupId group
             artifactId 'fregefx'
             version project.version
-		}
-	}
+        }
+    }
 }
 
 bintray { // see https://github.com/bintray/gradle-bintray-plugin
-    user = bintrayUser // from <user.home>/gradle.properties
-    key = bintrayKey   // from <user.home>/gradle.properties
+    user = project.hasProperty('bintrayUser') ? bintrayUser : "" // from <user.home>/gradle.properties
+    key = project.hasProperty('bintrayKey') ? bintrayKey : ""   // from <user.home>/gradle.properties
     publications = ['FregeFxPublication']
     pkg {
         repo = 'fregefx'
@@ -42,8 +41,8 @@ bintray { // see https://github.com/bintray/gradle-bintray-plugin
             //Optional configuration for Maven Central sync of the version
             mavenCentralSync {
                 sync = true //Optional (true by default). Determines whether to sync the version to Maven Central.
-                user = sonatypeUsername //OSS user token
-                password = sonatypePassword //OSS user password
+                user = project.hasProperty('sonatypeUsername') ? sonatypeUsername : "" //OSS user token
+                password = project.hasProperty('sonatypePassword') ? sonatypePassword : "" //OSS user password
                 close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
             }
         }
@@ -54,7 +53,7 @@ bintray { // see https://github.com/bintray/gradle-bintray-plugin
 project.tasks.compileFrege.dependsOn(project.tasks.compileJava)
 
 ext {
-	jfxLibDir = locateJfxLibDir()
+    jfxLibDir = locateJfxLibDir()
 }
 
 dependencies {
@@ -75,7 +74,7 @@ String locateJfxLibDir() {
     def javaHome = System.env['JAVA_HOME'] ?: ''
     def jdk8 = System.getProperty('java.version')[0..2].toDouble() == 1.8
 
-    if (! jdk8) {
+    if (!jdk8) {
         throw new GradleScriptException("Please use Java 8.", null)
     }
 

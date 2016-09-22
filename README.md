@@ -36,7 +36,7 @@ For running the contained `example` project use
 
 The first release to support the 3.24-7.x Frege compiler.
     
-The API has been to a large extend commented out as it will change with upcoming changes to the
+The API has been to a large extent commented out as it will change with upcoming changes to the
 Frege compiler and native declarations where things will get dramatically simpler. 
 Anyway, enough is left to support the 
 [Frege Tutorial](https://github.com/Dierk/fregeTutorial)
