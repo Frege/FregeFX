@@ -11,7 +11,11 @@ Run the example via
     
     gradlew run
 
-Known uses:
+## Introduction:
+
+[Talk from JavaOne 2016](https://www.youtube.com/watch?v=CZr8RLJsZqc)
+
+## Known uses:
 
 * [The FregeFX repl](https://github.com/Dierk/frepl-gui)
 * The [animated image viewer](https://github.com/Dierk/fregeTutorial/blob/master/src/main/frege/CoverFlow.fr) 
