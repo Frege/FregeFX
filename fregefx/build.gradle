@@ -1,5 +1,5 @@
 plugins {
-    id "com.jfrog.bintray" version "1.6"
+    id "com.jfrog.bintray" version "1.7.3"
 }
 
 apply plugin: 'maven'
@@ -21,10 +21,10 @@ bintray { // see https://github.com/bintray/gradle-bintray-plugin
     key = project.hasProperty('bintrayKey') ? bintrayKey : ""   // from <user.home>/gradle.properties
     publications = ['FregeFxPublication']
     pkg {
-        repo = 'fregefx'
-        name = 'FregeFX'
+        repo = 'FregeFX'
+        name = 'fregefx'
         desc = 'FregeFX - JavaFX with Frege (Haskell for the JVM)'
-        //userOrg = bintrayUser
+        userOrg = "fregelang"
         licenses = ['BSD 3-Clause']
         vcsUrl = 'https://github.com/Frege/FregeFX.git'
         websiteUrl = 'https://github.com/Frege/FregeFX'
@@ -40,7 +40,7 @@ bintray { // see https://github.com/bintray/gradle-bintray-plugin
             attributes = [:]
             //Optional configuration for Maven Central sync of the version
             mavenCentralSync {
-                sync = true //Optional (true by default). Determines whether to sync the version to Maven Central.
+                sync = false //Optional (true by default). Determines whether to sync the version to Maven Central.
                 user = project.hasProperty('sonatypeUsername') ? sonatypeUsername : "" //OSS user token
                 password = project.hasProperty('sonatypePassword') ? sonatypePassword : "" //OSS user password
                 close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
