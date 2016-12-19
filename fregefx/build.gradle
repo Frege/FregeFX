@@ -5,10 +5,27 @@ plugins {
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
 publishing {
     publications {
         FregeFxPublication(MavenPublication) {
             from components.java
+            artifact sourcesJar
+            artifact javadocJar
             groupId group
             artifactId 'fregefx'
             version project.version
