@@ -55,13 +55,16 @@ bintray { // see https://github.com/bintray/gradle-bintray-plugin
             //released  = new Date() // optional; does not work atm
             vcsTag = project.version
             attributes = [:]
-            //Optional configuration for Maven Central sync of the version
-            mavenCentralSync {
-                sync     = false == project.version.toString().endsWith("-SNAPSHOT") //Optional (true by default). Determines whether to sync the version to Maven Central.
-                user     = project.hasProperty('sonatypeUsername') ? sonatypeUsername : "" //OSS user token
-                password = project.hasProperty('sonatypePassword') ? sonatypePassword : "" //OSS user password
-                close    = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
-            }
+            // Optional configuration for Maven Central sync of the version
+// we currently don't upload to mavenCentral as it is too cumbersome and
+// jcenter is good enough to care for all artifacts.
+// This way, we also get better download stats.
+//            mavenCentralSync {
+//                sync     = false == project.version.toString().endsWith("-SNAPSHOT") //Optional (true by default). Determines whether to sync the version to Maven Central.
+//                user     = project.hasProperty('sonatypeUsername') ? sonatypeUsername : "" //OSS user token
+//                password = project.hasProperty('sonatypePassword') ? sonatypePassword : "" //OSS user password
+//                close    = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+//            }
         }
     }
 }
