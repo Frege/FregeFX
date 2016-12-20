@@ -1,6 +1,8 @@
 # FregeFX
 Frege language binding and utilities to create JavaFX user interfaces
 
+[ ![Download](https://api.bintray.com/packages/fregelang/FregeFX/fregefx/images/download.svg) ](https://bintray.com/fregelang/FregeFX/fregefx/_latestVersion)
+
 ## Prerequisites
 
 Java8_u40 or higher (which includes JavaFX 8, which we need here)
@@ -35,6 +37,10 @@ For running the contained `example` project use
     gradlew run
     
 ## Release Notes
+
+### Release 0.3.3 0.3.4
+
+Releases to test-drive and finally execute the upload to bintray and jcenter.
 
 ### Release 0.3.1
 
