@@ -38,6 +38,12 @@ For running the contained `example` project use
     
 ## Release Notes
 
+### Release 0.8
+
+Full Java 8 compatibility for both, compiling and running.
+
+Makes use of the Frege 3.24 release, version 3.24.400, with full support for generics.
+
 ### Release 0.3.3 0.3.4
 
 Releases to test-drive and finally execute the upload to bintray and jcenter.
