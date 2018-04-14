@@ -2,7 +2,7 @@ module fregefx.JavaFxAll where
 
 import fregefx.JavaFxType
 import frege.Prelude   hiding(ListView)
-import frege.java.Util hiding(Observable)
+import frege.java.Util -- hiding(Observable)
 import frege.java.Net
 
 --data Material = native javafx.scene.paint.Material
