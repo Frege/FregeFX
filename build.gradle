@@ -24,7 +24,7 @@ buildscript {
 }
 
 //plugins { // this doesn't work if the root isn't a frege project as well
-//  id "org.frege-lang" version "0.6"
+//  id "org.frege-lang" version "0.8"
 //}
 
 
