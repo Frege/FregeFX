@@ -94,9 +94,10 @@ String locateJfxLibDir() {
     def javaHome = System.env['JAVA_HOME'] ?: ''
     def jdk8 = System.getProperty('java.version')[0..2].toDouble() == 1.8
 
-    if (!jdk8) {
-        throw new GradleScriptException("Please use Java 8.", null)
-    }
+// we should run with Java 8 but compile with Java 7 atm.
+//    if (!jdk8) {
+//        throw new GradleScriptException("Please use Java 8.", null)
+//    }
 
     def jdkHome = System.properties.'java.home' ?: ''
 

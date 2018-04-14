@@ -18,10 +18,11 @@ dependencies {
     compile project(':fregefx')
 }
 
-def jdk8 = System.getProperty('java.version')[0..2].toDouble() == 1.8
+def javaVersion = System.getProperty('java.version') ?: "unknown-version"
+def jdk8 = javaVersion.startsWith("1.8")
 
 if (! jdk8) {
-    println "You should be using Java 8 but you run ${System.'java.version'} ."
+    println "You should be using Java 8 but you run $javaVersion ."
 }
 
 
