@@ -20,9 +20,10 @@ dependencies {
 
 def javaVersion = System.getProperty('java.version') ?: "unknown-version"
 def jdk8 = javaVersion.startsWith("1.8")
+def jdk9 = javaVersion.startsWith("9.")
 
-if (! jdk8) {
-    println "You should be using Java 8 but you run $javaVersion ."
+if (! (jdk8 || jdk9)) {
+    println "You should be using Java 8 or 9 (with JavaFX module) but you run $javaVersion ."
 }
 
 

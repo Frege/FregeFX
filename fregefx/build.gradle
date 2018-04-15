@@ -77,7 +77,9 @@ ext {
 }
 
 dependencies {
-    runtime files("$jfxLibDir/jfxrt.jar") // TODO: find out why this seems to be necessary even on JDK 8
+    if (jfxLibDir) {
+        runtime files("$jfxLibDir/jfxrt.jar")
+    } // TODO: find out why this seems to be necessary even on JDK 8
 }
 
 boolean runningOnJDK8() {
@@ -92,7 +94,18 @@ fregeDoc {
 String locateJfxLibDir() {
     def javaFxHome = System.env['JAVAFX_HOME'] ?: ''
     def javaHome = System.env['JAVA_HOME'] ?: ''
-    def jdk8 = System.getProperty('java.version')[0..2].toDouble() == 1.8
+    def jdk8 = System.getProperty('java.version').startsWith('1.8')
+    def jdk9 = System.getProperty('java.version').startsWith('9.')
+
+    if (jdk9) {
+        try {
+            Class.forName('javafx.application.Platform', false, this.getClass().getClassLoader())
+        } catch (e) {
+            def message = "Your Java 9 version does not include JavaFX, validate via 'java --list-modules'."
+            throw new GradleScriptException(message, e)
+        }
+        return null
+    }
 
     // we should run with Java 8.
     if (!jdk8) {
