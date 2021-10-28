@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/examples/examples.iml" filepath="$PROJECT_DIR$/examples/examples.iml" group="fregefx/examples" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/examples_main.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/examples_main.iml" group="fregefx/examples" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/examples_test.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/examples_test.iml" group="fregefx/examples" />
-      <module fileurl="file://$PROJECT_DIR$/fregefx.iml" filepath="$PROJECT_DIR$/fregefx.iml" group="fregefx" />
-      <module fileurl="file://$PROJECT_DIR$/fregefx/fregefx-fregefx.iml" filepath="$PROJECT_DIR$/fregefx/fregefx-fregefx.iml" group="fregefx/fregefx" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fregefx/fregefx-fregefx_main.iml" filepath="$PROJECT_DIR$/.idea/modules/fregefx/fregefx-fregefx_main.iml" group="fregefx/fregefx" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fregefx/fregefx-fregefx_test.iml" filepath="$PROJECT_DIR$/.idea/modules/fregefx/fregefx-fregefx_test.iml" group="fregefx/fregefx" />
+      <module fileurl="file://$PROJECT_DIR$/fregefx.iml" filepath="$PROJECT_DIR$/fregefx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/fregefx.examples.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/fregefx.examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/fregefx.examples.main.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/fregefx.examples.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/fregefx.examples.test.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/fregefx.examples.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fregefx/fregefx.fregefx.iml" filepath="$PROJECT_DIR$/.idea/modules/fregefx/fregefx.fregefx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fregefx/fregefx.fregefx.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fregefx/fregefx.fregefx.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fregefx/fregefx.fregefx.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fregefx/fregefx.fregefx.test.iml" />
     </modules>
   </component>
 </project>

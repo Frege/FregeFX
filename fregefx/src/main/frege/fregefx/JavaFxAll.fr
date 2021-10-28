@@ -5551,9 +5551,9 @@ data SceneAntialiasing = pure native javafx.scene.SceneAntialiasing where
 -- native setWidth :: Box -> Double -> JFX ()
 -- native widthProperty :: Box -> JFX DoubleProperty
 -- --
---data Circle = mutable native javafx.scene.shape.Circle where
--- native new :: Double -> Double -> Double -> Paint -> JFX Circle
---              | Double -> Double -> Double -> JFX Circle
+data Circle = mutable native javafx.scene.shape.Circle where
+ native new :: Double -> Double -> Double -> Paint -> JFX Circle
+              | Double -> Double -> Double -> JFX Circle
 --              | () -> JFX Circle
 --              | Double -> Paint -> JFX Circle
 --              | Double -> JFX Circle
@@ -5684,9 +5684,9 @@ data SceneAntialiasing = pure native javafx.scene.SceneAntialiasing where
 -- native toString :: HLineTo -> JFX String
 -- native xProperty :: HLineTo -> JFX DoubleProperty
 -- --
---data Line = mutable native javafx.scene.shape.Line where
--- native new :: () -> JFX Line
---              | Double -> Double -> Double -> Double -> JFX Line
+data Line = mutable native javafx.scene.shape.Line where
+ native new :: () -> JFX Line
+              | Double -> Double -> Double -> Double -> JFX Line
 -- native endXProperty :: Line -> JFX DoubleProperty
 -- native endYProperty :: Line -> JFX DoubleProperty
 -- native getEndX :: Line -> JFX Double
