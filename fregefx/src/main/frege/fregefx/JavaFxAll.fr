@@ -937,7 +937,7 @@ data TranslateTransition = mutable native javafx.animation.TranslateTransition w
 -- native getCssMetaData :: AreaChart x y -> IOMutable (List (CssMetaData Styleable Object))
 -- native setCreateSymbols :: AreaChart x y -> Bool -> JFX ()
 -- --
---data Axis t = mutable native javafx.scene.chart.Axis where
+data Axis t = mutable native javafx.scene.chart.Axis{} where
 -- native animatedProperty :: Axis t -> JFX BooleanProperty
 -- native autoRangingProperty :: Axis t -> JFX BooleanProperty
 -- native getAnimated :: Axis t -> JFX Bool
@@ -964,15 +964,15 @@ data TranslateTransition = mutable native javafx.animation.TranslateTransition w
 -- native requestLayout :: Axis t -> JFX ()
 -- native setAnimated :: Axis t -> Bool -> JFX ()
 -- native setAutoRanging :: Axis t -> Bool -> JFX ()
--- native setLabel :: Axis t -> String -> JFX ()
--- native setSide :: Axis t -> Side -> JFX ()
--- native setTickLabelFill :: Axis t -> Paint -> JFX ()
--- native setTickLabelFont :: Axis t -> Font -> JFX ()
--- native setTickLabelGap :: Axis t -> Double -> JFX ()
--- native setTickLabelRotation :: Axis t -> Double -> JFX ()
--- native setTickLabelsVisible :: Axis t -> Bool -> JFX ()
--- native setTickLength :: Axis t -> Double -> JFX ()
--- native setTickMarkVisible :: Axis t -> Bool -> JFX ()
+ native setLabel :: Axis t -> String -> JFX ()
+ native setSide :: Axis t -> Side -> JFX ()
+ native setTickLabelFill :: Axis t -> Paint -> JFX ()
+ native setTickLabelFont :: Axis t -> Font -> JFX ()
+ native setTickLabelGap :: Axis t -> Double -> JFX ()
+ native setTickLabelRotation :: Axis t -> Double -> JFX ()
+ native setTickLabelsVisible :: Axis t -> Bool -> JFX ()
+ native setTickLength :: Axis t -> Double -> JFX ()
+ native setTickMarkVisible :: Axis t -> Bool -> JFX ()
 -- native sideProperty :: Axis t -> JFX (ObjectProperty Side)
 -- native tickLabelFillProperty :: Axis t -> JFX (ObjectProperty Paint)
 -- native tickLabelFontProperty :: Axis t -> JFX (ObjectProperty Font)
@@ -1027,7 +1027,7 @@ data TranslateTransition = mutable native javafx.animation.TranslateTransition w
 -- native toNumericValue :: CategoryAxis -> String -> JFX Double
 -- native toRealValue :: CategoryAxis -> Double -> JFX String
 -- --
---data Chart = mutable native javafx.scene.chart.Chart where
+data Chart = mutable native javafx.scene.chart.Chart where
 -- native animatedProperty :: Chart -> JFX BooleanProperty
 -- native getAnimated :: Chart -> JFX Bool
 -- native getClassCssMetaData "javafx.scene.chart.Chart.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
@@ -1041,7 +1041,7 @@ data TranslateTransition = mutable native javafx.animation.TranslateTransition w
 -- native setAnimated :: Chart -> Bool -> JFX ()
 -- native setLegendSide :: Chart -> Side -> JFX ()
 -- native setLegendVisible :: Chart -> Bool -> JFX ()
--- native setTitle :: Chart -> String -> JFX ()
+ native setTitle :: Chart -> String -> JFX ()
 -- native setTitleSide :: Chart -> Side -> JFX ()
 -- native titleProperty :: Chart -> JFX StringProperty
 -- native titleSideProperty :: Chart -> JFX (ObjectProperty Side)
@@ -1058,10 +1058,10 @@ data TranslateTransition = mutable native javafx.animation.TranslateTransition w
 -- -- ENUM --  native setAxisSortingPolicy :: LineChart x y -> LineChart_SortingPolicy -> JFX ()
 -- native setCreateSymbols :: LineChart x y -> Bool -> JFX ()
 -- --
---data NumberAxis = mutable native javafx.scene.chart.NumberAxis where
--- native new :: () -> JFX NumberAxis
---              | Double -> Double -> Double -> JFX NumberAxis
---              | String -> Double -> Double -> Double -> JFX NumberAxis
+data NumberAxis = mutable native javafx.scene.chart.NumberAxis where
+ native new :: () -> JFX NumberAxis
+              | Double -> Double -> Double -> JFX NumberAxis
+              | String -> Double -> Double -> Double -> JFX NumberAxis
 -- native forceZeroInRangeProperty :: NumberAxis -> JFX BooleanProperty
 -- native getClassCssMetaData "javafx.scene.chart.NumberAxis.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
 -- native getCssMetaData :: NumberAxis -> IOMutable (List (CssMetaData Styleable Object))
@@ -1092,8 +1092,17 @@ data TranslateTransition = mutable native javafx.animation.TranslateTransition w
 -- native setStartAngle :: PieChart -> Double -> JFX ()
 -- native startAngleProperty :: PieChart -> JFX DoubleProperty
 -- --
---data ScatterChart x y = mutable native javafx.scene.chart.ScatterChart where
--- native new :: Axis x -> Axis y -> JFX (ScatterChart x y)
+
+
+{- Note:
+this used to be the generic version
+    data ScatterChart x y= mutable native javafx.scene.chart.ScatterChart{} where
+        native new :: Axis x -> Axis y -> JFX (ScatterChart x y)
+but this leads to issues when "casting" the Chart to a Region
+-}
+
+data ScatterChart = mutable native javafx.scene.chart.ScatterChart where
+ native new :: NumberAxis -> NumberAxis -> JFX ScatterChart
 -- -- ENUM               | Axis x -> Axis y -> ObservableList (XYChart_Series x y) -> JFX (ScatterChart x y)
 -- --
 --data StackedAreaChart x y = mutable native javafx.scene.chart.StackedAreaChart where
