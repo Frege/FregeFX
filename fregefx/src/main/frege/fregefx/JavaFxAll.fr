@@ -1155,13 +1155,27 @@ data ScatterChart = mutable native javafx.scene.chart.ScatterChart where
 -- native toRealValue :: ValueAxis t -> Double -> JFX t
 -- native upperBoundProperty :: ValueAxis t -> JFX DoubleProperty
 -- --
---data XYChart x y = mutable native javafx.scene.chart.XYChart where
+
+-- the constructors of the inner classes are not picked up by nativegen
+data XYChartSeries = mutable native javafx.scene.chart.XYChart.Series where
+  native new :: () -> JFX XYChartSeries
+  native setName :: XYChartSeries -> String -> JFX ()
+  native getData :: XYChartSeries -> JFX (ObservableList XYChartData)
+
+data XYChartData = mutable native javafx.scene.chart.XYChart.Data where
+  native new :: Double -> Double -> JFX XYChartData
+
+data XYChart = mutable native javafx.scene.chart.XYChart where  -- non-generic version
+-- data XYChart x y = mutable native javafx.scene.chart.XYChart where
 -- native alternativeColumnFillVisibleProperty :: XYChart x y -> JFX BooleanProperty
 -- native alternativeRowFillVisibleProperty :: XYChart x y -> JFX BooleanProperty
 -- -- ENUM --  native dataProperty :: XYChart x y -> JFX (ObjectProperty (ObservableList (XYChart_Series x y)))
 -- native getClassCssMetaData "javafx.scene.chart.XYChart.getClassCssMetaData" :: () -> IOMutable (List(CssMetaData Styleable Object))
 -- native getCssMetaData :: XYChart x y -> IOMutable (List (CssMetaData Styleable Object))
 -- -- ENUM --  native getData :: XYChart x y -> JFX (ObservableList (XYChart_Series x y))
+
+  native getData :: XYChart -> JFX (ObservableList XYChartSeries)
+
 -- native getVerticalGridLinesVisible :: XYChart x y -> JFX Bool
 -- native getXAxis :: XYChart x y -> JFX (Axis x)
 -- native getYAxis :: XYChart x y -> JFX (Axis y)
