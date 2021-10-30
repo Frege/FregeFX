@@ -1046,8 +1046,14 @@ data Chart = mutable native javafx.scene.chart.Chart where
 -- native titleProperty :: Chart -> JFX StringProperty
 -- native titleSideProperty :: Chart -> JFX (ObjectProperty Side)
 -- --
+
+-- old:
 --data LineChart x y = mutable native javafx.scene.chart.LineChart where
 -- native new :: Axis x -> Axis y -> JFX (LineChart x y)
+
+data LineChart = mutable native javafx.scene.chart.LineChart where
+ native new :: NumberAxis -> NumberAxis -> JFX LineChart
+
 -- -- ENUM               | Axis x -> Axis y -> ObservableList (XYChart_Series x y) -> JFX (LineChart x y)
 -- -- ENUM --  native axisSortingPolicyProperty :: LineChart x y -> JFX (ObjectProperty LineChart_SortingPolicy)
 -- native createSymbolsProperty :: LineChart x y -> JFX BooleanProperty
@@ -1161,6 +1167,7 @@ data XYChartSeries = mutable native javafx.scene.chart.XYChart.Series where
   native new :: () -> JFX XYChartSeries
   native setName :: XYChartSeries -> String -> JFX ()
   native getData :: XYChartSeries -> JFX (ObservableList XYChartData)
+--  native getNode :: XYChartSeries -> JFX Node -- be careful as getNode might return null, esp. before series is rendered.
 
 data XYChartData = mutable native javafx.scene.chart.XYChart.Data where
   native new :: Double -> Double -> JFX XYChartData
@@ -4024,18 +4031,18 @@ data ImageView = mutable native javafx.scene.image.ImageView where
 -- native imageProperty :: ImageCursor -> JFX (ReadOnlyObjectProperty Image)
 -- --
 -- --
---data AnchorPane = mutable native javafx.scene.layout.AnchorPane where
--- native new :: MutableJFX (JArray Node) -> JFX AnchorPane
---              | () -> JFX AnchorPane
--- native clearConstraints "javafx.scene.layout.AnchorPane.clearConstraints" :: Node -> JFX ()
--- native getBottomAnchor "javafx.scene.layout.AnchorPane.getBottomAnchor" :: Node -> JFX Double
--- native getLeftAnchor "javafx.scene.layout.AnchorPane.getLeftAnchor" :: Node -> JFX Double
--- native getRightAnchor "javafx.scene.layout.AnchorPane.getRightAnchor" :: Node -> JFX Double
--- native getTopAnchor "javafx.scene.layout.AnchorPane.getTopAnchor" :: Node -> JFX Double
--- native setBottomAnchor "javafx.scene.layout.AnchorPane.setBottomAnchor" :: Node -> Double -> JFX ()
--- native setLeftAnchor "javafx.scene.layout.AnchorPane.setLeftAnchor" :: Node -> Double -> JFX ()
--- native setRightAnchor "javafx.scene.layout.AnchorPane.setRightAnchor" :: Node -> Double -> JFX ()
--- native setTopAnchor "javafx.scene.layout.AnchorPane.setTopAnchor" :: Node -> Double -> JFX ()
+data AnchorPane = mutable native javafx.scene.layout.AnchorPane where
+ native new :: MutableJFX (JArray Node) -> JFX AnchorPane
+              | () -> JFX AnchorPane
+ native clearConstraints "javafx.scene.layout.AnchorPane.clearConstraints" :: Node -> JFX ()
+ native getBottomAnchor "javafx.scene.layout.AnchorPane.getBottomAnchor" :: Node -> JFX Double
+ native getLeftAnchor "javafx.scene.layout.AnchorPane.getLeftAnchor" :: Node -> JFX Double
+ native getRightAnchor "javafx.scene.layout.AnchorPane.getRightAnchor" :: Node -> JFX Double
+ native getTopAnchor "javafx.scene.layout.AnchorPane.getTopAnchor" :: Node -> JFX Double
+ native setBottomAnchor "javafx.scene.layout.AnchorPane.setBottomAnchor" :: Node -> Double -> JFX ()
+ native setLeftAnchor "javafx.scene.layout.AnchorPane.setLeftAnchor" :: Node -> Double -> JFX ()
+ native setRightAnchor "javafx.scene.layout.AnchorPane.setRightAnchor" :: Node -> Double -> JFX ()
+ native setTopAnchor "javafx.scene.layout.AnchorPane.setTopAnchor" :: Node -> Double -> JFX ()
 
 data Background = mutable native javafx.scene.layout.Background where
     native empty "javafx.scene.layout.Background.EMPTY" :: JFX Background
