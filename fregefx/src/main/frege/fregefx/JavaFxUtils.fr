@@ -165,6 +165,22 @@ withStage populate stage = do
     populate content stage
     stage.show
 
+--- Like withStage but use an AnchorPane as the root to allow resizing of the content
+--- when the frame is resized. Callback function does not add to the root itself but
+--- returns a the newly created content as a Node such that we can enforce Anchor constraints on it.
+withResizableStage :: (Pane -> Stage -> JFX Node) -> Stage -> JFX ()
+withResizableStage buildNode stage = do
+    pane <- AnchorPane.new ()
+    node <- buildNode pane stage
+    AnchorPane.setBottomAnchor node  0.0
+    AnchorPane.setLeftAnchor   node  0.0
+    AnchorPane.setRightAnchor  node  0.0
+    AnchorPane.setTopAnchor    node  0.0
+    pane `addNode` return node
+    scene <- Scene.new pane
+    stage.setScene scene
+    stage.show
+
 --- JavaFX users will work with ObservableList a lot, which inherits from List.
 --- The mutable java.util.List type is usually not visible in Frege but when
 --- using JavaFX, having these methods accessible is convenient.
